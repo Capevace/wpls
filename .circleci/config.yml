@@ -1,10 +1,13 @@
 version: 2
 
+general:
+  build_dir: system
+
 jobs:
   build:
     docker:
       - image: circleci/php:7.1-node-browsers
-    working_directory: ~/repo/system
+    working_directory: ~/repo
     steps:
       - checkout
       - run: sudo apt install -y libsqlite3-dev zlib1g-dev
