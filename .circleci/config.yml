@@ -1,37 +1,36 @@
-# PHP CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-php/ for more details
-#
 version: 2
+
+general:
+  build_dir: system
+
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      - image: circleci/php:7.1.5-browsers
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mysql:9.4
-
-    working_directory: ~/wpls/system
-
+      - image: circleci/php:7.1-node-browsers
+    working_directory: ~/laravel/system
     steps:
       - checkout
-
-      # Download and cache dependencies
+      - run: sudo apt install -y libsqlite3-dev zlib1g-dev
+      - run: sudo docker-php-ext-install zip
+      - run: sudo composer self-update
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "composer.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
+            - composer-v1-{{ checksum "composer.lock" }}
+            - composer-v1-
       - run: composer install -n --prefer-dist
-
       - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
           paths:
-            - ./vendor
-          key: v1-dependencies-{{ checksum "composer.json" }}
-        
-      # run tests!
+            - vendor
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "package.json" }}
+            - node-v1-
+      - run: yarn install
+      - save_cache:
+          key: node-v1-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run: touch storage/testing.sqlite
+      - run: php artisan migrate --env=testing --database=sqlite_testing --force
       - run: ./vendor/bin/phpunit
