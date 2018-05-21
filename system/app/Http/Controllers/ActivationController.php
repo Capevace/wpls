@@ -53,7 +53,7 @@ class ActivationController extends Controller
             $validatedData['license'],
             $validatedData['slug'],
             $validatedData['site'],
-            json_decode($validatedData['site-meta'])
+            json_decode($validatedData['site-meta'], true)
         );
 
         // Activate a license and check, if it was activated before
@@ -97,7 +97,7 @@ class ActivationController extends Controller
             $validatedData['license'],
             $validatedData['slug'],
             $validatedData['site'],
-            json_decode($validatedData['site-meta'])
+            json_decode($validatedData['site-meta'], true)
         );
 
         // Activate a license and check, if it was activated before
