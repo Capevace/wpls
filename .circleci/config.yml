@@ -6,7 +6,7 @@ general:
 jobs:
   build:
     docker:
-      - image: circleci/php:7.1-node-browsers
+      - image: circleci/php:7.1-apache-node
       - image: circleci/mysql:5.7
         environment:
             - MYSQL_USER=root
