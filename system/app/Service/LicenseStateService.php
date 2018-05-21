@@ -30,7 +30,7 @@ class LicenseStateService
 	 * @param object $siteMeta 
 	 * @return array ['wasActivated' => true|false, 'activation' => LicenseActivation] 
 	 */
-	public function activateOrFail(License $license, Package $package, Site $site, object $siteMeta)
+	public function activateOrFail(License $license, Package $package, Site $site, $siteMeta)
 	{
 		// Check if there the license has been activated before
         $previousActivation = LicenseActivation::where('license_id', $license->id)
@@ -84,7 +84,7 @@ class LicenseStateService
      * @param object $siteMeta 
      * @return void
      */
-    public function deactivateOrFail(License $license, Package $package, Site $site, object $siteMeta)
+    public function deactivateOrFail(License $license, Package $package, Site $site, $siteMeta)
     {
         $activation = LicenseActivation::where('license_id', $license->id)
             ->where('package_id', $package->id)
