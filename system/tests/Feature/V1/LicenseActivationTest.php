@@ -40,7 +40,9 @@ class LicenseActivationTest extends TestCase
     		'license' => $validLicense->license_key,
     		'slug'    => $this->package->slug,
     		'site'    => 'somesite.com'
-    	]);
+        ]);
+        
+        echo json_encode($response);
 
         $response
             ->assertStatus(200)
