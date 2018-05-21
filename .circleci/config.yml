@@ -7,12 +7,13 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.1-node-browsers
-    working_directory: ~/laravel/system
+    working_directory: ~/laravel
     steps:
       - checkout
       - run: sudo apt install -y libsqlite3-dev zlib1g-dev
       - run: sudo docker-php-ext-install zip
       - run: sudo composer self-update
+      - run: ls -la
       - restore_cache:
           keys:
             - composer-v1-{{ checksum "composer.lock" }}
