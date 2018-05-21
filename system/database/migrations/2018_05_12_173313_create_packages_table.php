@@ -20,7 +20,8 @@ class CreatePackagesTable extends Migration
             $table->string('slug', 256);
             $table->string('name', 512);
             $table->string('version', 32);
-            $table->unsignedInteger('envato_item_id');
+            $table->unsignedInteger('envato_item_id')->nullable();
+            $table->enum('type', ['theme', 'plugin']);
 
             $table->text('last_metadata');
 

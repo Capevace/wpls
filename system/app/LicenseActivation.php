@@ -17,7 +17,8 @@ class LicenseActivation extends Model
     
 	// Our Primary Keys are UUIDs, not ints
 	public $incrementing = false;
-	public $keyType      = 'string';
+    public $keyType      = 'string';
+
 	
 	/**
 	 * Get the license used in this activation.

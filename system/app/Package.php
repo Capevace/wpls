@@ -7,11 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 class Package extends Model
 {
 	use Uuids;
-	
+    
+    /**
+     * Model Fields:
+     * - slug
+     * - name
+     * - version
+     * - envato_item_id
+     * - is_purcahse_code
+     * - type
+     * - last_metadata
+     */
+    
+
 	// Our Primary Keys are UUIDs, not ints
 	public $incrementing = false;
 	public $keyType      = 'string';
-	
+    
+    
 	/**
      * The attributes that should be cast to native types.
      *
@@ -20,6 +33,7 @@ class Package extends Model
     protected $casts = [
         'last_metadata' => 'array',
     ];
+
 
     /**
      * Get the route key for the model.
@@ -30,6 +44,7 @@ class Package extends Model
     {
         return 'slug';
     }
+
 
     /**
 	 * Get all activations this package was used in.

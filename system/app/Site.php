@@ -6,11 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Site extends Model
 {
-	use Uuids;
-	
+    use Uuids;
+
+    /**
+     * Model Fields:
+     * - url
+     * - last_wp_version
+     * - last_php_version
+     * - last_package_version
+     */
+
+
 	// Our Primary Keys are UUIDs, not ints
 	public $incrementing = false;
 	public $keyType      = 'string';
+
 
     /**
 	 * Get all activations this site was used in.
@@ -21,6 +31,7 @@ class Site extends Model
     	return $this->hasMany('App\LicenseActivation');
     }
 
+
     /**
 	 * Get all licenses this site was used in.
 	 * @return array
@@ -29,6 +40,7 @@ class Site extends Model
     {
     	return $this->belongsToMany('App\License')->withTimestamps();
     }
+
 
     /**
      * Checks if metadata is given and sets it accordingly.

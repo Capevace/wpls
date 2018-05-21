@@ -6,11 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class License extends Model
 {
-	use Uuids;
+    use Uuids;
+    
+    /**
+     * Model Fields:
+     * - license_key
+     * - supported_until
+     * - customer_data
+     * - is_purchase_code
+     */
+
 	
 	// Our Primary Keys are UUIDs, not ints
 	public $incrementing = false;
 	public $keyType      = 'string';
+
 
 	/**
      * The attributes that should be mutated to dates.
@@ -22,6 +32,7 @@ class License extends Model
         'updated_at',
         'supported_until',
     ];
+
 
     /**
      * The attributes that are mass assignable.
@@ -36,6 +47,7 @@ class License extends Model
         'is_purchase_code',
     ];
 
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -44,6 +56,7 @@ class License extends Model
     protected $casts = [
         'customer_data' => 'array',
     ];
+
 
     /**
      * Get the route key for the model.
@@ -55,6 +68,7 @@ class License extends Model
         return 'license_key';
     }
 
+
 	/**
 	 * Get all activations this license was used in.
 	 * @return array
@@ -63,6 +77,7 @@ class License extends Model
     {
     	return $this->hasMany('App\LicenseActivation');
     }
+
 
     /**
      * Get all sites the license was used on.
