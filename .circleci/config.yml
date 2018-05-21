@@ -30,4 +30,4 @@ jobs:
             - node_modules
       - run: touch storage/testing.sqlite
       - run: php artisan migrate --env=testing --database=sqlite_testing --force
-- run: ./vendor/bin/phpunit
+      - run: ./vendor/bin/phpunit
