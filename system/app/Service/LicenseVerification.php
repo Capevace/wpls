@@ -30,7 +30,7 @@ class LicenseVerification
      * @throws App\Exceptions\InvalidLicenseException
      * @throws App\Exceptions\UnknownPackageException
      */
-    public function verifyOrFail(string $licenseKey, $packageOrSlug, string $siteUrl, object $siteMeta = null)
+    public function verifyOrFail(string $licenseKey, $packageOrSlug, string $siteUrl, $siteMeta = null)
     {
     	// 1. Check if a license exists in the database (?RETURN true)
     	// 2. If it doesn't, that still doesn't mean the license is invalid. It may be an unused Envato purchase code.
