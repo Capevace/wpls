@@ -32,6 +32,7 @@ class Package extends Model
      */
     protected $casts = [
         'last_metadata' => 'array',
+        'envato_item_id' => 'int',
     ];
 
 

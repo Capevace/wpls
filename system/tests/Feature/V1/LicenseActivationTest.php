@@ -41,8 +41,6 @@ class LicenseActivationTest extends TestCase
     		'slug'    => $this->package->slug,
     		'site'    => 'somesite.com'
         ]);
-        
-        echo json_encode($response);
 
         $response
             ->assertStatus(200)
@@ -72,6 +70,8 @@ class LicenseActivationTest extends TestCase
             'slug'    => $envatoPackage->slug,
             'site'    => 'somesite.com'
         ]);
+
+        echo json_encode($response, JSON_PRETTY_PRINT);
 
         $response
             ->assertStatus(200)
