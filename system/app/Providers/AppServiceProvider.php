@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Service\LicenseVerification;
 use App\Service\LicenseStateService;
 use App\Service\PackageParser;
+use App\Service\ActivationLog;
 use App\Auth\ActivationGuard;
 
 use \Illuminate\Http\Request;
@@ -21,7 +22,8 @@ class AppServiceProvider extends ServiceProvider
     public $singletons = [
         LicenseVerification::class => LicenseVerification::class,
         LicenseStateService::class => LicenseStateService::class,
-        PackageParser::class       => PackageParser::class
+        PackageParser::class       => PackageParser::class,
+        ActivationLog::class       => ActivationLog::class
     ];
 
     /**

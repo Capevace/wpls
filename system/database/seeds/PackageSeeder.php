@@ -20,6 +20,6 @@ class PackageSeeder extends Seeder
         				$license->package_id = $package->id;
         				$license->save();
         			});
-            });;
+            });
     }
 }

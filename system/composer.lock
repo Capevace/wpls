@@ -4247,6 +4247,59 @@
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
+            "name": "terbium/db-config",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TerbiumLibs/dbConfig.git",
+                "reference": "a3738b59998b1c4fab65b57574b09edd7d483b1c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TerbiumLibs/dbConfig/zipball/a3738b59998b1c4fab65b57574b09edd7d483b1c",
+                "reference": "a3738b59998b1c4fab65b57574b09edd7d483b1c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=5.1",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "laravel/laravel": ">=5.1",
+                "mockery/mockery": "dev-master",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/migrations"
+                ],
+                "psr-0": {
+                    "Terbium\\DbConfig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "YAAP",
+                    "email": "yaapis@gmail.com"
+                },
+                {
+                    "name": "Volodimir Kornilov",
+                    "email": "mail@terion.name"
+                }
+            ],
+            "description": "Laravel Config with DB-storage support",
+            "keywords": [
+                "configuration",
+                "laravel"
+            ],
+            "time": "2017-01-26T08:43:57+00:00"
+        },
+        {
             "name": "theseer/tokenizer",
             "version": "1.1.0",
             "source": {
@@ -4285,6 +4338,59 @@
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "time": "2017-04-07T12:08:54+00:00"
+        },
+        {
+            "name": "vi-kon/laravel-db-config",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vi-kon/laravel-db-config.git",
+                "reference": "66b21852ad9cd9855e7f2639fcfa2d08257cf0d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vi-kon/laravel-db-config/zipball/66b21852ad9cd9855e7f2639fcfa2d08257cf0d0",
+                "reference": "66b21852ad9cd9855e7f2639fcfa2d08257cf0d0",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "~5.1",
+                "illuminate/config": "~5.1",
+                "illuminate/container": "~5.1",
+                "illuminate/database": "~5.1",
+                "illuminate/support": "~5.1",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ViKon\\DbConfig\\": "src/"
+                },
+                "psr-4": {
+                    "ViKon\\DbConfig\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kovács Vince",
+                    "email": "vincekovacs@hotmail.com"
+                }
+            ],
+            "description": "Laravel 5 database configurator",
+            "homepage": "https://github.com/vi-kon/laravel-db-config",
+            "keywords": [
+                "config",
+                "database",
+                "laravel"
+            ],
+            "time": "2016-05-09T22:43:49+00:00"
         },
         {
             "name": "webmozart/assert",

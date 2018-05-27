@@ -2,9 +2,14 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Package::class, function (Faker $faker) {
+$usedDefaultSlug = false;
+
+$factory->define(App\Package::class, function (Faker $faker) use ($usedDefaultSlug) {
+    if (!$usedDefaultSlug)
+        $usedDefaultSlug = true;
+
     return [
-        'slug'           => $faker->unique()->slug,
+        'slug'           => !$usedDefaultSlug ? 'test-slug' : $faker->unique()->slug,
         'name'           => $faker->unique()->company,
         'version'        => '0.0.0',
         'envato_item_id' => '21322102',

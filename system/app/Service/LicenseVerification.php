@@ -6,10 +6,10 @@ use App\License;
 use App\Package;
 use App\Site;
 
-use App\Exceptions\LicenseSupportException;
-use App\Exceptions\EnvatoConnectionException;
-use App\Exceptions\InvalidLicenseException;
-use App\Exceptions\UnknownPackageException;
+use App\Exceptions\Api\LicenseSupportException;
+use App\Exceptions\Api\EnvatoConnectionException;
+use App\Exceptions\Api\InvalidLicenseException;
+use App\Exceptions\Api\UnknownPackageException;
 
 use Carbon\Carbon;
 use GuzzleHttp\Exception\GuzzleException;

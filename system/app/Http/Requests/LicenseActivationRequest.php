@@ -43,7 +43,8 @@ class LicenseActivationRequest extends FormRequest
     {
         $input = $this->all();
 
-        $input['site'] = $input['site']; // TODO normalize site url
+        if (array_key_exists('site', $input))
+            $input['site'] = $input['site']; // TODO normalize site url
 
         if (!array_key_exists('site-meta', $input))
             $input['site-meta'] = '{}';

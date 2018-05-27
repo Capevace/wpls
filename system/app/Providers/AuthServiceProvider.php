@@ -32,9 +32,5 @@ class AuthServiceProvider extends ServiceProvider
         //     $request = app('request');
         //     return new AccessTokenGuard($userProvider, $request, $config);
         // });
-
-        $this->app->auth->provider('custom', function ($app, array $config) {
-            return new UserProvider($app['hash'], $config['model']);
-        });
     }
 }

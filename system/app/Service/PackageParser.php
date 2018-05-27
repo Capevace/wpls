@@ -3,9 +3,8 @@
 namespace App\Service;
 
 use App\Package;
-
 use Storage;
-
+use Exception;
 use WPPackageParser\Parser;
 
 class PackageParser 
@@ -17,29 +16,32 @@ class PackageParser
 		$packageZipFilePath = Storage::disk('packages')->path($filePath);
 		$parsedMetadata = Parser::parse($packageZipFilePath);
 
-		if ($parsedMetadata === false)
-			throw new Exception();
+		if ($parsedMetadata === false) {
+			throw new Exception(sprintf('The Package archive file "%s" could not be parsed for metadata.', $packageZipFilePath));
+		}
 
 		$isPlugin = $parsedMetadata['type'] === 'plugin';
-		$header = $parsedMetadata['header'];
-		$readme = $parsedMetadata['readme'];
+		$header   = $parsedMetadata['header'];
+		$readme   = $parsedMetadata['readme'];
 
 		if ($header['Version']) {
-			//throw Version required
+			throw new Exception('The Package metadata did not supply a package version. This is required.');
 		}
+
+		$homepageUrl = $isPlugin ? $header['PluginURI'] : $header['ThemeURI']; // PluginURI/ThemeURI
 
 		$metadata = [
 			'name'            => $header['Name'],
 			'slug'            => $package->slug,
 			'version'         => $header['Version'],
-			'homepage'        => $isPlugin ? $header['PluginURI'] : $header['ThemeURI'], // PluginURI/ThemeURI
+			'homepage'        => $homepageUrl,
 			'author'          => $header['Author'],
 			'author_homepage' => $header['AuthorURI'],
 			'details_url'     => isset($header['DetailsURI']) ?
 									$header['DetailsURI']
-									: $isPlugin ? $header['PluginURI'] : $header['ThemeURI'],
-			'depends'         => '',
-			'provides'        => '',
+									: $homepageUrl,
+			// 'depends'         => '',
+			// 'provides'        => '',
 			'type'            => $parsedMetadata['type']
 		];
 

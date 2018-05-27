@@ -7,8 +7,8 @@ use App\Package;
 use App\Site;
 use App\LicenseActivation;
 
-use App\Exceptions\LicenseUnavailableException;
-use App\Exceptions\LicenseNotActivatedException;
+use App\Exceptions\Api\LicenseUnavailableException;
+use App\Exceptions\Api\LicenseNotActivatedException;
 
 /**
  * The class that handles activating and deactivating of licenses.

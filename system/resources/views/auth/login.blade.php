@@ -1,65 +1,42 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+<div>
+    <section class="hero is-info is-bold is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <form action="{{ route('login') }}" method="post">
+                    @csrf
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                    <div class="" style="max-width: 400px;margin: auto;">
+                        <div class="">
 
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
-                                    </label>
+                            @if($errors->any())
+                                <div class="notification is-danger">
+                                    {{ $errors->first() }}
                                 </div>
-                            </div>
-                        </div>
+                            @endif
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+                            <h1 class="title">WordPress License Server</h1>
+                            <h2 class="subtitle has-text-weight-light is-3">Login</h2>
+
+                            <div class="field">
+                                <label class="label has-text-light" for="username">Username</label>
+                                <input class="input {{ $errors->any() ? ' is-danger' : '' }}" type="text" id="username" name="username" placeholder="Username" value="{{ old('email') }}" required autofocus/>
+                            </div>
+
+                            <div class="field">
+                                <label class="label has-text-light" for="password">Password</label>
+                                <input class="input {{ $errors->any() ? ' is-danger' : '' }}" type="password" id="password" name="password" placeholder="Password" required />
+                            </div><br>
+                            <div class="field">
+                                <button class="button is-large" type="submit">Login</button>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
+    </section>
 </div>
 @endsection

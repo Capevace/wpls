@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +13,7 @@
 |
 */
 
-Route::get('/', function ($request) {
+Route::get('/', function (Request $request) {
 	$action = $request->query('action');
 	if ($action === 'get_metadata') {
 		return redirect()->action('PackageController@getMetadata');
@@ -22,12 +24,16 @@ Route::get('/', function ($request) {
 	}
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-// Auth routes
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
-Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
+// Route::get('/admin', function () {
+// 	return view('admin');
+// })->name('admin');
+
+// Auth routes
+
 
 
 // Route::get('/login', 'App\Http\Controllers\Auth\LoginController@showLoginForm')->name('login');
