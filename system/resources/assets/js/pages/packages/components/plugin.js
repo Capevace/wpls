@@ -7,7 +7,7 @@ export default {
             <div class="level">
                 <div class="level-left">
                     <div class="level-item">
-                        <h5 class="title is-5">{{ plugin.metadata.name }} ({{ plugin.metadata.version }})</h5>
+                        <h5 class="title is-5">{{ plugin.name }} ({{ plugin.version }})</h5>
                     </div>
                     <div class="level-item">
                         <h6 class="subtitle is-6">{{ plugin.slug }}</h6>
@@ -16,7 +16,7 @@ export default {
             </div>
 
             <div class="level">
-                <item-id-form :item-id="plugin.itemId" :slug="plugin.slug"></item-id-form>
+                <item-id-form :item-id="plugin.envato_item_id" :slug="plugin.slug"></item-id-form>
                 <verification-test-form :slug="plugin.slug"></verification-test-form>
             </div>
         </div>

@@ -48,6 +48,9 @@ class Site extends Model
      */
     public function checkAndSetMetadata($metadata)
     {
+        if (is_null($metadata) || !\is_object($metadata))
+            return;
+            
     	if (property_exists($metadata, 'wp_version'))
             $this->last_wp_version = $metadata->wp_version;
 

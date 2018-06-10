@@ -31,7 +31,7 @@ const LicenseTable = {
 			<license-popup :visible="popupVisible" :license="popupLicense" @toggle="closePopup"></license-popup>
 		</div>
 	`,
-    data() {
+    data(props) {
         return {
             popupVisible: false,
             popupLicense: ''

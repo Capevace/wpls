@@ -57,7 +57,6 @@ class License extends Model
         'customer_data' => 'array',
     ];
 
-
     /**
      * Get the route key for the model.
      *
@@ -81,10 +80,20 @@ class License extends Model
 
     /**
      * Get all sites the license was used on.
-     * @return type
+     * @return Collection<App\Site>
      */
     public function sites()
     {
         return $this->belongsToMany('App\Site')->withTimestamps();
+    }
+
+    /**
+     * Get the package the license was used for.
+     *
+     * @return App\Package
+     */
+    public function package()
+    {
+        return $this->belongsTo('App\Package');
     }
 }

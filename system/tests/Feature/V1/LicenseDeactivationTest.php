@@ -36,7 +36,7 @@ class LicenseDeactivationTest extends TestCase
             'supported_until' => Carbon::tomorrow()
         ]);
 
-        $response = $this->json('POST', '/api/v1/license/activate', [
+        $response = $this->json('POST', '/api/v1/activate', [
             'license' => $validLicense->license_key,
             'slug'    => $this->package->slug,
             'site'    => 'somesite.com'
@@ -46,7 +46,7 @@ class LicenseDeactivationTest extends TestCase
             ->assertStatus(200)
             ->assertJson(['activated' => true]);
 
-        $response2 = $this->json('POST', '/api/v1/license/deactivate', [
+        $response2 = $this->json('POST', '/api/v1/deactivate', [
             'license' => $validLicense->license_key,
             'slug'    => $this->package->slug,
             'site'    => 'somesite.com'
@@ -58,7 +58,7 @@ class LicenseDeactivationTest extends TestCase
             ->assertJsonStructure([
                 'message'
             ])
-            ->assertJson(['deactivated' => true]);        
+            ->assertJson(['deactivated' => true]);
     }
 
     /**
@@ -73,7 +73,7 @@ class LicenseDeactivationTest extends TestCase
             'supported_until' => Carbon::tomorrow()
         ]);
 
-        $response = $this->json('POST', '/api/v1/license/deactivate', [
+        $response = $this->json('POST', '/api/v1/deactivate', [
             'license' => $validLicense->license_key,
             'slug'    => $this->package->slug,
             'site'    => 'somesite.com'
@@ -95,7 +95,7 @@ class LicenseDeactivationTest extends TestCase
      */
     public function testDeactivateUnactivatedInvalidLicense()
     {
-        $response = $this->json('POST', '/api/v1/license/deactivate', [
+        $response = $this->json('POST', '/api/v1/deactivate', [
             'license' => 'unknown-license',
             'slug'    => $this->package->slug,
             'site'    => 'somesite.com'
@@ -122,7 +122,7 @@ class LicenseDeactivationTest extends TestCase
             'supported_until' => Carbon::tomorrow()
         ]);
 
-        $response = $this->json('POST', '/api/v1/license/activate', [
+        $response = $this->json('POST', '/api/v1/activate', [
             'license' => $validLicense->license_key,
             'slug'    => $this->package->slug,
             'site'    => 'somesite.com'
@@ -132,7 +132,7 @@ class LicenseDeactivationTest extends TestCase
             ->assertStatus(200)
             ->assertJson(['activated' => true]);
 
-        $response2 = $this->json('POST', '/api/v1/license/deactivate', [
+        $response2 = $this->json('POST', '/api/v1/deactivate', [
             'license' => $validLicense->license_key,
             'slug'    => $this->package->slug,
             'site'    => 'differentsite.com'
@@ -159,7 +159,7 @@ class LicenseDeactivationTest extends TestCase
             'supported_until' => Carbon::tomorrow()
         ]);
 
-        $response = $this->json('POST', '/api/v1/license/activate', [
+        $response = $this->json('POST', '/api/v1/activate', [
             'license' => $validLicense->license_key,
             'slug'    => $this->package->slug,
             'site'    => 'somesite.com'
@@ -169,7 +169,7 @@ class LicenseDeactivationTest extends TestCase
             ->assertStatus(200)
             ->assertJson(['activated' => true]);
 
-        $response2 = $this->json('POST', '/api/v1/license/deactivate', [
+        $response2 = $this->json('POST', '/api/v1/deactivate', [
             'license' => $validLicense->license_key,
             'slug'    => 'sluggish-package',
             'site'    => 'somesite.com'

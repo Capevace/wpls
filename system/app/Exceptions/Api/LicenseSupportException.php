@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\Exceptions;
+namespace App\Exceptions\Api;
 
 class LicenseSupportException extends ApiException
 {

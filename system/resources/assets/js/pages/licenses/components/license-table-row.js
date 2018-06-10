@@ -4,19 +4,19 @@ import LicenseActionButton from './license-action-button';
 const LicenseTableRow = {
     template: `
 		<tr>
-			<td style="cursor: pointer;" @click="alertFullLicense(license.license)">{{ limitedLicense }}</td>
-			<td>{{ license.slug }}</td>
+			<td style="cursor: pointer;" @click="alertFullLicense(license.license_key)">{{ limitedLicense }}</td>
+			<td>{{ license.package_slug }}</td>
 			<td :class="supportedUntilClass">{{ supportedUntil }}</td>
 			<td>
-				<customer :customer="customer"></customer>
+				<customer :customer="license.customer_data"></customer>
 			</td>
 			<td>
 				<div :class="{'field is-pulled-right': true, 'has-addons': supported}">
 					<p class="control" v-if="supported">
-						<action-button :id="license.id" action="invalidate" @success="onActionSuccess">Invalidate</action-button>
+						<action-button :license-key="license.license_key" action="invalidate" @success="onActionSuccess">Invalidate</action-button>
 					</p>
 					<p class="control">
-						<action-button :id="license.id" action="delete" @success="onActionSuccess">Delete</action-button>
+						<action-button :license-key="license.license_key" action="delete" @success="onActionSuccess">Delete</action-button>
 					</p>
 				</div>
 			</td>
@@ -25,9 +25,9 @@ const LicenseTableRow = {
     props: ['license'],
     computed: {
         limitedLicense() {
-            if (this.license.license.length > 32)
-                return this.license.license.substr(0, 32) + '...';
-            return this.license.license;
+            if (this.license.license_key.length > 32)
+                return this.license.license_key.substr(0, 32) + '...';
+            return this.license.license_key;
         },
         supported() {
             return (
@@ -43,15 +43,6 @@ const LicenseTableRow = {
                 'has-text-success': this.supported,
                 'has-text-danger': !this.supported
             };
-        },
-        customer() {
-            if (!this.license.customer) return null;
-
-            try {
-                return JSON.parse(this.license.customer);
-            } catch (e) {
-                return null;
-            }
         }
     },
     methods: {

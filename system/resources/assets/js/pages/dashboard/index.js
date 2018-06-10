@@ -1,19 +1,19 @@
-import { getLogs } from '../../http';
+import { getActivations } from '../../http';
 import debounce from 'lodash.debounce';
 
-import LogsTable from './components/log-table';
+import ActivationsTable from './components/activations-table';
 
 const DashboardPage = {
     template: `
 		<wpls-page title="Dashboard">
 			<h4 class="title is-4">
-				Logs from
-				<input type="date" class="input is-inline" v-model="dateFrom" :max="dateUntil" :disabled="loading" @input="fetchLogsCallback"/>
+				Activations from
+				<input type="date" class="input is-inline" v-model="dateFrom" :max="dateUntil" :disabled="loading" @input="fetchActivationsCallback"/>
 				until
-				<input type="date" class="input is-inline" v-model="dateUntil" :max="dateFrom" :disabled="loading" @input="fetchLogsCallback"/>
+				<input type="date" class="input is-inline" v-model="dateUntil" :min="dateFrom" :disabled="loading" @input="fetchActivationsCallback"/>
 			</h4>
-			<h3 class="subtitle is-3 has-text-centered" v-if="loading">Loading Logs...</h3>
-			<logs-table :logs="logs" v-else></logs-table>
+			<h3 class="subtitle is-3 has-text-centered" v-if="loading">Loading Activations...</h3>
+			<activations-table :activations="activations" v-else></activations-table>
 		</wpls-page>
 	`,
     data() {
@@ -41,25 +41,25 @@ const DashboardPage = {
                 '-' +
                 now.getDate(),
             loading: false,
-            logs: []
+            activations: []
         };
     },
     components: {
-        'logs-table': LogsTable
+        'activations-table': ActivationsTable
     },
     created() {
-        this.fetchLogs();
+        this.fetchActivations();
     },
     methods: {
-        fetchLogs() {
+        fetchActivations() {
             this.loading = true;
 
-            getLogs(this.dateFrom, this.dateUntil)
+            getActivations(this.dateFrom, this.dateUntil)
                 .then(response => {
                     console.log(response);
                     this.loading = false;
 
-                    this.logs = response.data;
+                    this.activations = response.data;
                 })
                 .catch(error => {
                     console.log(error);
@@ -72,11 +72,11 @@ const DashboardPage = {
                         duration: 2000
                     });
 
-                    this.logs = [];
+                    this.activations = [];
                 });
         },
-        fetchLogsCallback: debounce(function() {
-            this.fetchLogs();
+        fetchActivationsCallback: debounce(function() {
+            this.fetchActivations();
         }, 1000)
     }
 };

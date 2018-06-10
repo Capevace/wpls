@@ -7,23 +7,15 @@ import LicenseTable from './components/license-table';
 
 const LicensesPage = {
     template: `
-		<wpls-page>
-			<div class="level">
-				<div class="level-left">
-					<div class="level-item">
-						<h1 class="title">Licenses</h1>
-					</div>
+		<wpls-page title="Licenses">
+            <template slot="level-right">
+                <div class="level-item">
+					<div class="level-item"><a class="button is-outlined" @click="toggleInvalidatePopup">Invalidate Envato Purchase Code</a></div>
 				</div>
-				<div class="level-right">
-					<div class="level-item">
-						<div class="level-item"><a class="button is-warning is-inverted is-outlined" @click="toggleInvalidatePopup">Invalidate Envato Purchase Code</a></div>
-					</div>
-					<div class="level-item">
-						<div class="level-item"><a class="button is-info" @click="togglePopup">Add New License</a></div>
-					</div>
+				<div class="level-item">
+					<div class="level-item"><a class="button is-info" @click="togglePopup">Add New License</a></div>
 				</div>
-			</div>
-			<br>
+            </template>
 
 			<div class="level">
 				<div class="level-left">
@@ -40,7 +32,7 @@ const LicensesPage = {
 					<div class="level-item">
 						<div class="field">
 							<label class="label">
-								Search
+								Search for Key:
 							</label>
 							<input type="text" class="input" v-model="search" min="0" :disabled="loading" @input="fetchLicensesCallback"/>
 						</div>

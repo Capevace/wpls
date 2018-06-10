@@ -1,32 +1,32 @@
 import { post, get } from 'axios';
-import { adminUrl, baseUrl } from './config';
+import { apiUrl, baseUrl } from './config';
 
 export function saveItemID(slug, itemId) {
-	return post(adminUrl + '/item/' + slug, { id: itemId });
+	return post(`${apiUrl}/packages/${slug}/envato-item-id`, { id: itemId });
 }
 
 export function updateConfig(config) {
-	return post(adminUrl + '/config', { config });
+	return post(apiUrl + '/config', { config });
 }
 
-export function verifyLicense(license, slug) {
-	return get(`${baseUrl}/?action=verify&slug=${slug}&license_key=${license}`);
+export function testLicense(license, slug) {
+	return post(`${apiUrl}/packages/${slug}/test-license`, { license });
 }
 
 export function getLicenses(limit, search) {
-	return get(`${adminUrl}/licenses?limit=${limit}&search=${search}`);
+	return get(`${apiUrl}/licenses?limit=${limit}&search=${search}`);
 };
 
 export function addLicense(licenseData) {
-	return post(`${adminUrl}/license`, licenseData);
+	return post(`${apiUrl}/licenses`, licenseData);
 };
 
-export function getLogs(from, until) {
-	return get(`${adminUrl}/logs/${from}/${until}`);
+export function getActivations(from, until) {
+	return get(`${apiUrl}/activations?from=${from}&to=${until}`);
 };
 
-export function postLicenseAction(id, action) {
-	return post(`${adminUrl}/license/${id}/${action}`);
+export function postLicenseAction(license_key, action) {
+	return post(`${apiUrl}/licenses/${license_key}/${action}`);
 };
 
 export function getAnnouncement(id) {
@@ -34,4 +34,8 @@ export function getAnnouncement(id) {
         title: 'Some title once told me', 
         content: '# Some heading', 
     });
-}
+};
+
+export function getPackages() {
+	return get(`${apiUrl}/packages`);
+};

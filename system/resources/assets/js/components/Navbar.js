@@ -24,14 +24,14 @@ export default {
 					<nav-link to="/licenses" exact>Licenses</nav-link>
 				</p>
 				<p class="level-item">
-					<nav-link to="/plugins" exact>Plugins</nav-link>
+					<nav-link to="/packages" exact>Packages</nav-link>
 				</p>
-				<p class="level-item">
+				<!--<p class="level-item">
 					<nav-link to="/announcements" exact>Announcements</nav-link>
-				</p>
-				<p class="level-item">
+				</p>-->
+				<!--<p class="level-item">
 					<nav-link to="/settings" exact>Settings</nav-link>
-				</p>
+				</p>-->
 				<p class="level-item">
 					<a href="logout" class="button is-danger has-text-weight-bold">
 						<span>Logout</span>

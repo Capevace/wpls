@@ -18,11 +18,6 @@ class PackageController extends Controller
 		$this->packageParser = $packageParser;
 	}
 
-    public function get(Request $request, Package $package)
-    {
-    	return response()->json($this->packageParser->parsePackageMetadata($package));
-    }
-
     public function getMetadata(Request $request, Package $package)
     {
     	$licenseKey = $request->query('license');

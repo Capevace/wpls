@@ -6220,14 +6220,15 @@ process.umask = function() { return 0; };
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["f"] = saveItemID;
-/* harmony export (immutable) */ __webpack_exports__["g"] = updateConfig;
-/* harmony export (immutable) */ __webpack_exports__["h"] = verifyLicense;
-/* harmony export (immutable) */ __webpack_exports__["c"] = getLicenses;
+/* harmony export (immutable) */ __webpack_exports__["g"] = saveItemID;
+/* harmony export (immutable) */ __webpack_exports__["i"] = updateConfig;
+/* harmony export (immutable) */ __webpack_exports__["h"] = testLicense;
+/* harmony export (immutable) */ __webpack_exports__["d"] = getLicenses;
 /* harmony export (immutable) */ __webpack_exports__["a"] = addLicense;
-/* harmony export (immutable) */ __webpack_exports__["d"] = getLogs;
-/* harmony export (immutable) */ __webpack_exports__["e"] = postLicenseAction;
-/* harmony export (immutable) */ __webpack_exports__["b"] = getAnnouncement;
+/* harmony export (immutable) */ __webpack_exports__["b"] = getActivations;
+/* harmony export (immutable) */ __webpack_exports__["f"] = postLicenseAction;
+/* harmony export (immutable) */ __webpack_exports__["c"] = getAnnouncement;
+/* harmony export (immutable) */ __webpack_exports__["e"] = getPackages;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(113);
@@ -6235,31 +6236,31 @@ process.umask = function() { return 0; };
 
 
 function saveItemID(slug, itemId) {
-	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["post"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* adminUrl */] + '/item/' + slug, { id: itemId });
+	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["post"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiUrl */] + '/packages/' + slug + '/envato-item-id', { id: itemId });
 }
 
 function updateConfig(config) {
-	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["post"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* adminUrl */] + '/config', { config: config });
+	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["post"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiUrl */] + '/config', { config: config });
 }
 
-function verifyLicense(license, slug) {
-	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["get"])(__WEBPACK_IMPORTED_MODULE_1__config__["b" /* baseUrl */] + '/?action=verify&slug=' + slug + '&license_key=' + license);
+function testLicense(license, slug) {
+	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["post"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiUrl */] + '/packages/' + slug + '/test-license', { license: license });
 }
 
 function getLicenses(limit, search) {
-	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["get"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* adminUrl */] + '/licenses?limit=' + limit + '&search=' + search);
+	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["get"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiUrl */] + '/licenses?limit=' + limit + '&search=' + search);
 };
 
 function addLicense(licenseData) {
-	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["post"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* adminUrl */] + '/license', licenseData);
+	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["post"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiUrl */] + '/licenses', licenseData);
 };
 
-function getLogs(from, until) {
-	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["get"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* adminUrl */] + '/logs/' + from + '/' + until);
+function getActivations(from, until) {
+	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["get"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiUrl */] + '/activations?from=' + from + '&to=' + until);
 };
 
-function postLicenseAction(id, action) {
-	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["post"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* adminUrl */] + '/license/' + id + '/' + action);
+function postLicenseAction(license_key, action) {
+	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["post"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiUrl */] + '/licenses/' + license_key + '/' + action);
 };
 
 function getAnnouncement(id) {
@@ -6267,7 +6268,11 @@ function getAnnouncement(id) {
 		title: 'Some title once told me',
 		content: '# Some heading'
 	});
-}
+};
+
+function getPackages() {
+	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["get"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiUrl */] + '/packages');
+};
 
 /***/ }),
 /* 11 */
@@ -26581,7 +26586,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_wp_license_server__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_dashboard__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_licenses__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_plugins__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_packages__ = __webpack_require__(222);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_announcements__ = __webpack_require__(226);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_create_announcement__ = __webpack_require__(228);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_announcement__ = __webpack_require__(232);
@@ -26615,7 +26620,7 @@ __WEBPACK_IMPORTED_MODULE_2_vue___default.a.filter('capitalize', function (value
 __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('wpls-page', __WEBPACK_IMPORTED_MODULE_5__components_wpls_page__["a" /* default */]);
 __WEBPACK_IMPORTED_MODULE_2_vue___default.a.component('wp-license-server', __WEBPACK_IMPORTED_MODULE_6__components_wp_license_server__["a" /* default */]);
 
-var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_7__pages_dashboard__["a" /* default */] }, { path: '/licenses', component: __WEBPACK_IMPORTED_MODULE_8__pages_licenses__["a" /* default */] }, { path: '/plugins', component: __WEBPACK_IMPORTED_MODULE_9__pages_plugins__["a" /* default */] }, { path: '/announcements', component: __WEBPACK_IMPORTED_MODULE_10__pages_announcements__["a" /* default */] }, { path: '/announcements/create', component: __WEBPACK_IMPORTED_MODULE_11__pages_create_announcement__["a" /* default */] }, { path: '/announcements/:id', component: __WEBPACK_IMPORTED_MODULE_12__pages_announcement__["a" /* default */] }, { path: '/settings', component: __WEBPACK_IMPORTED_MODULE_13__pages_settings__["a" /* default */] }];
+var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_7__pages_dashboard__["a" /* default */] }, { path: '/licenses', component: __WEBPACK_IMPORTED_MODULE_8__pages_licenses__["a" /* default */] }, { path: '/packages', component: __WEBPACK_IMPORTED_MODULE_9__pages_packages__["a" /* default */] }, { path: '/announcements', component: __WEBPACK_IMPORTED_MODULE_10__pages_announcements__["a" /* default */] }, { path: '/announcements/create', component: __WEBPACK_IMPORTED_MODULE_11__pages_create_announcement__["a" /* default */] }, { path: '/announcements/:id', component: __WEBPACK_IMPORTED_MODULE_12__pages_announcement__["a" /* default */] }, { path: '/settings', component: __WEBPACK_IMPORTED_MODULE_13__pages_settings__["a" /* default */] }];
 
 var app = new __WEBPACK_IMPORTED_MODULE_2_vue___default.a({
     store: __WEBPACK_IMPORTED_MODULE_4__store__["a" /* default */],
@@ -30106,6 +30111,8 @@ if (inBrowser && window.Vue) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_extend__ = __webpack_require__(93);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_extend___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_extend__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__http__ = __webpack_require__(10);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -30115,10 +30122,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
+var reducePackages = function reducePackages(packages) {
+    return packages.reduce(function (sortedPackages, packageObject) {
+        return _extends({}, sortedPackages, _defineProperty({}, packageObject.slug, packageObject));
+    }, {});
+};
+
+var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: {
         config: __WEBPACK_IMPORTED_MODULE_2_extend___default()({}, /*wplsConfig*/{}),
-        plugins: __WEBPACK_IMPORTED_MODULE_2_extend___default()({}, /*wplsPlugins*/{}),
+        plugins: reducePackages(wplsPackages),
         savingConfig: false,
         notifications: {},
         itemIdFormLoading: {}
@@ -30128,7 +30141,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
             context.state.config = config;
             context.state.savingConfig = true;
 
-            Object(__WEBPACK_IMPORTED_MODULE_3__http__["g" /* updateConfig */])(config).then(function (response) {
+            Object(__WEBPACK_IMPORTED_MODULE_3__http__["i" /* updateConfig */])(config).then(function (response) {
                 console.log(response);
 
                 setTimeout(function () {
@@ -30172,7 +30185,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
         updateEnvatoItemID: function updateEnvatoItemID(context, data) {
             context.state.itemIdFormLoading = __WEBPACK_IMPORTED_MODULE_2_extend___default()({}, context.state.itemIdFormLoading, _defineProperty({}, data.slug, true));
 
-            Object(__WEBPACK_IMPORTED_MODULE_3__http__["f" /* saveItemID */])(data.slug, data.itemId).then(function (response) {
+            Object(__WEBPACK_IMPORTED_MODULE_3__http__["g" /* saveItemID */])(data.slug, data.itemId).then(function (response) {
                 console.log(response);
 
                 setTimeout(function () {
@@ -30198,9 +30211,28 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
                     context.state.savingConfig = false;
                 }, 300);
             });
+        },
+        refreshPlugins: function refreshPlugins(context) {
+            Object(__WEBPACK_IMPORTED_MODULE_3__http__["e" /* getPackages */])().then(function (response) {
+                console.log(response);
+
+                context.state.plugins = Array.isArray(response.data) ? reducePackage(response.data) : {};
+            }).catch(function (error) {
+                console.log(error);
+
+                context.dispatch('pushNotification', {
+                    message: 'Could not fetch packages.',
+                    type: 'is-danger',
+                    duration: 3500
+                });
+            });
         }
     }
-}));
+});
+
+window.store = store;
+
+/* harmony default export */ __webpack_exports__["a"] = (store);
 
 /***/ }),
 /* 92 */
@@ -32135,10 +32167,11 @@ module.exports = function spread(callback) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return adminUrl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return baseUrl; });
+/* unused harmony export adminUrl */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return apiUrl; });
+/* unused harmony export baseUrl */
 var adminUrl = location.href.split(/[?#]/)[0].replace(/\/$/, '');
-
+var apiUrl = adminUrl + '/api';
 var baseUrl = adminUrl.replace(/\/admin$/, '');
 
 /***/ }),
@@ -32188,7 +32221,7 @@ var NavLink = {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	template: '\n\t\t<nav class="level" role="navigation" aria-label="main navigation"> \n\t\t\t<!-- Left side -->\n\t\t\t<div class="level-left">\n\t\t\t\t<div class="level-item">\n\t\t\t\t\t<p class="subtitle is-4"><strong>WordPress</strong> License Manager</p>\n\t\t\t\t</div>\n\t\t\t</div><!-- Right side -->\n\t\t\t<div class="level-right">\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/" exact>Dashboard</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/licenses" exact>Licenses</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/plugins" exact>Plugins</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/announcements" exact>Announcements</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/settings" exact>Settings</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<a href="logout" class="button is-danger has-text-weight-bold">\n\t\t\t\t\t\t<span>Logout</span>\n\t\t\t\t\t\t<span class="icon"><i class="fas fa-sign-out-alt"></i></span>\n\t\t\t\t\t</a>\n\t\t\t\t</p>\n\t\t\t</div>\n\t\t</nav>\n\t',
+	template: '\n\t\t<nav class="level" role="navigation" aria-label="main navigation"> \n\t\t\t<!-- Left side -->\n\t\t\t<div class="level-left">\n\t\t\t\t<div class="level-item">\n\t\t\t\t\t<p class="subtitle is-4"><strong>WordPress</strong> License Manager</p>\n\t\t\t\t</div>\n\t\t\t</div><!-- Right side -->\n\t\t\t<div class="level-right">\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/" exact>Dashboard</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/licenses" exact>Licenses</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/packages" exact>Packages</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<!--<p class="level-item">\n\t\t\t\t\t<nav-link to="/announcements" exact>Announcements</nav-link>\n\t\t\t\t</p>-->\n\t\t\t\t<!--<p class="level-item">\n\t\t\t\t\t<nav-link to="/settings" exact>Settings</nav-link>\n\t\t\t\t</p>-->\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<a href="logout" class="button is-danger has-text-weight-bold">\n\t\t\t\t\t\t<span>Logout</span>\n\t\t\t\t\t\t<span class="icon"><i class="fas fa-sign-out-alt"></i></span>\n\t\t\t\t\t</a>\n\t\t\t\t</p>\n\t\t\t</div>\n\t\t</nav>\n\t',
 	components: {
 		'nav-link': NavLink
 	}
@@ -32228,14 +32261,14 @@ var NavLink = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__http__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_debounce__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash_debounce__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_log_table__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_activations_table__ = __webpack_require__(120);
 
 
 
 
 
 var DashboardPage = {
-    template: '\n\t\t<wpls-page title="Dashboard">\n\t\t\t<h4 class="title is-4">\n\t\t\t\tLogs from\n\t\t\t\t<input type="date" class="input is-inline" v-model="dateFrom" :max="dateUntil" :disabled="loading" @input="fetchLogsCallback"/>\n\t\t\t\tuntil\n\t\t\t\t<input type="date" class="input is-inline" v-model="dateUntil" :max="dateFrom" :disabled="loading" @input="fetchLogsCallback"/>\n\t\t\t</h4>\n\t\t\t<h3 class="subtitle is-3 has-text-centered" v-if="loading">Loading Logs...</h3>\n\t\t\t<logs-table :logs="logs" v-else></logs-table>\n\t\t</wpls-page>\n\t',
+    template: '\n\t\t<wpls-page title="Dashboard">\n\t\t\t<h4 class="title is-4">\n\t\t\t\tActivations from\n\t\t\t\t<input type="date" class="input is-inline" v-model="dateFrom" :max="dateUntil" :disabled="loading" @input="fetchActivationsCallback"/>\n\t\t\t\tuntil\n\t\t\t\t<input type="date" class="input is-inline" v-model="dateUntil" :min="dateFrom" :disabled="loading" @input="fetchActivationsCallback"/>\n\t\t\t</h4>\n\t\t\t<h3 class="subtitle is-3 has-text-centered" v-if="loading">Loading Activations...</h3>\n\t\t\t<activations-table :activations="activations" v-else></activations-table>\n\t\t</wpls-page>\n\t',
     data: function data() {
         var then = new Date(Date.now() - 1000 * 60 * 60 * 24 * 30);
         var now = new Date();
@@ -32249,28 +32282,28 @@ var DashboardPage = {
             dateFrom: then.getFullYear() + '-' + formatMonth(then.getMonth()) + '-' + then.getDate(),
             dateUntil: now.getFullYear() + '-' + formatMonth(now.getMonth()) + '-' + now.getDate(),
             loading: false,
-            logs: []
+            activations: []
         };
     },
 
     components: {
-        'logs-table': __WEBPACK_IMPORTED_MODULE_2__components_log_table__["a" /* default */]
+        'activations-table': __WEBPACK_IMPORTED_MODULE_2__components_activations_table__["a" /* default */]
     },
     created: function created() {
-        this.fetchLogs();
+        this.fetchActivations();
     },
 
     methods: {
-        fetchLogs: function fetchLogs() {
+        fetchActivations: function fetchActivations() {
             var _this = this;
 
             this.loading = true;
 
-            Object(__WEBPACK_IMPORTED_MODULE_0__http__["d" /* getLogs */])(this.dateFrom, this.dateUntil).then(function (response) {
+            Object(__WEBPACK_IMPORTED_MODULE_0__http__["b" /* getActivations */])(this.dateFrom, this.dateUntil).then(function (response) {
                 console.log(response);
                 _this.loading = false;
 
-                _this.logs = response.data;
+                _this.activations = response.data;
             }).catch(function (error) {
                 console.log(error);
                 _this.loading = false;
@@ -32281,12 +32314,12 @@ var DashboardPage = {
                     duration: 2000
                 });
 
-                _this.logs = [];
+                _this.activations = [];
             });
         },
 
-        fetchLogsCallback: __WEBPACK_IMPORTED_MODULE_1_lodash_debounce___default()(function () {
-            this.fetchLogs();
+        fetchActivationsCallback: __WEBPACK_IMPORTED_MODULE_1_lodash_debounce___default()(function () {
+            this.fetchActivations();
         }, 1000)
     }
 };
@@ -32298,83 +32331,42 @@ var DashboardPage = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__log_entry__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__activation_entry__ = __webpack_require__(121);
 
 
-var LogTable = {
-	template: '\n\t\t<table class="table is-fullwidth is-striped">\n\t\t\t<thead>\n\t\t\t\t<tr>\n\t\t\t\t\t<th>Date</th>\n\t\t\t\t\t<th>Slug</th>\n\t\t\t\t\t<th>Type</th>\n\t\t\t\t\t<th>License</th>\n\t\t\t\t\t<th>Error</th>\n\t\t\t\t\t<th>Meta</th>\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<tfoot>\n\t\t\t\t<tr>\n\t\t\t\t\t<th>Date</th>\n\t\t\t\t\t<th>Slug</th>\n\t\t\t\t\t<th>Type</th>\n\t\t\t\t\t<th>License</th>\n\t\t\t\t\t<th>Error</th>\n\t\t\t\t\t<th>Meta</th>\n\t\t\t\t</tr>\n\t\t\t</tfoot>\n\t\t\t<tbody>\n\t\t\t\t<log-entry v-for="log in logs" :log="log"></log-entry>\n\t\t\t</tbody>\n\t\t</table>\n\t',
-	props: ['logs'],
+var ActivationsTable = {
+	template: '\n\t\t<table class="table is-fullwidth is-striped">\n\t\t\t<thead>\n\t\t\t\t<tr>\n\t\t\t\t\t<th>Date</th>\n\t\t\t\t\t<th>Package</th>\n\t\t\t\t\t<th>License</th>\n\t\t\t\t\t<th>Site</th>\n\t\t\t\t\t<th>Metadata</th>\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<tfoot>\n\t\t\t\t<tr>\n\t\t\t\t\t<th>Date</th>\n\t\t\t\t\t<th>Package</th>\n\t\t\t\t\t<th>License</th>\n\t\t\t\t\t<th>Site</th>\n\t\t\t\t\t<th>Metadata</th>\n\t\t\t\t</tr>\n\t\t\t</tfoot>\n\t\t\t<tbody>\n\t\t\t\t<activation-entry v-for="activation in activations" :activation="activation"></activation-entry>\n\t\t\t</tbody>\n\t\t</table>\n\t',
+	props: ['activations'],
 	components: {
-		'log-entry': __WEBPACK_IMPORTED_MODULE_0__log_entry__["a" /* default */]
+		'activation-entry': __WEBPACK_IMPORTED_MODULE_0__activation_entry__["a" /* default */]
 	}
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (LogTable);
+/* harmony default export */ __webpack_exports__["a"] = (ActivationsTable);
 
 /***/ }),
 /* 121 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var LogEntry = {
-    template: '\n\t\t<tr>\n\t\t\t<td>{{ time }}</td>\n\t\t\t<td>{{ log.event_slug }}</td>\n\t\t\t<td>{{ typeLabel }}</td>\n\t\t\t<td :class="licenseClass" style="word-break: break-word;">{{ eventData.license }}</td>\n\t\t\t<td>{{ errorMessage }}</td>\n\t\t\t<td>\n\t\t\t\t<span class="is-block is-size-7" v-if="eventMeta.url">{{ eventMeta.url }}</span>\n\t\t\t\t<span class="is-block is-size-7">{{ eventMeta.ip }}</span>\n\t\t\t\t<span class="is-block is-size-7" v-if="log.event_plugin_version">Version {{ log.event_plugin_version }}</span>\n\t\t\t</td>\n\t\t</tr>\n\t',
-    props: ['log'],
+var ActivationEntry = {
+    template: '\n\t\t<tr>\n            <td>{{ created_at }}</td>\n\t\t\t<td>{{ packageName }}</td>\n\t\t\t<td>{{ activation.license_key }}</td>\n\t\t\t<td>{{ activation.site_url }}</td>\n\t\t\t<td>\n                <span class="is-block is-size-7" v-if="activation.site_last_package_version">\n                    Package v{{ activation.site_last_package_version }}\n                </span>\n\t\t\t\t<span class="is-block is-size-7" v-if="activation.site_last_wp_version">\n                    WordPress v{{ activation.site_last_wp_version }}\n                </span>\n                <span class="is-block is-size-7" v-if="activation.site_last_php_version">\n                    PHP v{{ activation.site_last_php_version }}\n                </span>\n\n\t\t\t\t<template v-for="(entry, key) in customerData">\n                    <span class="is-block is-size-7">\n                        {{ entry }}\n                    </span>\n                </template>\n\t\t\t</td>\n\t\t</tr>\n\t',
+    props: ['activation'],
     computed: {
-        time: function time() {
-            var d = new Date(this.log.time);
+        created_at: function created_at() {
+            var d = new Date(this.activation.created_at);
             return d.toLocaleString();
         },
-        typeLabel: function typeLabel() {
-            switch (this.log.event_type) {
-                case 'verify':
-                    return 'Verification';
-
-                case 'verify-legacy':
-                    return 'Legacy Verify';
-
-                case 'get_metadata':
-                    return 'Metadata';
-
-                case 'download':
-                    return 'Download';
-
-                default:
-                    return this.log.event_type;
-            }
+        packageName: function packageName() {
+            return this.activation.package_slug in this.$store.state.plugins ? this.$store.state.plugins[this.activation.package_slug].name : 'Unknown Package (' + this.activation.package_slug + ')';
         },
-        eventData: function eventData() {
-            try {
-                return JSON.parse(this.log.event_data);
-            } catch (e) {
-                return {
-                    license: this.log.event_data
-                };
-            }
-        },
-        eventMeta: function eventMeta() {
-            try {
-                return JSON.parse(this.log.event_meta);
-            } catch (e) {
-                return {
-                    ip: this.log.event_meta
-                };
-            }
-        },
-        licenseClass: function licenseClass() {
-            return {
-                'has-text-success': this.eventData.valid,
-                'has-text-danger': !this.eventData.valid
-            };
-        },
-        errorMessage: function errorMessage() {
-            if (!this.eventData.error) return '';
-
-            return this.eventData.error.message || '';
+        customerData: function customerData() {
+            return JSON.parse(this.activation.license_customer_data);
         }
     }
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (LogEntry);
+/* harmony default export */ __webpack_exports__["a"] = (ActivationEntry);
 
 /***/ }),
 /* 122 */
@@ -32395,71 +32387,71 @@ var LogEntry = {
 
 
 var LicensesPage = {
-  template: '\n\t\t<wpls-page>\n\t\t\t<div class="level">\n\t\t\t\t<div class="level-left">\n\t\t\t\t\t<div class="level-item">\n\t\t\t\t\t\t<h1 class="title">Licenses</h1>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="level-right">\n\t\t\t\t\t<div class="level-item">\n\t\t\t\t\t\t<div class="level-item"><a class="button is-warning is-inverted is-outlined" @click="toggleInvalidatePopup">Invalidate Envato Purchase Code</a></div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="level-item">\n\t\t\t\t\t\t<div class="level-item"><a class="button is-info" @click="togglePopup">Add New License</a></div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<br>\n\n\t\t\t<div class="level">\n\t\t\t\t<div class="level-left">\n\t\t\t\t\t<div class="level-item">\n\t\t\t\t\t\t<div class="field">\n\t\t\t\t\t\t\t<label class="label">\n\t\t\t\t\t\t\t\tLimit\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t<input type="number" class="input" v-model="limit" min="0" :disabled="loading" @input="fetchLicensesCallback"/>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="level-right">\n\t\t\t\t\t<div class="level-item">\n\t\t\t\t\t\t<div class="field">\n\t\t\t\t\t\t\t<label class="label">\n\t\t\t\t\t\t\t\tSearch\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t<input type="text" class="input" v-model="search" min="0" :disabled="loading" @input="fetchLicensesCallback"/>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<h3 class="subtitle is-3 has-text-centered" v-if="loading">Loading Licenses...</h3>\n\t\t\t<license-table :licenses="licenses" @actionSuccess="fetchLicenses" v-else></license-table>\n\n\t\t\t<new-license-popup :visible="popupVisible" @toggle="togglePopup" @success="newLicenseCreated"></new-license-popup>\n\t\t\t<invalidation-popup :visible="invalidatePopupVisible" @toggle="toggleInvalidatePopup" @success="purchaseCodeInvalidated"></invalidation-popup>\n\t\t</wpls-page>\n\t',
-  data: function data() {
-    return {
-      popupVisible: false,
-      invalidatePopupVisible: false,
-      limit: 100,
-      search: '',
-      loading: false,
-      licenses: []
-    };
-  },
-
-  components: {
-    'license-table': __WEBPACK_IMPORTED_MODULE_4__components_license_table__["a" /* default */],
-    'new-license-popup': __WEBPACK_IMPORTED_MODULE_2__components_new_license_popup__["a" /* default */],
-    'invalidation-popup': __WEBPACK_IMPORTED_MODULE_3__components_invalidation_popup__["a" /* default */]
-  },
-  created: function created() {
-    this.fetchLicenses();
-  },
-
-  methods: {
-    fetchLicenses: function fetchLicenses() {
-      var _this = this;
-
-      this.loading = true;
-
-      Object(__WEBPACK_IMPORTED_MODULE_0__http__["c" /* getLicenses */])(this.limit, this.search).then(function (response) {
-        console.log(response);
-        _this.loading = false;
-
-        _this.licenses = response.data;
-      }).catch(function (error) {
-        console.log(error);
-        _this.loading = false;
-
-        _this.$store.dispatch('pushNotification', {
-          message: 'Internal Server Error. Check the MySQL Credentials.',
-          type: 'is-danger',
-          duration: 2000
-        });
-
-        _this.licenses = [];
-      });
+    template: '\n\t\t<wpls-page title="Licenses">\n            <template slot="level-right">\n                <div class="level-item">\n\t\t\t\t\t<div class="level-item"><a class="button is-outlined" @click="toggleInvalidatePopup">Invalidate Envato Purchase Code</a></div>\n\t\t\t\t</div>\n\t\t\t\t<div class="level-item">\n\t\t\t\t\t<div class="level-item"><a class="button is-info" @click="togglePopup">Add New License</a></div>\n\t\t\t\t</div>\n            </template>\n\n\t\t\t<div class="level">\n\t\t\t\t<div class="level-left">\n\t\t\t\t\t<div class="level-item">\n\t\t\t\t\t\t<div class="field">\n\t\t\t\t\t\t\t<label class="label">\n\t\t\t\t\t\t\t\tLimit\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t<input type="number" class="input" v-model="limit" min="0" :disabled="loading" @input="fetchLicensesCallback"/>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="level-right">\n\t\t\t\t\t<div class="level-item">\n\t\t\t\t\t\t<div class="field">\n\t\t\t\t\t\t\t<label class="label">\n\t\t\t\t\t\t\t\tSearch for Key:\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t<input type="text" class="input" v-model="search" min="0" :disabled="loading" @input="fetchLicensesCallback"/>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<h3 class="subtitle is-3 has-text-centered" v-if="loading">Loading Licenses...</h3>\n\t\t\t<license-table :licenses="licenses" @actionSuccess="fetchLicenses" v-else></license-table>\n\n\t\t\t<new-license-popup :visible="popupVisible" @toggle="togglePopup" @success="newLicenseCreated"></new-license-popup>\n\t\t\t<invalidation-popup :visible="invalidatePopupVisible" @toggle="toggleInvalidatePopup" @success="purchaseCodeInvalidated"></invalidation-popup>\n\t\t</wpls-page>\n\t',
+    data: function data() {
+        return {
+            popupVisible: false,
+            invalidatePopupVisible: false,
+            limit: 100,
+            search: '',
+            loading: false,
+            licenses: []
+        };
     },
 
-    fetchLicensesCallback: __WEBPACK_IMPORTED_MODULE_1_lodash_debounce___default()(function () {
-      this.fetchLicenses();
-    }, 1000),
+    components: {
+        'license-table': __WEBPACK_IMPORTED_MODULE_4__components_license_table__["a" /* default */],
+        'new-license-popup': __WEBPACK_IMPORTED_MODULE_2__components_new_license_popup__["a" /* default */],
+        'invalidation-popup': __WEBPACK_IMPORTED_MODULE_3__components_invalidation_popup__["a" /* default */]
+    },
+    created: function created() {
+        this.fetchLicenses();
+    },
 
-    togglePopup: function togglePopup() {
-      this.popupVisible = !this.popupVisible;
-    },
-    toggleInvalidatePopup: function toggleInvalidatePopup() {
-      this.invalidatePopupVisible = !this.invalidatePopupVisible;
-    },
-    newLicenseCreated: function newLicenseCreated() {
-      this.togglePopup();
-      this.fetchLicenses();
-    },
-    purchaseCodeInvalidated: function purchaseCodeInvalidated() {
-      this.toggleInvalidatePopup();
-      this.fetchLicenses();
+    methods: {
+        fetchLicenses: function fetchLicenses() {
+            var _this = this;
+
+            this.loading = true;
+
+            Object(__WEBPACK_IMPORTED_MODULE_0__http__["d" /* getLicenses */])(this.limit, this.search).then(function (response) {
+                console.log(response);
+                _this.loading = false;
+
+                _this.licenses = response.data;
+            }).catch(function (error) {
+                console.log(error);
+                _this.loading = false;
+
+                _this.$store.dispatch('pushNotification', {
+                    message: 'Internal Server Error. Check the MySQL Credentials.',
+                    type: 'is-danger',
+                    duration: 2000
+                });
+
+                _this.licenses = [];
+            });
+        },
+
+        fetchLicensesCallback: __WEBPACK_IMPORTED_MODULE_1_lodash_debounce___default()(function () {
+            this.fetchLicenses();
+        }, 1000),
+
+        togglePopup: function togglePopup() {
+            this.popupVisible = !this.popupVisible;
+        },
+        toggleInvalidatePopup: function toggleInvalidatePopup() {
+            this.invalidatePopupVisible = !this.invalidatePopupVisible;
+        },
+        newLicenseCreated: function newLicenseCreated() {
+            this.togglePopup();
+            this.fetchLicenses();
+        },
+        purchaseCodeInvalidated: function purchaseCodeInvalidated() {
+            this.toggleInvalidatePopup();
+            this.fetchLicenses();
+        }
     }
-  }
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (LicensesPage);
@@ -42252,7 +42244,7 @@ var InvalidatePopup = {
 
 var LicenseTable = {
 				template: '\n\t\t<div>\n\t\t\t<table class="table is-fullwidth is-striped">\n\t\t\t\t<thead>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th>License</th>\n\t\t\t\t\t\t<th>Slug</th>\n\t\t\t\t\t\t<th>Supported Until</th>\n\t\t\t\t\t\t<th>Customer Info</th>\n\t\t\t\t\t\t<th>Actions</th>\n\t\t\t\t\t</tr>\n\t\t\t\t</thead>\n\t\t\t\t<tfoot>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th>License</th>\n\t\t\t\t\t\t<th>Slug</th>\n\t\t\t\t\t\t<th>Supported Until</th>\n\t\t\t\t\t\t<th>Customer Info</th>\n\t\t\t\t\t\t<th>Actions</th>\n\t\t\t\t\t</tr>\n\t\t\t\t</tfoot>\n\t\t\t\t<tbody>\n\t\t\t\t\t<license-table-row v-for="license in licenses" :license="license" @actionSuccess="onActionSuccess" @open="openPopup"></license-table-row>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\n\t\t\t<license-popup :visible="popupVisible" :license="popupLicense" @toggle="closePopup"></license-popup>\n\t\t</div>\n\t',
-				data: function data() {
+				data: function data(props) {
 								return {
 												popupVisible: false,
 												popupLicense: ''
@@ -42291,12 +42283,12 @@ var LicenseTable = {
 
 
 var LicenseTableRow = {
-    template: '\n\t\t<tr>\n\t\t\t<td style="cursor: pointer;" @click="alertFullLicense(license.license)">{{ limitedLicense }}</td>\n\t\t\t<td>{{ license.slug }}</td>\n\t\t\t<td :class="supportedUntilClass">{{ supportedUntil }}</td>\n\t\t\t<td>\n\t\t\t\t<customer :customer="customer"></customer>\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<div :class="{\'field is-pulled-right\': true, \'has-addons\': supported}">\n\t\t\t\t\t<p class="control" v-if="supported">\n\t\t\t\t\t\t<action-button :id="license.id" action="invalidate" @success="onActionSuccess">Invalidate</action-button>\n\t\t\t\t\t</p>\n\t\t\t\t\t<p class="control">\n\t\t\t\t\t\t<action-button :id="license.id" action="delete" @success="onActionSuccess">Delete</action-button>\n\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t</td>\n\t\t</tr>\n\t',
+    template: '\n\t\t<tr>\n\t\t\t<td style="cursor: pointer;" @click="alertFullLicense(license.license_key)">{{ limitedLicense }}</td>\n\t\t\t<td>{{ license.package_slug }}</td>\n\t\t\t<td :class="supportedUntilClass">{{ supportedUntil }}</td>\n\t\t\t<td>\n\t\t\t\t<customer :customer="license.customer_data"></customer>\n\t\t\t</td>\n\t\t\t<td>\n\t\t\t\t<div :class="{\'field is-pulled-right\': true, \'has-addons\': supported}">\n\t\t\t\t\t<p class="control" v-if="supported">\n\t\t\t\t\t\t<action-button :license-key="license.license_key" action="invalidate" @success="onActionSuccess">Invalidate</action-button>\n\t\t\t\t\t</p>\n\t\t\t\t\t<p class="control">\n\t\t\t\t\t\t<action-button :license-key="license.license_key" action="delete" @success="onActionSuccess">Delete</action-button>\n\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t</td>\n\t\t</tr>\n\t',
     props: ['license'],
     computed: {
         limitedLicense: function limitedLicense() {
-            if (this.license.license.length > 32) return this.license.license.substr(0, 32) + '...';
-            return this.license.license;
+            if (this.license.license_key.length > 32) return this.license.license_key.substr(0, 32) + '...';
+            return this.license.license_key;
         },
         supported: function supported() {
             return new Date(this.license.supported_until).getTime() > Date.now();
@@ -42310,15 +42302,6 @@ var LicenseTableRow = {
                 'has-text-success': this.supported,
                 'has-text-danger': !this.supported
             };
-        },
-        customer: function customer() {
-            if (!this.license.customer) return null;
-
-            try {
-                return JSON.parse(this.license.customer);
-            } catch (e) {
-                return null;
-            }
         }
     },
     methods: {
@@ -42343,7 +42326,7 @@ var LicenseTableRow = {
 
 "use strict";
 var FormattedCustomerContainer = {
-	template: '\n\t\t<div>\n\t\t\t<span v-if="!customer"></span>\n\t\t\t<div v-for="(value, key) in customer">\n\t\t\t\t<!--<span class="has-text-weight-bold">{{ key | capitalize }}:</span>-->\n\t\t\t\t{{value}}\n\t\t\t</div>\n\t\t</div>\n\t',
+	template: '\n\t\t<div>\n\t\t\t<div v-if="customer" v-for="(value, key) in customer">\n\t\t\t\t<!--<span class="has-text-weight-bold">{{ key | capitalize }}:</span>-->\n\t\t\t\t{{value}}\n\t\t\t</div>\n\t\t</div>\n\t',
 	props: ['customer']
 };
 
@@ -42364,20 +42347,20 @@ var LicenseActionButton = {
             loading: false
         };
     },
-    props: ['id', 'action'],
+    props: ['licenseKey', 'action'],
     methods: {
         doAction: function doAction() {
             var _this = this;
 
             this.loading = true;
 
-            Object(__WEBPACK_IMPORTED_MODULE_0__http__["e" /* postLicenseAction */])(this.id, this.action).then(function (response) {
+            Object(__WEBPACK_IMPORTED_MODULE_0__http__["f" /* postLicenseAction */])(this.licenseKey, this.action).then(function (response) {
                 console.log(response);
                 _this.loading = false;
 
                 _this.$emit('success');
                 _this.$store.dispatch('pushNotification', {
-                    message: 'Successfully invalidated license.',
+                    message: _this.action === 'invalidate' ? 'Successfully invalidated license.' : 'Successfully deleted license.',
                     type: 'is-success',
                     duration: 2000
                 });
@@ -42398,7 +42381,7 @@ var LicenseActionButton = {
             return {
                 'button is-outlined is-small': true,
                 'is-danger': this.action === 'delete',
-                'is-warning  is-inverted': this.action === 'invalidate',
+                'is-warning': this.action === 'invalidate',
                 'is-loading': this.loading
             };
         }
@@ -42433,7 +42416,7 @@ var LicensePopup = {
 
 
 var PluginsPage = {
-    template: '\n        <div>\n            <br>\n            <div class="level">\n                <div class="level-left">\n                    <div class="level-item">\n                        <h1 class="title">Plugins</h1>\n                    </div>\n                </div>\n\n                <div class="level-right">\n                    <div class="level-item"><a class="button is-info" @click="toggleAddModal">Add New Plugin</a></div>\n                </div>\n            </div>\n            <br>\n\n            <plugin v-for="plugin in plugins" :plugin="plugin"></plugin>\n\n            <div :class="{\'modal\': true, \'is-active\': addModalVisible}">\n                <div class="modal-background" @click="toggleAddModal"></div>\n                <div class="modal-content">\n                    <div class="card">\n                        <div class="card-content">\n                            <div class="content">\n                                <h2>Adding new Plugins</h2>\n                                <p>\n                                    To add your plugin to the license server, upload the .zip file \n                                    with the plugin inside into the <strong><i>data/packages</i></strong> folder.<br>\n                                    If you reload the plugins now, you should see the plugin showing up.                            \n                                </p>\n                                <p>\n                                    If you only use the internal Database License Verification, then you\'re good to go.<br>\n                                    However, if you want to use the Envato API Verification, you\'ll need to add the Envato Item ID to it.\n                                    Once that is completed and saved, you\'ll now be able to verify your items purchases.\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <button aria-label="close" class="modal-close is-large" @click="toggleAddModal"></button>\n            </div>\n        </div>\n    ',
+    template: '\n        <wpls-page title="Packages">\n            <template slot="level-right">\n                <div class="level-item"><a class="button is-info" @click="toggleAddModal">Add New Plugin</a></div>\n            </template>\n\n            <plugin v-for="plugin in plugins" :plugin="plugin"></plugin>\n\n            <div :class="{\'modal\': true, \'is-active\': addModalVisible}">\n                <div class="modal-background" @click="toggleAddModal"></div>\n                <div class="modal-content">\n                    <div class="card">\n                        <div class="card-content">\n                            <div class="content">\n                                <h2>Adding new Plugins</h2>\n                                <p>\n                                    To add your plugin to the license server, upload the .zip file \n                                    with the plugin inside into the <strong><i>data/packages</i></strong> folder.<br>\n                                    If you reload the plugins now, you should see the plugin showing up.                            \n                                </p>\n                                <p>\n                                    If you only use the internal Database License Verification, then you\'re good to go.<br>\n                                    However, if you want to use the Envato API Verification, you\'ll need to add the Envato Item ID to it.\n                                    Once that is completed and saved, you\'ll now be able to verify your items purchases.\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <button aria-label="close" class="modal-close is-large" @click="toggleAddModal"></button>\n            </div>\n        </wpls-page>\n    ',
     data: function data() {
         return {
             addModalVisible: false
@@ -42468,7 +42451,7 @@ var PluginsPage = {
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: '\n        <div class="notification">\n            <div class="level">\n                <div class="level-left">\n                    <div class="level-item">\n                        <h5 class="title is-5">{{ plugin.metadata.name }} ({{ plugin.metadata.version }})</h5>\n                    </div>\n                    <div class="level-item">\n                        <h6 class="subtitle is-6">{{ plugin.slug }}</h6>\n                    </div>\n                </div>\n            </div>\n\n            <div class="level">\n                <item-id-form :item-id="plugin.itemId" :slug="plugin.slug"></item-id-form>\n                <verification-test-form :slug="plugin.slug"></verification-test-form>\n            </div>\n        </div>\n    ',
+    template: '\n        <div class="notification">\n            <div class="level">\n                <div class="level-left">\n                    <div class="level-item">\n                        <h5 class="title is-5">{{ plugin.name }} ({{ plugin.version }})</h5>\n                    </div>\n                    <div class="level-item">\n                        <h6 class="subtitle is-6">{{ plugin.slug }}</h6>\n                    </div>\n                </div>\n            </div>\n\n            <div class="level">\n                <item-id-form :item-id="plugin.envato_item_id" :slug="plugin.slug"></item-id-form>\n                <verification-test-form :slug="plugin.slug"></verification-test-form>\n            </div>\n        </div>\n    ',
     props: ['plugin'],
     components: {
         'item-id-form': __WEBPACK_IMPORTED_MODULE_0__item_id_form__["a" /* default */],
@@ -42529,7 +42512,7 @@ var PluginsPage = {
 
             this.loading = true;
 
-            Object(__WEBPACK_IMPORTED_MODULE_0__http__["h" /* verifyLicense */])(this.license, this.slug).then(function (response) {
+            Object(__WEBPACK_IMPORTED_MODULE_0__http__["h" /* testLicense */])(this.license, this.slug).then(function (response) {
                 console.log(response);
                 _this.loading = false;
 
@@ -42541,7 +42524,7 @@ var PluginsPage = {
                     });
                 } else {
                     _this.$store.dispatch('pushNotification', {
-                        message: response.data.error.message,
+                        message: 'An unknown error occurred.',
                         type: 'is-danger',
                         duration: 2000
                     });
@@ -42550,8 +42533,12 @@ var PluginsPage = {
                 console.log(error);
                 _this.loading = false;
 
+                var errorMessage = 'An unknown error occurred.';
+
+                if (error.response.data.error) errorMessage = error.response.data.error.message;
+
                 _this.$store.dispatch('pushNotification', {
-                    message: 'Unknown Error.',
+                    message: errorMessage,
                     type: 'is-danger',
                     duration: 2000
                 });
@@ -42791,7 +42778,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
                             _context.prev = 1;
                             _context.next = 4;
-                            return Object(__WEBPACK_IMPORTED_MODULE_1__http__["b" /* getAnnouncement */])(this.$route.params.id);
+                            return Object(__WEBPACK_IMPORTED_MODULE_1__http__["c" /* getAnnouncement */])(this.$route.params.id);
 
                         case 4:
                             this.announcement = _context.sent;

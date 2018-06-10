@@ -45,11 +45,6 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
-
-        'activation_token' => [
-            'driver' => 'token',
-            'provider' => 'activations'
-        ]
     ],
 
     /*
@@ -73,11 +68,6 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
-        ],
-
-        'activations' => [
-            'driver' => 'eloquent',
-            'model' => App\LicenseActivation::class,
         ],
     ],
 

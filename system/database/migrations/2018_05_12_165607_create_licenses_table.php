@@ -22,7 +22,7 @@ class CreateLicensesTable extends Migration
 
             $table->timestamp('supported_until')->nullable();
             $table->text('customer_data'); // JSON
-            $table->boolean('is_purchase_code'); // If it is a purchase code, it is not deletable
+            $table->boolean('is_purchase_code')->default(false); // If it is a purchase code, it is not deletable
 
             $table->timestamps();
         });

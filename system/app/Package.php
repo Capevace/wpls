@@ -55,4 +55,13 @@ class Package extends Model
     {
     	return $this->hasMany('App\LicenseActivation');
     }
+
+    /**
+	 * Get all licenses this package was used in.
+	 * @return array
+	 */
+    public function licenses()
+    {
+    	return $this->hasMany('App\License');
+    }
 }

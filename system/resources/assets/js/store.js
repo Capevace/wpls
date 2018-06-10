@@ -1,14 +1,21 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import extend from 'extend';
-import { updateConfig, saveItemID } from './http';
+import { updateConfig, saveItemID, getPackages } from './http';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const reducePackages = packages => packages.reduce((sortedPackages, packageObject) => {
+    return {
+        ...sortedPackages,
+        [packageObject.slug]: packageObject
+    };
+}, {});
+
+const store = new Vuex.Store({
     state: {
         config: extend({}, /*wplsConfig*/{}),
-        plugins: extend({}, /*wplsPlugins*/{}),
+        plugins: reducePackages(wplsPackages),
         savingConfig: false,
         notifications: {},
         itemIdFormLoading: {}
@@ -120,6 +127,29 @@ export default new Vuex.Store({
                         context.state.savingConfig = false;
                     }, 300);
                 });
+        },
+        refreshPlugins(context) {
+            getPackages()
+                .then(response => {
+                    console.log(response);
+                    
+                    context.state.plugins = Array.isArray(response.data)
+                        ? reducePackage(response.data)
+                        : {};
+                })
+                .catch(error => {
+                    console.log(error);
+
+                    context.dispatch('pushNotification', {
+                        message: 'Could not fetch packages.',
+                        type: 'is-danger',
+                        duration: 3500
+                    });
+                });
         }
     }
 });
+
+window.store = store;
+
+export default store;

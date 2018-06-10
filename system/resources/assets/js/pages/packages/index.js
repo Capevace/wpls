@@ -2,20 +2,10 @@ import Plugin from './components/plugin';
 
 const PluginsPage = {
     template: `
-        <div>
-            <br>
-            <div class="level">
-                <div class="level-left">
-                    <div class="level-item">
-                        <h1 class="title">Plugins</h1>
-                    </div>
-                </div>
-
-                <div class="level-right">
-                    <div class="level-item"><a class="button is-info" @click="toggleAddModal">Add New Plugin</a></div>
-                </div>
-            </div>
-            <br>
+        <wpls-page title="Packages">
+            <template slot="level-right">
+                <div class="level-item"><a class="button is-info" @click="toggleAddModal">Add New Plugin</a></div>
+            </template>
 
             <plugin v-for="plugin in plugins" :plugin="plugin"></plugin>
 
@@ -42,7 +32,7 @@ const PluginsPage = {
                 </div>
                 <button aria-label="close" class="modal-close is-large" @click="toggleAddModal"></button>
             </div>
-        </div>
+        </wpls-page>
     `,
     data() {
         return {

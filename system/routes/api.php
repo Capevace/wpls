@@ -18,18 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
-	Route::get('/package/{package}', 'PackageController@get');
-	Route::get('/package/{package}/metadata', 'PackageController@getMetadata')->middleware('auth.activation');
-	Route::get('/package/{package}/download', 'PackageController@download');
+	Route::get('/packages/{package}/metadata', 'PackageController@getMetadata');
+	Route::get('/packages/{package}/download', 'PackageController@download');
 
 	Route::post('/activate', 'ActivationController@activate');
 	Route::post('/deactivate', 'ActivationController@deactivate');
-	Route::get('/license/{license}', 'LicenseController@get');
-});
-
-Route::middleware('auth')->prefix('admin')->group(function() {
-	Route::get('/activations');
-	Route::get('/licenses');
-	Route::get('/packages');
-	Route::get('/sites');
 });

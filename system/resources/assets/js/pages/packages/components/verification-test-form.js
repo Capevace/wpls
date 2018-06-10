@@ -1,4 +1,4 @@
-import { verifyLicense } from '../../../http';
+import { testLicense } from '../../../http';
 
 export default {
     template: `
@@ -24,7 +24,7 @@ export default {
         save() {
             this.loading = true;
 
-            verifyLicense(this.license, this.slug)
+            testLicense(this.license, this.slug)
                 .then(response => {
                     console.log(response);
                     this.loading = false;
@@ -37,7 +37,7 @@ export default {
                         });
                     } else {
                         this.$store.dispatch('pushNotification', {
-                            message: response.data.error.message,
+                            message: 'An unknown error occurred.',
                             type: 'is-danger',
                             duration: 2000
                         });
@@ -47,8 +47,13 @@ export default {
                     console.log(error);
                     this.loading = false;
 
+                    let errorMessage = 'An unknown error occurred.';
+
+                    if (error.response.data.error)
+                        errorMessage = error.response.data.error.message;
+
                     this.$store.dispatch('pushNotification', {
-                        message: 'Unknown Error.',
+                        message: errorMessage,
                         type: 'is-danger',
                         duration: 2000
                     });
