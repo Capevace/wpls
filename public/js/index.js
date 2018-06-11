@@ -6220,15 +6220,18 @@ process.umask = function() { return 0; };
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["g"] = saveItemID;
-/* harmony export (immutable) */ __webpack_exports__["i"] = updateConfig;
-/* harmony export (immutable) */ __webpack_exports__["h"] = testLicense;
-/* harmony export (immutable) */ __webpack_exports__["d"] = getLicenses;
+/* harmony export (immutable) */ __webpack_exports__["i"] = saveItemID;
+/* harmony export (immutable) */ __webpack_exports__["k"] = updateConfig;
+/* harmony export (immutable) */ __webpack_exports__["j"] = testLicense;
+/* harmony export (immutable) */ __webpack_exports__["f"] = getLicenses;
 /* harmony export (immutable) */ __webpack_exports__["a"] = addLicense;
-/* harmony export (immutable) */ __webpack_exports__["b"] = getActivations;
-/* harmony export (immutable) */ __webpack_exports__["f"] = postLicenseAction;
-/* harmony export (immutable) */ __webpack_exports__["c"] = getAnnouncement;
-/* harmony export (immutable) */ __webpack_exports__["e"] = getPackages;
+/* harmony export (immutable) */ __webpack_exports__["d"] = getActivations;
+/* harmony export (immutable) */ __webpack_exports__["h"] = postLicenseAction;
+/* harmony export (immutable) */ __webpack_exports__["e"] = getAnnouncement;
+/* harmony export (immutable) */ __webpack_exports__["b"] = addPackage;
+/* harmony export (immutable) */ __webpack_exports__["l"] = updatePackage;
+/* harmony export (immutable) */ __webpack_exports__["c"] = deletePackage;
+/* harmony export (immutable) */ __webpack_exports__["g"] = getPackages;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(113);
@@ -6268,6 +6271,18 @@ function getAnnouncement(id) {
 		title: 'Some title once told me',
 		content: '# Some heading'
 	});
+};
+
+function addPackage(packageData) {
+	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["post"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiUrl */] + '/packages', packageData);
+};
+
+function updatePackage(packageSlug, packageData) {
+	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["post"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiUrl */] + '/packages/' + packageSlug + '/update', packageData);
+};
+
+function deletePackage(packageSlug) {
+	return Object(__WEBPACK_IMPORTED_MODULE_0_axios__["post"])(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* apiUrl */] + '/packages/' + packageSlug + '/delete');
 };
 
 function getPackages() {
@@ -30141,7 +30156,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             context.state.config = config;
             context.state.savingConfig = true;
 
-            Object(__WEBPACK_IMPORTED_MODULE_3__http__["i" /* updateConfig */])(config).then(function (response) {
+            Object(__WEBPACK_IMPORTED_MODULE_3__http__["k" /* updateConfig */])(config).then(function (response) {
                 console.log(response);
 
                 setTimeout(function () {
@@ -30185,7 +30200,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         updateEnvatoItemID: function updateEnvatoItemID(context, data) {
             context.state.itemIdFormLoading = __WEBPACK_IMPORTED_MODULE_2_extend___default()({}, context.state.itemIdFormLoading, _defineProperty({}, data.slug, true));
 
-            Object(__WEBPACK_IMPORTED_MODULE_3__http__["g" /* saveItemID */])(data.slug, data.itemId).then(function (response) {
+            Object(__WEBPACK_IMPORTED_MODULE_3__http__["i" /* saveItemID */])(data.slug, data.itemId).then(function (response) {
                 console.log(response);
 
                 setTimeout(function () {
@@ -30212,11 +30227,11 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
                 }, 300);
             });
         },
-        refreshPlugins: function refreshPlugins(context) {
-            Object(__WEBPACK_IMPORTED_MODULE_3__http__["e" /* getPackages */])().then(function (response) {
+        refreshPackages: function refreshPackages(context) {
+            Object(__WEBPACK_IMPORTED_MODULE_3__http__["g" /* getPackages */])().then(function (response) {
                 console.log(response);
 
-                context.state.plugins = Array.isArray(response.data) ? reducePackage(response.data) : {};
+                context.state.plugins = Array.isArray(response.data) ? reducePackages(response.data) : {};
             }).catch(function (error) {
                 console.log(error);
 
@@ -32197,7 +32212,7 @@ var baseUrl = adminUrl.replace(/\/admin$/, '');
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: '\n        <div>\n            <section class="hero is-info is-bold">\n                <div class="hero-body">\n                    <div class="container">\n                        <admin-navbar></admin-navbar>\n                    </div>\n                </div>\n            </section>\n            <section class="section is-paddingless">\n                <div class="container">\n                    <admin-notifications></admin-notifications>\n                    <router-view></router-view>\n                </div>\n            </section>\n            <!--<admin-footer></admin-footer>-->\n        </div>\n    ',
+    template: '\n        <div>\n            <admin-notifications></admin-notifications>\n            \n            <section class="hero is-info is-bold">\n                <div class="hero-body">\n                    <div class="container">\n                        <admin-navbar></admin-navbar>\n                    </div>\n                </div>\n            </section>\n            <section class="section is-paddingless">\n                <div class="container">\n                    <router-view></router-view>\n                </div>\n            </section>\n            <!--<admin-footer></admin-footer>-->\n        </div>\n    ',
     components: {
         'admin-navbar': __WEBPACK_IMPORTED_MODULE_0__Navbar__["a" /* default */],
         'admin-footer': __WEBPACK_IMPORTED_MODULE_1__Footer__["a" /* default */],
@@ -32242,7 +32257,7 @@ var NavLink = {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: '\n        <div class="columns">\n            <div class="column"></div>\n            <div class="column" :style="marginStyle">\n                <div v-for="notification in notifications" :class="{\'notification\': true, [notification.type]: true}">\n                    {{ notification.message }}\n                </div>\n            </div>\n            <div class="column"></div>\n        </div>\n    ',
+    template: '\n        <div class="notification-overlay">\n            <div v-for="notification in notifications" :class="{\'notification notification-fixed\': true, [notification.type]: true}">\n                {{ notification.message }} \n            </div>\n        </div>\n    ',
     computed: {
         notifications: function notifications() {
             return this.$store.state.notifications;
@@ -32268,7 +32283,7 @@ var NavLink = {
 
 
 var DashboardPage = {
-    template: '\n\t\t<wpls-page title="Dashboard">\n\t\t\t<h4 class="title is-4">\n\t\t\t\tActivations from\n\t\t\t\t<input type="date" class="input is-inline" v-model="dateFrom" :max="dateUntil" :disabled="loading" @input="fetchActivationsCallback"/>\n\t\t\t\tuntil\n\t\t\t\t<input type="date" class="input is-inline" v-model="dateUntil" :min="dateFrom" :disabled="loading" @input="fetchActivationsCallback"/>\n\t\t\t</h4>\n\t\t\t<h3 class="subtitle is-3 has-text-centered" v-if="loading">Loading Activations...</h3>\n\t\t\t<activations-table :activations="activations" v-else></activations-table>\n\t\t</wpls-page>\n\t',
+    template: '\n        <wpls-page title="Dashboard">\n            <div class="level">\n\t\t\t\t<div class="level-left">\n\t\t\t\t\t<div class="level-item">\n\t\t\t\t\t\t<div class="field">\n\t\t\t\t\t\t\t<label class="label">\n\t\t\t\t\t\t\t\tFrom\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t<input type="date" class="input" v-model="dateFrom" :max="dateUntil" :disabled="loading" @input="fetchActivationsCallback"/>\n\t\t\t\t\t\t</div>\n                    </div>\n                    <div class="level-item">\n\t\t\t\t\t\t<div class="field">\n\t\t\t\t\t\t\t<label class="label">\n\t\t\t\t\t\t\t\tUntil\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t<input type="date" class="input" v-model="dateUntil" :min="dateFrom" :disabled="loading" @input="fetchActivationsCallback"/>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<h3 class="subtitle is-3 has-text-centered" v-if="loading">Loading Activations...</h3>\n\t\t\t<activations-table :activations="activations" v-else></activations-table>\n\t\t</wpls-page>\n\t',
     data: function data() {
         var then = new Date(Date.now() - 1000 * 60 * 60 * 24 * 30);
         var now = new Date();
@@ -32299,7 +32314,7 @@ var DashboardPage = {
 
             this.loading = true;
 
-            Object(__WEBPACK_IMPORTED_MODULE_0__http__["b" /* getActivations */])(this.dateFrom, this.dateUntil).then(function (response) {
+            Object(__WEBPACK_IMPORTED_MODULE_0__http__["d" /* getActivations */])(this.dateFrom, this.dateUntil).then(function (response) {
                 console.log(response);
                 _this.loading = false;
 
@@ -32414,7 +32429,7 @@ var LicensesPage = {
 
             this.loading = true;
 
-            Object(__WEBPACK_IMPORTED_MODULE_0__http__["d" /* getLicenses */])(this.limit, this.search).then(function (response) {
+            Object(__WEBPACK_IMPORTED_MODULE_0__http__["f" /* getLicenses */])(this.limit, this.search).then(function (response) {
                 console.log(response);
                 _this.loading = false;
 
@@ -32512,6 +32527,12 @@ var NewLicensePopup = {
         _this.customer = '';
         _this.slug = '';
 
+        _this.$store.dispatch('pushNotification', {
+          message: 'License was successfully created.',
+          type: 'is-success',
+          duration: 2000
+        });
+
         _this.$emit('success');
       }).catch(function (error) {
         console.log(error);
@@ -32522,6 +32543,8 @@ var NewLicensePopup = {
           type: 'is-danger',
           duration: 2000
         });
+
+        _this.$emit('success');
       });
     },
     generateLicense: function generateLicense() {
@@ -35634,7 +35657,7 @@ module.exports.makeKey = makeKey
 /* 172 */
 /***/ (function(module, exports) {
 
-module.exports = {"_from":"elliptic@^6.0.0","_id":"elliptic@6.4.0","_inBundle":false,"_integrity":"sha1-ysmvh2LIWDYYcAPI3+GT5eLq5d8=","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"elliptic@^6.0.0","name":"elliptic","escapedName":"elliptic","rawSpec":"^6.0.0","saveSpec":null,"fetchSpec":"^6.0.0"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz","_shasum":"cac9af8762c85836187003c8dfe193e5e2eae5df","_spec":"elliptic@^6.0.0","_where":"C:\\Bitnami\\wampstack-7.1.13-0\\apache2\\htdocs\\wpls\\system\\node_modules\\browserify-sign","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"bundleDependencies":false,"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"deprecated":false,"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.0"}
+module.exports = {"_args":[["elliptic@6.4.0","/Users/Lukas/Projects/wpls/system"]],"_development":true,"_from":"elliptic@6.4.0","_id":"elliptic@6.4.0","_inBundle":false,"_integrity":"sha1-ysmvh2LIWDYYcAPI3+GT5eLq5d8=","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.4.0","name":"elliptic","escapedName":"elliptic","rawSpec":"6.4.0","saveSpec":null,"fetchSpec":"6.4.0"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz","_spec":"6.4.0","_where":"/Users/Lukas/Projects/wpls/system","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.0"}
 
 /***/ }),
 /* 173 */
@@ -42210,16 +42233,28 @@ var InvalidatePopup = {
         _this.customer = '';
         _this.slug = '';
 
+        _this.$store.dispatch('pushNotification', {
+          message: 'Purchase Code was successfully invalidated.',
+          type: 'is-success',
+          duration: 2000
+        });
+
         _this.$emit('success');
       }).catch(function (error) {
         console.log(error);
         _this.loading = false;
 
+        var errorMessage = 'An unknown error occurred.';
+
+        if (error.response.data.error) errorMessage = error.response.data.error.message;
+
         _this.$store.dispatch('pushNotification', {
-          message: 'Unknown Error.',
+          message: errorMessage,
           type: 'is-danger',
           duration: 2000
         });
+
+        _this.$emit('success');
       });
     }
   },
@@ -42354,7 +42389,7 @@ var LicenseActionButton = {
 
             this.loading = true;
 
-            Object(__WEBPACK_IMPORTED_MODULE_0__http__["f" /* postLicenseAction */])(this.licenseKey, this.action).then(function (response) {
+            Object(__WEBPACK_IMPORTED_MODULE_0__http__["h" /* postLicenseAction */])(this.licenseKey, this.action).then(function (response) {
                 console.log(response);
                 _this.loading = false;
 
@@ -42413,13 +42448,19 @@ var LicensePopup = {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_plugin__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_add_package_modal__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_update_package_modal__ = __webpack_require__(246);
+
+
 
 
 var PluginsPage = {
-    template: '\n        <wpls-page title="Packages">\n            <template slot="level-right">\n                <div class="level-item"><a class="button is-info" @click="toggleAddModal">Add New Plugin</a></div>\n            </template>\n\n            <plugin v-for="plugin in plugins" :plugin="plugin"></plugin>\n\n            <div :class="{\'modal\': true, \'is-active\': addModalVisible}">\n                <div class="modal-background" @click="toggleAddModal"></div>\n                <div class="modal-content">\n                    <div class="card">\n                        <div class="card-content">\n                            <div class="content">\n                                <h2>Adding new Plugins</h2>\n                                <p>\n                                    To add your plugin to the license server, upload the .zip file \n                                    with the plugin inside into the <strong><i>data/packages</i></strong> folder.<br>\n                                    If you reload the plugins now, you should see the plugin showing up.                            \n                                </p>\n                                <p>\n                                    If you only use the internal Database License Verification, then you\'re good to go.<br>\n                                    However, if you want to use the Envato API Verification, you\'ll need to add the Envato Item ID to it.\n                                    Once that is completed and saved, you\'ll now be able to verify your items purchases.\n                                </p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <button aria-label="close" class="modal-close is-large" @click="toggleAddModal"></button>\n            </div>\n        </wpls-page>\n    ',
+    template: '\n        <wpls-page title="Packages">\n            <template slot="level-right">\n                <div class="level-item"><a class="button is-info" @click="toggleAddModal">Add New Package</a></div>\n            </template>\n\n            <plugin v-for="plugin in plugins" :plugin="plugin" @updatePackage="updatePackage"></plugin>\n            <add-package-modal :visible="addModalVisible" @toggle="toggleAddModal"></add-package-modal>\n            <update-package-modal :visible="updateModalVisible" :package="updateModalPackage" @toggle="toggleUpdateModal"></update-package-modal>\n        </wpls-page>\n    ',
     data: function data() {
         return {
-            addModalVisible: false
+            addModalVisible: false,
+            updateModalVisible: false,
+            updateModalPackage: null
         };
     },
 
@@ -42429,11 +42470,21 @@ var PluginsPage = {
         }
     },
     components: {
-        'plugin': __WEBPACK_IMPORTED_MODULE_0__components_plugin__["a" /* default */]
+        'plugin': __WEBPACK_IMPORTED_MODULE_0__components_plugin__["a" /* default */],
+        'add-package-modal': __WEBPACK_IMPORTED_MODULE_1__components_add_package_modal__["a" /* default */],
+        'update-package-modal': __WEBPACK_IMPORTED_MODULE_2__components_update_package_modal__["a" /* default */]
     },
     methods: {
         toggleAddModal: function toggleAddModal() {
             this.addModalVisible = !this.addModalVisible;
+        },
+        toggleUpdateModal: function toggleUpdateModal() {
+            this.updateModalVisible = !this.updateModalVisible;
+            this.updateModalPackage = null;
+        },
+        updatePackage: function updatePackage(packageSlug) {
+            this.updateModalVisible = true;
+            this.updateModalPackage = packageSlug;
         }
     }
 };
@@ -42447,15 +42498,47 @@ var PluginsPage = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__item_id_form__ = __webpack_require__(224);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__verification_test_form__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__http__ = __webpack_require__(10);
+
+
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: '\n        <div class="notification">\n            <div class="level">\n                <div class="level-left">\n                    <div class="level-item">\n                        <h5 class="title is-5">{{ plugin.name }} ({{ plugin.version }})</h5>\n                    </div>\n                    <div class="level-item">\n                        <h6 class="subtitle is-6">{{ plugin.slug }}</h6>\n                    </div>\n                </div>\n            </div>\n\n            <div class="level">\n                <item-id-form :item-id="plugin.envato_item_id" :slug="plugin.slug"></item-id-form>\n                <verification-test-form :slug="plugin.slug"></verification-test-form>\n            </div>\n        </div>\n    ',
+    template: '\n        <div class="notification">\n            <div class="level">\n                <div class="level-left">\n                    <div class="level-item">\n                        <h5 class="title is-5">{{ plugin.name }} ({{ plugin.version }})</h5>\n                    </div>\n                    <div class="level-item">\n                        <h6 class="subtitle is-6">{{ plugin.slug }}</h6>\n                    </div>\n                </div>\n                <div class="level-right">\n                    <div class="level-item">\n                        <button class="button is-inverted is-small" @click="$emit(\'updatePackage\', plugin)">Update Package</button>\n                    </div>\n                    <div class="level-item">\n                        <button class="button is-inverted is-small" @click="deletePackage">Delete Package</button>\n                    </div>\n                </div>\n            </div>\n\n            <div class="level">\n                <item-id-form :item-id="plugin.envato_item_id" :slug="plugin.slug"></item-id-form>\n                <verification-test-form :slug= "plugin.slug"></verification-test-form>\n            </div>\n        </div>\n    ',
     props: ['plugin'],
     components: {
         'item-id-form': __WEBPACK_IMPORTED_MODULE_0__item_id_form__["a" /* default */],
         'verification-test-form': __WEBPACK_IMPORTED_MODULE_1__verification_test_form__["a" /* default */]
+    },
+    methods: {
+        deletePackage: function deletePackage() {
+            var _this = this;
+
+            var shouldDelete = confirm('Do you really want to delete that package? This will delete any licenses and activations linked to that package!');
+
+            if (shouldDelete) Object(__WEBPACK_IMPORTED_MODULE_2__http__["c" /* deletePackage */])(this.plugin.slug).then(function (response) {
+                console.log(response);
+
+                _this.$store.dispatch('refreshPackages');
+                _this.$store.dispatch('pushNotification', {
+                    message: 'Successfully deleted package.',
+                    type: 'is-success',
+                    duration: 2000
+                });
+            }).catch(function (error) {
+                console.log(error);
+                var errorMessage = 'An unknown error occurred.';
+
+                if (error.response.data.error) errorMessage = error.response.data.error.message;
+
+                _this.$store.dispatch('pushNotification', {
+                    message: errorMessage,
+                    type: 'is-danger',
+                    duration: 2000
+                });
+            });
+        }
     }
 });
 
@@ -42465,7 +42548,7 @@ var PluginsPage = {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: '\n        <div class="level-right">\n            <div class="level-item">\n                <input class="input" type="text" placeholder="Envato Item ID" v-model="item" :disabled="loading" />\n            </div>\n            <div class="level-item">\n                <button :class="{\'button\': true, \'is-infso\': true, \'is-loading\': loading}" :disabled="loading" @click="save">\n                    Save Item ID\n                </button>\n            </div>\n        </div>\n    ',
+    template: '\n        <div class="level-right">\n            <div class="level-item">\n                <input class="input" type="number" placeholder="Envato Item ID" v-model="item" :disabled="loading" />\n            </div>\n            <div class="level-item">\n                <button :class="{\'button\': true, \'is-infso\': true, \'is-loading\': loading}" :disabled="loading" @click="save">\n                    Save Item ID\n                </button>\n            </div>\n        </div>\n    ',
     props: ['item-id', 'slug'],
     data: function data(props) {
         return {
@@ -42512,7 +42595,7 @@ var PluginsPage = {
 
             this.loading = true;
 
-            Object(__WEBPACK_IMPORTED_MODULE_0__http__["h" /* testLicense */])(this.license, this.slug).then(function (response) {
+            Object(__WEBPACK_IMPORTED_MODULE_0__http__["j" /* testLicense */])(this.license, this.slug).then(function (response) {
                 console.log(response);
                 _this.loading = false;
 
@@ -42778,7 +42861,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
                             _context.prev = 1;
                             _context.next = 4;
-                            return Object(__WEBPACK_IMPORTED_MODULE_1__http__["c" /* getAnnouncement */])(this.$route.params.id);
+                            return Object(__WEBPACK_IMPORTED_MODULE_1__http__["e" /* getAnnouncement */])(this.$route.params.id);
 
                         case 4:
                             this.announcement = _context.sent;
@@ -43692,6 +43775,136 @@ if (hadRuntime) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__http__ = __webpack_require__(10);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    template: '\n        <div v-if="visible" :class="{\'modal\': true, \'is-active\': visible}">\n            <div class="modal-background" @click="toggleModal"></div>\n            <div class="modal-content">\n                <div class="card">\n                    <div class="card-content">\n                        <div class="content">\n                            <h2>Add new Package</h2>\n                            <form @submit.prevent="addPackage">\n                                <div class="field">\n                                    <label class="label">Package Slug</label>\n                                    <input class="input" type="text" placeholder="e.g. my-plugin-slug" required v-model="slug" :disabled="loading" />\n                                </div>\n\n                                <div class="field">\n                                    <label class="label">Package .zip File</label>\n                                    <div class="file has-name">\n                                        <label class="file-label">\n                                            <input class="file-input" type="file" v-on:change="handlePackageUpload" :disabled="loading" accept=".zip" required>\n                                            <span class="file-cta">\n                                                <span class="file-icon">\n                                                    <i class="fas fa-upload"></i>\n                                                </span>\n                                                <span class="file-label">\n                                                    Choose a .zip file\u2026\n                                                </span>\n                                            </span>\n                                            <span class="file-name">\n                                                {{ package.name ? package.name : \'No file selected\' }}\n                                            </span>\n                                        </label>\n                                    </div>\n                                </div>\n\n                                <div class="level">\n                                    <div class="level-left"></div>\n                                    <div class="level-right">\n                                        <div class="level-item">\n                                            <button :class="{\'button is-info\': true, \'is-loading\': loading}" type="submit" :disabled="loading">Add Package</button>\n                                        </div>\n                                    </div>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <button aria-label="close" class="modal-close is-large" @click="toggleModal"></button>\n        </div>\n    ',
+    props: ['visible'],
+    data: function data() {
+        return {
+            loading: false,
+            slug: '',
+            package: ''
+        };
+    },
+    methods: {
+        toggleModal: function toggleModal() {
+            this.$emit('toggle');
+        },
+        addPackage: function addPackage() {
+            var _this = this;
+
+            this.loading = true;
+            var formData = new FormData();
+
+            formData.append('package', this.package);
+            formData.append('slug', this.slug);
+
+            Object(__WEBPACK_IMPORTED_MODULE_0__http__["b" /* addPackage */])(formData).then(function (response) {
+                console.log(response);
+                _this.loading = false;
+
+                _this.$store.dispatch('refreshPackages');
+                _this.$store.dispatch('pushNotification', {
+                    message: 'Successfully added package.',
+                    type: 'is-success',
+                    duration: 2000
+                });
+                _this.toggleModal();
+            }).catch(function (error) {
+                console.log(error);
+                _this.loading = false;
+
+                var errorMessage = 'An unknown error occurred.';
+
+                if (error.response.data.error) errorMessage = error.response.data.error.message;
+
+                _this.$store.dispatch('pushNotification', {
+                    message: errorMessage,
+                    type: 'is-danger',
+                    duration: 2000
+                });
+                _this.toggleModal();
+            });
+        },
+        handlePackageUpload: function handlePackageUpload(e) {
+            this.package = e.target.files[0];
+        }
+    }
+});
+
+/***/ }),
+/* 246 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__http__ = __webpack_require__(10);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    template: '\n        <div v-if="visible && package" :class="{\'modal\': true, \'is-active\': visible}">\n            <div class="modal-background" @click="toggleModal"></div>\n            <div class="modal-content">\n                <div class="card">\n                    <div class="card-content">\n                        <div class="content">\n                            <h2>Update <i>{{ package.name }}</i></h2>\n                            <form @submit.prevent="updatePackage">\n                                <div class="field">\n                                    <label class="label">Package .zip File</label>\n                                    <div class="file has-name">\n                                        <label class="file-label">\n                                            <input class="file-input" type="file" v-on:change="handlePackageUpload" :disabled="loading" accept=".zip" required>\n                                            <span class="file-cta">\n                                                <span class="file-icon">\n                                                    <i class="fas fa-upload"></i>\n                                                </span>\n                                                <span class="file-label">\n                                                    Choose a .zip file\u2026\n                                                </span>\n                                            </span>\n                                            <span class="file-name">\n                                                {{ packageFile.name ? packageFile.name : \'No file selected\' }}\n                                            </span>\n                                        </label>\n                                    </div>\n                                </div>\n\n                                <div class="level">\n                                    <div class="level-left"></div>\n                                    <div class="level-right">\n                                        <div class="level-item">\n                                            <button :class="{\'button is-info\': true, \'is-loading\': loading}" type="submit" :disabled="loading">Update Package</button>\n                                        </div>\n                                    </div>\n                                </div>\n                            </form>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <button aria-label="close" class="modal-close is-large" @click="toggleModal"></button>\n        </div>\n    ',
+    props: ['visible', 'package'],
+    data: function data() {
+        return {
+            loading: false,
+            packageFile: ''
+        };
+    },
+    methods: {
+        toggleModal: function toggleModal() {
+            this.$emit('toggle');
+        },
+        updatePackage: function updatePackage() {
+            var _this = this;
+
+            this.loading = true;
+            var formData = new FormData();
+
+            formData.append('package', this.packageFile);
+
+            Object(__WEBPACK_IMPORTED_MODULE_0__http__["l" /* updatePackage */])(this.package.slug, formData).then(function (response) {
+                console.log(response);
+                _this.loading = false;
+
+                _this.$store.dispatch('refreshPackages');
+                _this.$store.dispatch('pushNotification', {
+                    message: 'Successfully updated package.',
+                    type: 'is-success',
+                    duration: 2000
+                });
+                _this.toggleModal();
+            }).catch(function (error) {
+                console.log(error);
+                _this.loading = false;
+
+                var errorMessage = 'An unknown error occurred.';
+
+                if (error.response.data.error) errorMessage = error.response.data.error.message;
+
+                _this.$store.dispatch('pushNotification', {
+                    message: errorMessage,
+                    type: 'is-danger',
+                    duration: 2000
+                });
+                _this.toggleModal();
+            });
+        },
+        handlePackageUpload: function handlePackageUpload(e) {
+            this.packageFile = e.target.files[0];
+        }
+    }
+});
 
 /***/ })
 /******/ ]);
