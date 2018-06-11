@@ -12,7 +12,7 @@ let path = require('path');
  |
  */
 
-mix.setPublicPath('..\\public');
+mix.setPublicPath('../public');
 mix.options({ imgLoaderOptions: { enabled: false } })
     .js('resources/assets/js/index.js', 'js')
    .sass('resources/assets/sass/index.scss', '../public/css');

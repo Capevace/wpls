@@ -19,8 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
 	Route::get('/packages/{package}/metadata', 'PackageController@getMetadata');
-	Route::get('/packages/{package}/download', 'PackageController@download');
+	Route::get('/packages/{package}/download', 'PackageController@download')->name('package.download');
 
-	Route::post('/activate', 'ActivationController@activate');
-	Route::post('/deactivate', 'ActivationController@deactivate');
+	Route::post('/license/activate', 'ActivationController@activate');
+	Route::post('/license/deactivate', 'ActivationController@deactivate');
+	Route::post('/activation/{activation}/deactivate', 'ActivationController@deactivateActivation');
 });

@@ -36,6 +36,18 @@ export function getAnnouncement(id) {
     });
 };
 
+export function addPackage(packageData) {
+	return post(`${apiUrl}/packages`, packageData);
+};
+
+export function updatePackage(packageSlug, packageData) {
+	return post(`${apiUrl}/packages/${packageSlug}/update`, packageData);
+};
+
+export function deletePackage(packageSlug) {
+	return post(`${apiUrl}/packages/${packageSlug}/delete`);
+};
+
 export function getPackages() {
 	return get(`${apiUrl}/packages`);
 };

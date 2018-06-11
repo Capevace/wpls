@@ -36,7 +36,7 @@ class LicenseActivationTest extends TestCase
     		'supported_until' => Carbon::tomorrow()
     	]);
 
-    	$response = $this->json('POST', '/api/v1/activate', [
+    	$response = $this->json('POST', '/api/v1/license/activate', [
     		'license' => $validLicense->license_key,
     		'slug'    => $this->package->slug,
     		'site'    => 'somesite.com'
@@ -46,7 +46,7 @@ class LicenseActivationTest extends TestCase
             ->assertStatus(200)
             ->assertJsonMissing(['error'])
             ->assertJsonStructure([
-                'activation',
+                'activation_id',
                 'message'
             ])
             ->assertJson(['activated' => true]);
@@ -65,7 +65,7 @@ class LicenseActivationTest extends TestCase
         ]);
         $purchaseCode = env('ENVATO_TEST_PURCHASE_CODE');
 
-        $response = $this->json('POST', '/api/v1/activate', [
+        $response = $this->json('POST', '/api/v1/license/activate', [
             'license' => $purchaseCode,
             'slug'    => $envatoPackage->slug,
             'site'    => 'somesite.com'
@@ -75,7 +75,7 @@ class LicenseActivationTest extends TestCase
             ->assertStatus(200)
             ->assertJsonMissing(['error'])
             ->assertJsonStructure([
-                'activation',
+                'activation_id',
                 'message'
             ])
             ->assertJson(['activated' => true]);
@@ -94,7 +94,7 @@ class LicenseActivationTest extends TestCase
             'supported_until' => Carbon::yesterday()
         ]);
 
-        $response = $this->json('POST', '/api/v1/activate', [
+        $response = $this->json('POST', '/api/v1/license/activate', [
             'license' => $expiredLicense->license_key,
             'slug'    => $this->package->slug,
             'site'    => 'somesite.com'
@@ -117,7 +117,7 @@ class LicenseActivationTest extends TestCase
      */
     public function testActivateInvalidLicense()
     {   
-        $response = $this->json('POST', '/api/v1/activate', [
+        $response = $this->json('POST', '/api/v1/license/activate', [
             'license' => 'invalid-license',
             'slug'    => $this->package->slug,
             'site'    => 'somesite.com'
@@ -146,7 +146,7 @@ class LicenseActivationTest extends TestCase
         ]);
 
         // Test with valid license
-        $response = $this->json('POST', '/api/v1/activate', [
+        $response = $this->json('POST', '/api/v1/license/activate', [
             'license' => $validLicense->license_key,
             'slug'    => 'unknown-package',
             'site'    => 'somesite.com'
@@ -169,7 +169,7 @@ class LicenseActivationTest extends TestCase
      */
     public function testActivateInvalidLicenseWithUnknownPackage()
     {
-        $response = $this->json('POST', '/api/v1/activate', [
+        $response = $this->json('POST', '/api/v1/license/activate', [
             'license' => 'random-invalid-license-key',
             'slug'    => 'unknown-package',
             'site'    => 'somesite.com'
@@ -196,7 +196,7 @@ class LicenseActivationTest extends TestCase
             'supported_until' => Carbon::tomorrow()
         ]);
 
-        $response = $this->json('POST', '/api/v1/activate', [
+        $response = $this->json('POST', '/api/v1/license/activate', [
             'license' => $validLicense->license_key,
             'slug'    => $this->package->slug,
             'site'    => 'somesite.com'
@@ -210,7 +210,7 @@ class LicenseActivationTest extends TestCase
             ]);
 
         // Activating License again from different site should lead to it being rejected
-        $response2 = $this->json('POST', '/api/v1/activate', [
+        $response2 = $this->json('POST', '/api/v1/license/activate', [
             'license' => $validLicense->license_key,
             'slug'    => $this->package->slug,
             'site'    => 'differentsite.com'
@@ -237,7 +237,7 @@ class LicenseActivationTest extends TestCase
             'supported_until' => Carbon::tomorrow()
         ]);
 
-        $response = $this->json('POST', '/api/v1/activate', [
+        $response = $this->json('POST', '/api/v1/license/activate', [
             'license' => $validLicense->license_key,
             'slug'    => $this->package->slug,
             'site'    => 'somesite.com'
@@ -251,7 +251,7 @@ class LicenseActivationTest extends TestCase
             ]);
 
         // Activating License again from same site should lead to it being accepted and 'activated' (in truth, just return that it already is activated)
-        $response2 = $this->json('POST', '/api/v1/activate', [
+        $response2 = $this->json('POST', '/api/v1/license/activate', [
             'license' => $validLicense->license_key,
             'slug'    => $this->package->slug,
             'site'    => 'somesite.com'
@@ -261,7 +261,7 @@ class LicenseActivationTest extends TestCase
             ->assertStatus(200)
             ->assertJsonMissing(['error'])
             ->assertJsonStructure([
-                'activation',
+                'activation_id',
                 'message'
             ])
             ->assertJson(['activated' => true]);

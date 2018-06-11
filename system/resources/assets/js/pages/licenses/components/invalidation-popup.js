@@ -93,17 +93,30 @@ const InvalidatePopup = {
                     this.customer = '';
                     this.slug = '';
 
+                    this.$store.dispatch('pushNotification', {
+                        message: 'Purchase Code was successfully invalidated.',
+                        type: 'is-success',
+                        duration: 2000
+                    });
+
                     this.$emit('success');
                 })
                 .catch(error => {
                     console.log(error);
                     this.loading = false;
 
+                    let errorMessage = 'An unknown error occurred.';
+
+                    if (error.response.data.error)
+                        errorMessage = error.response.data.error.message;
+
                     this.$store.dispatch('pushNotification', {
-                        message: 'Unknown Error.',
+                        message: errorMessage,
                         type: 'is-danger',
                         duration: 2000
                     });
+
+                    this.$emit('success');
                 });
         }
     },

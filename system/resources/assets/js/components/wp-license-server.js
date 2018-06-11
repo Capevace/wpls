@@ -5,6 +5,8 @@ import Notifications from './notification-overlay';
 export default {
     template: `
         <div>
+            <admin-notifications></admin-notifications>
+            
             <section class="hero is-info is-bold">
                 <div class="hero-body">
                     <div class="container">
@@ -14,7 +16,6 @@ export default {
             </section>
             <section class="section is-paddingless">
                 <div class="container">
-                    <admin-notifications></admin-notifications>
                     <router-view></router-view>
                 </div>
             </section>

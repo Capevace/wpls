@@ -1,13 +1,9 @@
 export default {
     template: `
-        <div class="columns">
-            <div class="column"></div>
-            <div class="column" :style="marginStyle">
-                <div v-for="notification in notifications" :class="{'notification': true, [notification.type]: true}">
-                    {{ notification.message }}
-                </div>
+        <div class="notification-overlay">
+            <div v-for="notification in notifications" :class="{'notification notification-fixed': true, [notification.type]: true}">
+                {{ notification.message }} 
             </div>
-            <div class="column"></div>
         </div>
     `,
     computed: {

@@ -11,10 +11,8 @@ class PackageParser
 {
 	public function parsePackageMetadata(Package $package)
 	{
-		$filePath = sprintf('%s/%s.zip', $package->slug, $package->slug);
-
-		$packageZipFilePath = Storage::disk('packages')->path($filePath);
-		$parsedMetadata = Parser::parse($packageZipFilePath);
+		$packageZipFilePath = $package->storagePath();
+		$parsedMetadata     = Parser::parse($packageZipFilePath);
 
 		if ($parsedMetadata === false) {
 			throw new Exception(sprintf('The Package archive file "%s" could not be parsed for metadata.', $packageZipFilePath));
@@ -24,8 +22,12 @@ class PackageParser
 		$header   = $parsedMetadata['header'];
 		$readme   = $parsedMetadata['readme'];
 
-		if ($header['Version']) {
+		if (!array_key_exists('Version', $header)) {
 			throw new Exception('The Package metadata did not supply a package version. This is required.');
+		}
+
+		if (!array_key_exists('Name', $header)) {
+			throw new Exception('The Package metadata did not supply a package name. This is required.');
 		}
 
 		$homepageUrl = $isPlugin ? $header['PluginURI'] : $header['ThemeURI']; // PluginURI/ThemeURI

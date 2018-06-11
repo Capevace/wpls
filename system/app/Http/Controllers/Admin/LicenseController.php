@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Exceptions\Api\LicenseAlreadyExistsException;
 use App\Service\LicenseVerification;
 use App\License;
 use App\Package;
@@ -60,6 +61,14 @@ class LicenseController extends Controller
         $package = Package::where('slug', '=', $validatedData['slug'])
             ->firstOrFail();
         
+        $previousLicense = License::where('package_id', '=', $package->id)
+            ->where('license_key', '=', $validatedData['license'])
+            ->first();
+
+        if ($previousLicense) {
+            throw new LicenseAlreadyExistsException;
+        }
+
         $license                   = new License;
         $license->license_key      = $validatedData['license'];
         $license->supported_until  = $validatedData['supportedUntil'];

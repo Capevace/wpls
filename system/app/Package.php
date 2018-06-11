@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Storage;
 
 class Package extends Model
 {
@@ -63,5 +64,25 @@ class Package extends Model
     public function licenses()
     {
     	return $this->hasMany('App\License');
+    }
+
+    /**
+     * Get the path to the plugins zip file.
+     *
+     * @return string
+     */
+    public function storagePath()
+    {
+        return Storage::disk('packages')->path($this->fileName());
+    }
+
+    /**
+     * Get the path to the plugins zip filename.
+     *
+     * @return string
+     */
+    public function fileName()
+    {
+        return sprintf('%s.zip', $this->slug);
     }
 }

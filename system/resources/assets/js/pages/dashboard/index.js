@@ -5,13 +5,27 @@ import ActivationsTable from './components/activations-table';
 
 const DashboardPage = {
     template: `
-		<wpls-page title="Dashboard">
-			<h4 class="title is-4">
-				Activations from
-				<input type="date" class="input is-inline" v-model="dateFrom" :max="dateUntil" :disabled="loading" @input="fetchActivationsCallback"/>
-				until
-				<input type="date" class="input is-inline" v-model="dateUntil" :min="dateFrom" :disabled="loading" @input="fetchActivationsCallback"/>
-			</h4>
+        <wpls-page title="Dashboard">
+            <div class="level">
+				<div class="level-left">
+					<div class="level-item">
+						<div class="field">
+							<label class="label">
+								From
+							</label>
+							<input type="date" class="input" v-model="dateFrom" :max="dateUntil" :disabled="loading" @input="fetchActivationsCallback"/>
+						</div>
+                    </div>
+                    <div class="level-item">
+						<div class="field">
+							<label class="label">
+								Until
+							</label>
+							<input type="date" class="input" v-model="dateUntil" :min="dateFrom" :disabled="loading" @input="fetchActivationsCallback"/>
+						</div>
+					</div>
+				</div>
+			</div>
 			<h3 class="subtitle is-3 has-text-centered" v-if="loading">Loading Activations...</h3>
 			<activations-table :activations="activations" v-else></activations-table>
 		</wpls-page>

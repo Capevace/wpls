@@ -107,6 +107,12 @@ const NewLicensePopup = {
                     this.customer = '';
                     this.slug = '';
 
+                    this.$store.dispatch('pushNotification', {
+                        message: 'License was successfully created.',
+                        type: 'is-success',
+                        duration: 2000
+                    });
+
                     this.$emit('success');
                 })
                 .catch(error => {
@@ -118,6 +124,8 @@ const NewLicensePopup = {
                         type: 'is-danger',
                         duration: 2000
                     });
+
+                    this.$emit('success');
                 });
         },
         generateLicense() {

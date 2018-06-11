@@ -2,7 +2,7 @@ export default {
     template: `
         <div class="level-right">
             <div class="level-item">
-                <input class="input" type="text" placeholder="Envato Item ID" v-model="item" :disabled="loading" />
+                <input class="input" type="number" placeholder="Envato Item ID" v-model="item" :disabled="loading" />
             </div>
             <div class="level-item">
                 <button :class="{'button': true, 'is-infso': true, 'is-loading': loading}" :disabled="loading" @click="save">

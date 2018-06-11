@@ -128,13 +128,13 @@ const store = new Vuex.Store({
                     }, 300);
                 });
         },
-        refreshPlugins(context) {
+        refreshPackages(context) {
             getPackages()
                 .then(response => {
                     console.log(response);
                     
                     context.state.plugins = Array.isArray(response.data)
-                        ? reducePackage(response.data)
+                        ? reducePackages(response.data)
                         : {};
                 })
                 .catch(error => {

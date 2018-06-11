@@ -75,7 +75,7 @@ class ActivationController extends Controller
 
         return response()->json([
             'activated'  => true,
-            'activation' => $activation,
+            'activation_id' => $activation->id,
             'message'    => $message
         ]);
     }
@@ -107,6 +107,24 @@ class ActivationController extends Controller
             $verificationResult['site'],
             $verificationResult['siteMeta']
         );
+
+        return response()->json([
+            'deactivated' => true,
+            'message'     => 'The license was successfully deactivated.',
+        ]);
+    }
+
+    /**
+     * Handle a deactivation request.
+     * 
+     * This will delete a given LicenseActivation.
+     * 
+     * @param LicenseActivation $activation 
+     * @return \Illuminate\Http\Response
+     */
+    public function deactivateActivation(LicenseActivation $activation)
+    {
+        $activation->delete();
 
         return response()->json([
             'deactivated' => true,

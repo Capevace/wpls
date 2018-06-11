@@ -26,8 +26,11 @@ Route::middleware('auth')->group(function () {
 
 
 		Route::get('/packages', 'PackageController@all');
+		Route::post('/packages', 'PackageController@create');
 		Route::post('/packages/{package}/envato-item-id', 'PackageController@updateEnvatoItemId');
 		Route::post('/packages/{package}/test-license', 'PackageController@testLicense');
+		Route::post('/packages/{package}/update', 'PackageController@update');
+		Route::post('/packages/{package}/delete', 'PackageController@delete');
 
 		//Route::get('/sites');
 	});
