@@ -14,14 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function (Request $request) {
-	$action = $request->query('action');
-	if ($action === 'get_metadata') {
-		return redirect()->action('PackageController@getMetadata');
-	} else if ($action === 'download') {
-
-	} else if ($action === 'verify') {
-
-	}
+	return response()->json(['hello']);
 });
 
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
