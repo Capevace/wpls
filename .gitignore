@@ -1,2 +1,3 @@
 .DEV-MODE
 .env
+.env.testing

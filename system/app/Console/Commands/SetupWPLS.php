@@ -43,7 +43,7 @@ class SetupWPLS extends Command
         $this->comment('We will now setup the system for you.');
         $this->comment('You will need your MySQL credentials and an Envato API key.');
 
-        $dbHost = $this->anticipate('Enter MySQL Host (most likely localhost or 127.0.0.1)', ['localhost', '127.0.0.1']);
+        $dbHost = $this->anticipate('Enter MySQL Host (most likely 127.0.0.1)', ['127.0.0.1']);
         $dbPort = $this->anticipate('Enter MySQL Port (most likely 3306)', ['3306']);
         $dbName = $this->ask('Enter MySQL Database Name');
         $dbUser = $this->ask('Enter MySQL Username');
@@ -52,7 +52,7 @@ class SetupWPLS extends Command
         $url          = $this->ask('Enter the URL WPLS will be hosted on (e.g. http://wpls.com/path/to/wpls/');
         $envatoApiKey = $this->secret('Enter an Envato API Key (see documentation for help)');
 
-        $envContent = Storage::disk('local')->get('example.env');
+        $envContent = Storage::disk('defaults')->get('example.env');
 
         $envContent = str_replace('[DB_HOST]', $dbHost, $envContent);
         $envContent = str_replace('[DB_PORT]', $dbPort, $envContent);
