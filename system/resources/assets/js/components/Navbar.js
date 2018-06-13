@@ -33,7 +33,7 @@ export default {
 					<nav-link to="/settings" exact>Settings</nav-link>
 				</p>-->
 				<p class="level-item">
-					<a href="logout" class="button is-danger has-text-weight-bold">
+					<a href="logout" style="margin-left: 30px;" class="button is-danger is-inverted is-small has-text-weight-bold">
 						<span>Logout</span>
 						<span class="icon"><i class="fas fa-sign-out-alt"></i></span>
 					</a>

@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 // 	return response()->json(['hello']);
 // });
 
+Route::redirect('/', '/admin', 302);
+
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
