@@ -9,6 +9,17 @@ jobs:
       - image: circleci/php:7.1-apache-node
       - image: circleci/mysql:5.7
         environment:
+            - APP_NAME="WordPress License Server"
+            - APP_ENV=production
+            - APP_KEY=base64:B4Rt3hOfycCfbWoKqg7rLjbW/tsqxFGk6mpv/5FjevU=
+            - APP_DEBUG=false
+            - APP_URL=https://wpls.lab
+            - DB_CONNECTION=sqlite_testing
+            - DB_HOST=localhost
+            - DB_PORT=
+            - DB_DATABASE=circle_test
+            - DB_USERNAME=root
+            - DB_PASSWORD=
             - MYSQL_USER=root
             - MYSQL_PASSWORD=
             - MYSQL_ALLOW_EMPTY_PASSWORD=true
