@@ -13,7 +13,7 @@ class FinishWPLS extends Command
      *
      * @var string
      */
-    protected $signature = 'wpls:finish';
+    protected $signature = 'wpls:finish {--pretend}';
 
     /**
      * The console command description.
@@ -39,11 +39,13 @@ class FinishWPLS extends Command
      */
     public function handle()
     {
+        $shouldPretend = $this->option('pretend');
+
         $username = $this->ask('Enter your desired login username');
         $email    = $this->ask('Enter your support email');
         $password = $this->secret('Enter your desired password');
 
-        $this->call('migrate', ['--force' => true]);
+        $this->call('migrate', ['--force' => true, '--pretend' => $shouldPretend]);
 
         $user           = new User;
         $user->name     = 'Administrator';
