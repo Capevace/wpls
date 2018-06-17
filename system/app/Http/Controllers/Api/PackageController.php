@@ -41,14 +41,6 @@ class PackageController extends Controller
 	
 	public function download(Package $package)
 	{
-		// header('Content-Type: application/zip');
-		// header('Content-Disposition: attachment; filename="' . $package->slug . '.zip"');
-		// header('Content-Transfer-Encoding: binary');
-		// header('Content-Length: ' . $package->getFileSize());
-
-		return response()->download($package->storagePath(), $package->fileName()); /*[
-			'Content-Type' => 'application/zip',
-			'Content-Disposition' => 'attachment; filename="' . $package->slug . '.zip"'
-		]*/
+		return response()->download($package->storagePath(), $package->fileName());
 	}
 }
