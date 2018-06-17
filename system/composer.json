@@ -1,7 +1,6 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "smoolabs/wpls",
+    "description": "WordPress License Server",
     "license": "MIT",
     "type": "project",
     "require": {
