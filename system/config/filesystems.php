@@ -53,10 +53,10 @@ return [
             'root' => storage_path('defaults'),
         ],
 
-        'public' => [
+        'assets' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => storage_path('app/assets'),
+            'url' => env('APP_URL').'/assets',
             'visibility' => 'public',
         ],
 
@@ -64,16 +64,6 @@ return [
             'driver' => 'local',
             'root' => realpath(base_path() . '/../storage/packages'),
         ],
-
-        's3' => [
-            'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'url' => env('AWS_URL'),
-        ],
-
     ],
 
 ];
