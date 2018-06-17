@@ -39,12 +39,15 @@ class FinishWPLS extends Command
      */
     public function handle()
     {
+        // Pretend would mean that the database will not be migrated
         $shouldPretend = $this->option('pretend');
 
+        // Collect the user account details
         $username = $this->ask('Enter your desired login username');
         $email    = $this->ask('Enter your support email');
         $password = $this->secret('Enter your desired password');
 
+        // Migrate database, force flag is necessary because the APP_ENV is production
         $this->call('migrate', ['--force' => true, '--pretend' => $shouldPretend]);
 
         $user           = new User;
@@ -54,8 +57,10 @@ class FinishWPLS extends Command
         $user->password = Hash::make($password);
         $user->save();
 
+        // Cache config, route and views
         $this->call('config:cache');
         $this->call('route:cache');
+        $this->call('view:cache');
 
         $this->comment('');
         $this->comment('WPLS is setup! Head to /login to go to the admin interface!');

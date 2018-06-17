@@ -11,6 +11,11 @@ use Response;
 
 class WebController extends Controller
 {
+    /**
+     * Get the admin dashboard view.
+     *
+     * @return Illuminate\Http\Response
+     */
     public function index()
     {
         $packages = Package::all();
@@ -18,6 +23,11 @@ class WebController extends Controller
         return view('admin.index', ['packages' => $packages]);
     }
 
+    /**
+     * Get the scripts needed for the dashboard.
+     *
+     * @return Illuminate\Http\Response
+     */
     public function scripts()
     {
         $response = Response::make(Storage::disk('assets')->get('js/index.js'));
@@ -25,6 +35,11 @@ class WebController extends Controller
         return $response;
     }
 
+    /**
+     * Get the CSS for the dashboard.
+     *
+     * @return Illuminate\Http\Response
+     */
     public function css()
     {
         $response = Response::make(Storage::disk('assets')->get('css/index.css'));

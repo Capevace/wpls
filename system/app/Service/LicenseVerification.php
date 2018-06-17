@@ -168,7 +168,7 @@ class LicenseVerification
     }
 
     /**
-     * This methods checks if a site with a given url exists and then
+     * This methods checks if a site with a given url exists, fetches it or creates a new one.
      * @param string $siteUrl 
      * @param stdObject $siteMeta
      * @return App\Site

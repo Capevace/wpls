@@ -29,6 +29,12 @@ class LicenseController extends Controller
         $this->licenseVerification = $licenseVerification;
     }
 
+    /**
+     * Get all Licenses, filter them by a limit or a search string and return them as json.
+     *
+     * @param Request $request
+     * @return Illuminate\Http\Response
+     */
     public function all(Request $request)
     {
         $limit  = $request->query('limit', 100);
@@ -49,6 +55,12 @@ class LicenseController extends Controller
         return response()->json($licenses);
     }
 
+    /**
+     * Issues a new License for a given package and return it as json.
+     *
+     * @param Request $request
+     * @return Illuminate\Http\Response
+     */
     public function create(Request $request)
     {
         $validatedData = $request->validate([
@@ -86,6 +98,13 @@ class LicenseController extends Controller
         return response()->json($license);
     }
 
+    /**
+     * Invalidates a License by setting its supporting date back in time.
+     *
+     * @param Request $request
+     * @param License $license
+     * @return Illuminate\Http\Response
+     */
     public function invalidate(Request $request, License $license)
     {
         $license->supported_until = Carbon::yesterday();
@@ -94,6 +113,13 @@ class LicenseController extends Controller
         return response(200);
     }
 
+    /**
+     * Deletes a License from the Database.
+     *
+     * @param Request $request
+     * @param License $license
+     * @return Illuminate\Http\Response
+     */
     public function delete(Request $request, License $license)
     {
         $license->delete();

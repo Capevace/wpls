@@ -43,14 +43,23 @@ class UpdateWPLS extends Command
         $this->comment('Updating WPLS to ' . config('app.version') . '...');
         $this->comment('');
 
+        // Do changes for version 3.1.0
         $this->version310();
         
         $this->comment('');
         $this->comment('Successfully updated WPLS!');
     }
 
+    /**
+     * Applies changes needed after version 3.1.0
+     *
+     * @return void
+     */
     protected function version310()
     {
+        /*
+         * MOVE OLD PACKAGES TO NEW STORAGE FOLDER - START
+         */
         $newPackagesPath = Storage::disk('packages')->path('');
         $newStoragePath  = realpath(
             $newPackagesPath . '/../'
@@ -65,6 +74,7 @@ class UpdateWPLS extends Command
             File::makeDirectory($newPackagesPath, null, true);
         }
 
+        // Move all files to the new folder
         $files = Storage::allFiles('packages');
         if (count($files) > 0) {
             $this->comment('Moving packages from old storage path to new one...');
@@ -81,5 +91,8 @@ class UpdateWPLS extends Command
                 File::move($oldPath, $newPath);
             }
         }
+        /*
+         * MOVE OLD PACKAGES TO NEW STORAGE FOLDER - END
+         */
     }
 }

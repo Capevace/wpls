@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // This fixes some MySQL issues. Don't exactly know what it does... just don't touch it, okay?
         Schema::defaultStringLength(191);
     }
 
@@ -43,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Bind request to ActivationGuard Facade
         $this->app->bind('ActivationGuard', function () {
             $request = app(Request::class);
 

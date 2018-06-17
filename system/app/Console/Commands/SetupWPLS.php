@@ -43,17 +43,19 @@ class SetupWPLS extends Command
         $this->comment('We will now setup the system for you.');
         $this->comment('You will need your MySQL credentials and an Envato API key.');
 
+        // Collect env data
         $dbHost = $this->anticipate('Enter MySQL Host (most likely 127.0.0.1)', ['127.0.0.1']);
         $dbPort = $this->anticipate('Enter MySQL Port (most likely 3306)', ['3306']);
         $dbName = $this->ask('Enter MySQL Database Name');
         $dbUser = $this->ask('Enter MySQL Username');
         $dbPass = $this->secret('Enter MySQL Password');
-
-        $url          = $this->ask('Enter the URL WPLS will be hosted on (e.g. http://wpls.com/path/to/wpls/');
+        $url    = $this->ask('Enter the URL WPLS will be hosted on (e.g. http://wpls.com/path/to/wpls/');
         $envatoApiKey = $this->secret('Enter an Envato API Key (see documentation for help)');
 
+        // Get the example env
         $envContent = Storage::disk('defaults')->get('example.env');
 
+        // Replace all the placeholders
         $envContent = str_replace('[DB_HOST]', $dbHost, $envContent);
         $envContent = str_replace('[DB_PORT]', $dbPort, $envContent);
         $envContent = str_replace('[DB_DATABASE]', $dbName, $envContent);
@@ -63,6 +65,7 @@ class SetupWPLS extends Command
         $envContent = str_replace('[APP_URL]', $url, $envContent);
         $envContent = str_replace('[ENVATO_API_KEY]', $envatoApiKey, $envContent);
 
+        // Save the env in project root
         $path = realpath(base_path().'/..');
         file_put_contents($path.'/.env', $envContent);
 
@@ -72,6 +75,11 @@ class SetupWPLS extends Command
         $this->line('/path/to/php artisan wpls:finish');
     }
 
+    /**
+     * Generates an AES key to be used in the env file.
+     *
+     * @return string
+     */
     protected function generateAppKey()
     {
         return 'base64:'.base64_encode(

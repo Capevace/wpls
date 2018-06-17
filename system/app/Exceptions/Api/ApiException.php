@@ -4,6 +4,9 @@ namespace App\Exceptions\Api;
 
 use Exception;
 
+/**
+ * The base Exception class for the api. Returns exception data in json format.
+ */
 class ApiException extends Exception
 {
 	/**

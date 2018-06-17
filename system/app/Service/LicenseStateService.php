@@ -16,10 +16,10 @@ use App\Exceptions\Api\LicenseNotActivatedException;
 class LicenseStateService
 {
 	/**
-	 * This method activates a license and resaves new site metadata if given.
+     * This method activates a license for a given package and site.
 	 * 
-	 * The license for the given package will be activated and linked to the given site.
-	 * The metadata will be used to track WordPress usage etc...
+     * It creates a new App\LicenseActivation and will thus link License, Package and Site.
+     * The metadata that is passed contains information like WordPress Version etc.
 	 * 
 	 * It returns an array containing information 
 	 * wether the license was activated previously for that site, and the LicenseActivation object.
@@ -37,6 +37,7 @@ class LicenseStateService
             ->where('package_id', $package->id)
             ->get();
 
+        // Check if the previous activations with that license contain the site that is requesting the activation.
         $previousActivation = $previousActivations->where('site_id', $site->id)->first();
 
         // If the site requesting activation was activated before, just return true anyway.
@@ -75,7 +76,7 @@ class LicenseStateService
 
 
     /**
-     * Deactivate a license for a package, linked to a site.
+     * Deactivate a LicenseActivation with the given License, Package and Site.
      * 
      * @param App\License $license 
      * @param App\Package $package 
@@ -85,15 +86,18 @@ class LicenseStateService
      */
     public function deactivateOrFail(License $license, Package $package, Site $site, $siteMeta)
     {
+        // Try and find the LicenseActivation
         $activation = LicenseActivation::where('license_id', $license->id)
             ->where('package_id', $package->id)
             ->where('site_id', $site->id)
             ->first();
 
+        // If it doesn't exist, we throw
         if ($activation === null) {
             throw new LicenseNotActivatedException;
         }
 
+        // Just delete it. Maybe soft deletes in the future for better tracking...
         $activation->delete();
     }
 }

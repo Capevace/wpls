@@ -10,6 +10,12 @@ use Carbon\Carbon;
 
 class ActivationController extends Controller
 {
+    /**
+     * Get all LicenseActivations, filter them by date and return them as json.
+     *
+     * @param Request $request
+     * @return Illuminate\Http\Response
+     */
     public function all(Request $request)
     {
         $validatedData = $request->validate([

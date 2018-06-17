@@ -31,6 +31,11 @@ class PackageController extends Controller
         $this->packageParser       = $packageParser;
     }
 
+    /**
+     * Get all packages as json.
+     *
+     * @return void
+     */
     public function all()
     {
         $packages = Package::all();
@@ -38,6 +43,12 @@ class PackageController extends Controller
         return response()->json($packages);
     }
 
+    /**
+     * Create a new package and save the package zip file in storage.
+     *
+     * @param Request $request
+     * @return Illuminate\Http\Response
+     */
     public function create(Request $request)
     {
         $validatedData = $request->validate([
@@ -65,6 +76,13 @@ class PackageController extends Controller
         return response(200);
     }
 
+    /**
+     * Update the Envato Item ID for a given package.
+     *
+     * @param Request $request
+     * @param Package $package
+     * @return Illuminate\Http\Response
+     */
     public function updateEnvatoItemId(Request $request, Package $package)
     {
         $validatedData = $request->validate([
@@ -77,6 +95,13 @@ class PackageController extends Controller
         return response(200);
     }
 
+    /**
+     * Test a License on a Package to see if it's valid.
+     *
+     * @param Request $request
+     * @param Package $package
+     * @return Illuminate\Http\Response
+     */
     public function testLicense(Request $request, Package $package)
     {
         $validatedData = $request->validate([
@@ -96,12 +121,15 @@ class PackageController extends Controller
             ]);
         } catch (\Exception $e) {
             throw $e;
-            return response()->json([
-                'valid' => false
-            ]);
         }
     }
 
+    /**
+     * Delete a given Package and remove its files.
+     *
+     * @param Package $package
+     * @return Illuminate\Http\Response
+     */
     public function delete(Package $package)
     {
         // Delete Package files
@@ -111,6 +139,13 @@ class PackageController extends Controller
         return response(200);
     }
 
+    /**
+     * Issue an update to the packages files and replace the old one.
+     *
+     * @param Request $request
+     * @param Package $package
+     * @return void
+     */
     public function update(Request $request, Package $package)
     {
         $validatedData = $request->validate([

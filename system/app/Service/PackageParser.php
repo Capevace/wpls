@@ -9,6 +9,14 @@ use WPPackageParser\Parser;
 
 class PackageParser 
 {
+	/**
+	 * Parse the metadata from the package files for a given package and return it in a structured way.
+	 * 
+	 * This function will lookup the zip file for a package and read the metadata from that.
+	 *
+	 * @param Package $package
+	 * @return object
+	 */
 	public function parsePackageMetadata(Package $package)
 	{
 		$packageZipFilePath = $package->storagePath();

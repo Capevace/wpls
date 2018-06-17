@@ -13,11 +13,26 @@ class PackageController extends Controller
 	protected $licenseVerification;
 	protected $packageParser;
 
+	/**
+	 * Construct a new PackageController instance.
+	 *
+	 * @param PackageParser $packageParser
+	 */
 	public function __construct(PackageParser $packageParser)
 	{
 		$this->packageParser = $packageParser;
 	}
 
+	/**
+	 * Handles a metadata request.
+	 * 
+	 * This returns metadata for a given package and adds a 
+	 * download link to it if its authenticated by an activated License.
+	 *
+	 * @param Request $request
+	 * @param Package $package
+	 * @return Illuminate\Http\Response
+	 */
     public function getMetadata(Request $request, Package $package)
     {
     	$licenseKey = $request->query('license');
@@ -39,6 +54,12 @@ class PackageController extends Controller
     	return response()->json($metadata);
 	}
 	
+	/**
+	 * Handles a download request for a given Package.
+	 *
+	 * @param Package $package
+	 * @return Illuminate\Http\Response
+	 */
 	public function download(Package $package)
 	{
 		return response()->download($package->storagePath(), $package->fileName());
