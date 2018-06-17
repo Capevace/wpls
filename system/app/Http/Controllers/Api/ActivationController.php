@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\LicenseActivation;
-use App\Exceptions\Api\LicenseUnavailableException;
 use App\Service\LicenseStateService;
 use App\Service\LicenseVerification;
 use App\Http\Requests\LicenseActivationRequest;

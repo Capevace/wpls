@@ -160,7 +160,8 @@ class LicenseVerification
             'package_id'       => $package->id,
             'supported_until'  => Carbon::parse($responseData->supported_until), // So we have the same date format everywhere
             'customer_data'    => [],
-            'is_purchase_code' => true
+            'is_purchase_code' => true,
+            'max_activations'  => 1
         ]);
 
         return $license;

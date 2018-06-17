@@ -8,7 +8,8 @@ const LicenseTableRow = {
 			<td>{{ license.package_slug }}</td>
 			<td :class="supportedUntilClass">{{ supportedUntil }}</td>
 			<td>
-				<customer :customer="license.customer_data"></customer>
+                <customer :customer="license.customer_data"></customer>
+                <div>Max Activations: {{ license.max_activations }}</div>
 			</td>
 			<td>
 				<div :class="{'field is-pulled-right': true, 'has-addons': supported}">

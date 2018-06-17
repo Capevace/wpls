@@ -40,6 +40,11 @@ const NewLicensePopup = {
 								<div class="field">
 									<label class="label">Customer</label>
 									<input class="input" type="text" placeholder="Customer" v-model="customer" :disabled="loading" />
+                                </div>
+                                
+                                <div class="field">
+									<label class="label">Amount of Possible Activations</label>
+									<input class="input" type="number" placeholder="Possible Activations" min="1" v-model="maxActivations" :disabled="loading" />
 								</div>
 
 								<div class="level">
@@ -79,6 +84,7 @@ const NewLicensePopup = {
             customer: '',
             slug: '',
             supportedUntil: dateString,
+            maxActivations: 1,
             minSupportedUntil: dateString,
             loading: false
         };
@@ -95,6 +101,7 @@ const NewLicensePopup = {
                 license: this.license,
                 slug: this.slug,
                 supportedUntil: this.supportedUntil,
+                maxActivations: this.maxActivations,
                 customerInfo: {
                     customer: this.customer
                 }
@@ -106,6 +113,7 @@ const NewLicensePopup = {
                     this.license = generateLicense();
                     this.customer = '';
                     this.slug = '';
+                    this.maxActivations = 1;
 
                     this.$store.dispatch('pushNotification', {
                         message: 'License was successfully created.',

@@ -45,6 +45,7 @@ class License extends Model
         'supported_until',
         'customer_data',
         'is_purchase_code',
+        'max_activations',
     ];
 
 

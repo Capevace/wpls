@@ -33,26 +33,25 @@ class LicenseStateService
 	public function activateOrFail(License $license, Package $package, Site $site, $siteMeta)
 	{
 		// Check if there the license has been activated before
-        $previousActivation = LicenseActivation::where('license_id', $license->id)
+        $previousActivations = LicenseActivation::where('license_id', $license->id)
             ->where('package_id', $package->id)
-            ->first();
+            ->get();
 
-        // If it was and an activation was found
+        $previousActivation = $previousActivations->where('site_id', $site->id)->first();
+
+        // If the site requesting activation was activated before, just return true anyway.
         if ($previousActivation !== null) {
-            // If the site matches the url, 
-            if ($site->id === $previousActivation->site_id) {
-                // We can save the site now because we know it will be activated.
-                // We also set the metadata to update it if it was given
-                $site->checkAndSetMetadata($siteMeta);
-                $site->save();
-                
-                return [
-		        	'wasActivated' => true,
-		        	'activation'   => $previousActivation
-		        ];
-            }
+            $site->checkAndSetMetadata($siteMeta);
+            $site->save();
+            
+            return [
+                'wasActivated' => true,
+                'activation'   => $previousActivation
+            ];
+        }
 
-            // Otherwise the license was used already for a different site
+        // If the available License activations count has been depleted, throw exception
+        if ($previousActivations->count() >= $license->max_activations) {
             throw new LicenseUnavailableException;
         }
 

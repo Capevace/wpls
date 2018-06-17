@@ -219,10 +219,7 @@ class LicenseActivationTest extends TestCase
         $response2
             ->assertStatus(403)
             ->assertJsonMissing(['activated', 'activation'])
-            ->assertJsonStructure(['error'])
-            ->assertJson([
-                'message' => 'The limit for the amount of sites the theme/plugin can be enabled on has been reached.'
-            ]);
+            ->assertJsonStructure(['error', 'message']);
     }
 
     /**
@@ -265,5 +262,46 @@ class LicenseActivationTest extends TestCase
                 'message'
             ])
             ->assertJson(['activated' => true]);
+    }
+
+    /**
+     * Test if a valid license with higher max activations than default can be acitvated more times.
+     * 
+     * @group activation
+     */
+    public function testActivateLicenseWithHigherMaxActivations()
+    {
+        $validLicense = factory(License::class)->create([
+            'package_id' => $this->package->id,
+            'supported_until' => Carbon::tomorrow(),
+            'max_activations' => 2
+        ]);
+
+        $response = $this->json('POST', '/api/v1/license/activate', [
+            'license' => $validLicense->license_key,
+            'slug'    => $this->package->slug,
+            'site'    => 'somesite.com'
+        ]);
+
+        // License now activated
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'activated' => true
+            ]);
+
+        // Activating License again from same site should lead to it being accepted and 'activated' (in truth, just return that it already is activated)
+        $response2 = $this->json('POST', '/api/v1/license/activate', [
+            'license' => $validLicense->license_key,
+            'slug'    => $this->package->slug,
+            'site'    => 'differentsite.com'
+        ]);
+
+        // License now activated
+        $response2
+            ->assertStatus(200)
+            ->assertJson([
+                'activated' => true
+            ]);
     }
 }

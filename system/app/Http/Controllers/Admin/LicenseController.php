@@ -55,7 +55,8 @@ class LicenseController extends Controller
             'slug' => 'required|max:255',
             'license' => 'required|max:512',
             'supportedUntil' => 'required|date',
-            'customerInfo' => 'required|array'
+            'customerInfo' => 'required|array',
+            'maxActivations' => 'integer|min:1'
         ]);
 
         $package = Package::where('slug', '=', $validatedData['slug'])
@@ -74,6 +75,11 @@ class LicenseController extends Controller
         $license->supported_until  = $validatedData['supportedUntil'];
         $license->customer_data    = $validatedData['customerInfo'];
         $license->is_purchase_code = false;
+
+        if (array_key_exists('maxActivations', $validatedData)) {
+            $license->max_activations = $validatedData['maxActivations'];
+        }
+
         $license->package()->associate($package);
         $license->save();
 

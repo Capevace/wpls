@@ -33,6 +33,8 @@ class PackageMetadataTest extends TestCase
 
         $package = new Package;
         $package->slug = 'test-slug';
+
+        $this->assertEquals(true, true);
         // var_dump($package->storagePath());
 
     	// $validLicense = factory(License::class)->create([
