@@ -62,7 +62,7 @@ return [
 
         'packages' => [
             'driver' => 'local',
-            'root' => storage_path('app/packages'),
+            'root' => realpath(base_path() . '/../storage/packages'),
         ],
 
         's3' => [
