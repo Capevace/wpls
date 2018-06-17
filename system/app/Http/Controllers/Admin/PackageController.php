@@ -46,8 +46,8 @@ class PackageController extends Controller
         ]);
 
         $packageFile = $validatedData['package'];
-        $path = Storage::putFileAs(
-            'packages', 
+        $path = Storage::disk('packages')->putFileAs(
+            '',
             $packageFile, 
             sprintf('%s.zip', $validatedData['slug'])
         );
@@ -121,8 +121,8 @@ class PackageController extends Controller
         Storage::disk('packages')->delete($package->fileName());
 
         $packageFile = $validatedData['package'];
-        $path = Storage::putFileAs(
-            'packages', 
+        $path = Storage::disk('packages')->putFileAs(
+            '',
             $packageFile, 
             $package->fileName()
         );
