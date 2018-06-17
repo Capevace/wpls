@@ -62,6 +62,10 @@ class PackageController extends Controller
 	 */
 	public function download(Package $package)
 	{
-		return response()->download($package->storagePath(), $package->fileName());
+		if (ActivationGuard::check()) {
+			return response()->download($package->storagePath(), $package->fileName());
+		}
+		
+		return response(null, 401);
 	}
 }
