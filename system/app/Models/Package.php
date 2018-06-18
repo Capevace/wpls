@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Uuids;
 use Storage;
 
 class Package extends Model
@@ -54,7 +55,7 @@ class Package extends Model
 	 */
     public function activations()
     {
-    	return $this->hasMany('App\LicenseActivation');
+    	return $this->hasMany('App\Models\LicenseActivation');
     }
 
     /**
@@ -63,7 +64,7 @@ class Package extends Model
 	 */
     public function licenses()
     {
-    	return $this->hasMany('App\License');
+    	return $this->hasMany('App\Models\License');
     }
 
     /**

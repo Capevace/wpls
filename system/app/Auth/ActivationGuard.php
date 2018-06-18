@@ -2,8 +2,8 @@
 
 namespace App\Auth;
 
-use App\LicenseActivation;
-use App\Package;
+use App\Models\LicenseActivation;
+use App\Models\Package;
 
 use Illuminate\Http\Request;
 
@@ -19,7 +19,7 @@ class ActivationGuard
     /**
      * The discovered license activation.
      *
-     * @var App\LicenseActivation
+     * @var App\Models\LicenseActivation
      */
     protected $activation;
 
@@ -36,7 +36,7 @@ class ActivationGuard
     /**
      * Checks, if a request has been authenticated with a license activation id, which, in this case, acts as an access token.
      *
-     * @param null|App\Package $package The package to check the activation against.
+     * @param null|App\Models\Package $package The package to check the activation against.
      * @return bool
      */
     public function check(Package $package = null)
@@ -47,8 +47,8 @@ class ActivationGuard
     /**
      * Get the current activation passed along with the request.
      *
-     * @param null|App\Package $package The package to check the activation against.
-     * @return App\LicenseActivation
+     * @param null|App\Models\Package $package The package to check the activation against.
+     * @return App\Models\LicenseActivation
      */
     public function activation(Package $package = null)
     {
@@ -104,7 +104,7 @@ class ActivationGuard
     /**
      * Get the package id for the current request.
      *
-     * @param null|App\Package $package
+     * @param null|App\Models\Package $package
      * @return string
      */
     public function getPackageIdForRequest(Package $package = null)

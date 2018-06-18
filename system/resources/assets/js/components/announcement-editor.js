@@ -36,6 +36,15 @@ const AnnouncementEditor = {
                                 </div>
                             </div>
                         </div>
+                        <!--<div class="column">
+                            <div class="field">
+                                <label class="label">Activation-Exclusive</label>
+                                <label class="checkbox">
+                                    <input type="checkbox" class="checkbox" />
+                                    Exclusive
+                                </label>
+                            </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

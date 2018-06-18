@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\V1;
 
-use App\License;
-use App\Package;
+use App\Models\License;
+use App\Models\Package;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;

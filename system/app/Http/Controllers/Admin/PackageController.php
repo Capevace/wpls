@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Service\LicenseVerification;
 use App\Service\PackageParser;
-use App\Package;
+use App\Models\Package;
 use Storage;
 
 class PackageController extends Controller

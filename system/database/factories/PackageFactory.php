@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $usedDefaultSlug = false;
 
-$factory->define(App\Package::class, function (Faker $faker) use ($usedDefaultSlug) {
+$factory->define(App\Models\Package::class, function (Faker $faker) use ($usedDefaultSlug) {
     if (!$usedDefaultSlug)
         $usedDefaultSlug = true;
 

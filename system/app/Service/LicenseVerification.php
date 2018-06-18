@@ -2,9 +2,9 @@
 
 namespace App\Service;
 
-use App\License;
-use App\Package;
-use App\Site;
+use App\Models\License;
+use App\Models\Package;
+use App\Models\Site;
 
 use App\Exceptions\Api\LicenseSupportException;
 use App\Exceptions\Api\EnvatoConnectionException;
@@ -22,8 +22,8 @@ class LicenseVerification
     /**
      * Get and verify a license with the given data (license and slug).
      * @param string $licenseKey The license key.
-     * @param string|App\Package $packageOrSlug The package or its slug.
-     * @return App\License
+     * @param string|App\Models\Package $packageOrSlug The package or its slug.
+     * @return App\Models\License
      * 
      * @throws App\Exceptions\LicenseSupportException
      * @throws App\Exceptions\EnvatoConnectionException
@@ -63,7 +63,7 @@ class LicenseVerification
     /**
      * Gets the referenced package from the database.
      * @param string $slug 
-     * @return App\Package
+     * @return App\Models\Package
      */
     protected function getPackage($slug)
     {
@@ -81,8 +81,8 @@ class LicenseVerification
     /**
      * Check if a License with the given data was already registered in the database.
      * @param string $licenseKey 
-     * @param App\Package $package
-     * @return null|App\License
+     * @param App\Models\Package $package
+     * @return null|App\Models\License
      * 
      * @throws App\Exceptions\LicenseSupportException
      */
@@ -109,8 +109,8 @@ class LicenseVerification
     /**
      * Validate a license (purchase code) with Envatos servers.
      * @param array $data 
-     * @param App\Package $package
-     * @return null|App\License
+     * @param App\Models\Package $package
+     * @return null|App\Models\License
      * 
      * @throws App\Exceptions\LicenseSupportException
      * @throws App\Exceptions\EnvatoConnectionException
@@ -171,7 +171,7 @@ class LicenseVerification
      * This methods checks if a site with a given url exists, fetches it or creates a new one.
      * @param string $siteUrl 
      * @param stdObject $siteMeta
-     * @return App\Site
+     * @return App\Models\Site
      */
     public function getOrCreateSite($siteUrl, $siteMeta)
     {

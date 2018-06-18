@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Uuids;
 
 class License extends Model
 {
@@ -75,26 +76,26 @@ class License extends Model
 	 */
     public function activations()
     {
-    	return $this->hasMany('App\LicenseActivation');
+    	return $this->hasMany('App\Models\LicenseActivation');
     }
 
 
     /**
      * Get all sites the license was used on.
-     * @return Collection<App\Site>
+     * @return Collection<App\Models\Site>
      */
     public function sites()
     {
-        return $this->belongsToMany('App\Site')->withTimestamps();
+        return $this->belongsToMany('App\Models\Site')->withTimestamps();
     }
 
     /**
      * Get the package the license was used for.
      *
-     * @return App\Package
+     * @return App\Models\Package
      */
     public function package()
     {
-        return $this->belongsTo('App\Package');
+        return $this->belongsTo('App\Models\Package');
     }
 }

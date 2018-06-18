@@ -19,6 +19,11 @@ use Illuminate\Http\Request;
 
 Route::redirect('/', '/admin', 302);
 
+Route::prefix('assets')->group(function() {
+    Route::get('/js/index.js', 'Admin\WebController@scripts');
+    Route::get('/css/index.css', 'Admin\WebController@css');
+});
+
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');

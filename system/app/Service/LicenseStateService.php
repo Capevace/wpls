@@ -2,10 +2,10 @@
 
 namespace App\Service;
 
-use App\License;
-use App\Package;
-use App\Site;
-use App\LicenseActivation;
+use App\Models\License;
+use App\Models\Package;
+use App\Models\Site;
+use App\Models\LicenseActivation;
 
 use App\Exceptions\Api\LicenseUnavailableException;
 use App\Exceptions\Api\LicenseNotActivatedException;
@@ -18,15 +18,15 @@ class LicenseStateService
 	/**
      * This method activates a license for a given package and site.
 	 * 
-     * It creates a new App\LicenseActivation and will thus link License, Package and Site.
+     * It creates a new App\Models\LicenseActivation and will thus link License, Package and Site.
      * The metadata that is passed contains information like WordPress Version etc.
 	 * 
 	 * It returns an array containing information 
 	 * wether the license was activated previously for that site, and the LicenseActivation object.
 	 * 
-	 * @param App\License $license 
-	 * @param App\Package $package 
-	 * @param App\Site $site 
+	 * @param App\Models\License $license 
+	 * @param App\Models\Package $package 
+	 * @param App\Models\Site $site 
 	 * @param object $siteMeta 
 	 * @return array ['wasActivated' => true|false, 'activation' => LicenseActivation] 
 	 */
@@ -78,9 +78,9 @@ class LicenseStateService
     /**
      * Deactivate a LicenseActivation with the given License, Package and Site.
      * 
-     * @param App\License $license 
-     * @param App\Package $package 
-     * @param App\Site $site 
+     * @param App\Models\License $license 
+     * @param App\Models\Package $package 
+     * @param App\Models\Site $site 
      * @param object $siteMeta 
      * @return void
      */

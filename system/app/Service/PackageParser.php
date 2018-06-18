@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Package;
+use App\Models\Package;
 use Storage;
 use Exception;
 use WPPackageParser\Parser;

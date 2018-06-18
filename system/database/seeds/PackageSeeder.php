@@ -11,10 +11,10 @@ class PackageSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Package::class, 5)
+        factory(App\Models\Package::class, 5)
         	->create()
         	->each(function ($package) {
-        		factory(App\License::class, 4)
+        		factory(App\Models\License::class, 4)
         			->create()
         			->each(function ($license) use ($package) {
         				$license->package_id = $package->id;

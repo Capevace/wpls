@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\LicenseActivation;
+use App\Models\LicenseActivation;
 
 use Carbon\Carbon;
 

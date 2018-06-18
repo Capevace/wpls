@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Facades\ActivationGuard;
-use App\Package;
+use App\Models\Package;
 use App\Service\PackageParser;
 use Illuminate\Http\Request;
 

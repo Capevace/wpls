@@ -7,8 +7,8 @@ use App\Http\Controllers\Controller;
 
 use App\Exceptions\Api\LicenseAlreadyExistsException;
 use App\Service\LicenseVerification;
-use App\License;
-use App\Package;
+use App\Models\License;
+use App\Models\Package;
 use Carbon\Carbon;
 
 class LicenseController extends Controller

@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\V1;
 
-use App\Package;
-use App\License;
+use App\Models\Package;
+use App\Models\License;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Storage;

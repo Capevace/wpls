@@ -15,8 +15,6 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth')->group(function () {
 	Route::get('/', 'WebController@index');
-	Route::get('/assets/js/index.js', 'WebController@scripts');
-	Route::get('/assets/css/index.css', 'WebController@css');
 
 	Route::prefix('api')->group(function() {
 		Route::get('/activations', 'ActivationController@all');

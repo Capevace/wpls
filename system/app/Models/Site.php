@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Uuids;
 
 class Site extends Model
 {
@@ -28,7 +29,7 @@ class Site extends Model
 	 */
     public function activations()
     {
-    	return $this->hasMany('App\LicenseActivation');
+    	return $this->hasMany('App\Models\LicenseActivation');
     }
 
 
@@ -38,7 +39,7 @@ class Site extends Model
 	 */
     public function licenses()
     {
-    	return $this->belongsToMany('App\License')->withTimestamps();
+    	return $this->belongsToMany('App\Models\License')->withTimestamps();
     }
 
 
