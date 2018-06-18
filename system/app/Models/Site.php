@@ -2,13 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Traits\Uuids;
-
-class Site extends Model
+class Site extends UuidBaseModel
 {
-    use Uuids;
-
     /**
      * Model Fields:
      * - url

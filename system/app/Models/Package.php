@@ -2,14 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Traits\Uuids;
 use Storage;
 
-class Package extends Model
-{
-	use Uuids;
-    
+class Package extends UuidBaseModel
+{   
     /**
      * Model Fields:
      * - slug

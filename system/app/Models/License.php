@@ -2,13 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Traits\Uuids;
-
-class License extends Model
-{
-    use Uuids;
-    
+class License extends UuidBaseModel
+{   
     /**
      * Model Fields:
      * - license_key
@@ -16,11 +11,6 @@ class License extends Model
      * - customer_data
      * - is_purchase_code
      */
-
-	
-	// Our Primary Keys are UUIDs, not ints
-	public $incrementing = false;
-	public $keyType      = 'string';
 
 
 	/**
