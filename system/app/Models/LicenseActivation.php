@@ -10,12 +10,7 @@ class LicenseActivation extends UuidBaseModel
      * @var array
      */
     protected $fillable = ['license_id', 'package_id', 'site_id'];
-    
-	// Our Primary Keys are UUIDs, not ints
-	public $incrementing = false;
-    public $keyType      = 'string';
 
-	
 	/**
 	 * Get the license used in this activation.
 	 * @return App\Models\License

@@ -17,11 +17,6 @@ class Package extends UuidBaseModel
      * - last_metadata
      */
     
-
-	// Our Primary Keys are UUIDs, not ints
-	public $incrementing = false;
-	public $keyType      = 'string';
-    
     
 	/**
      * The attributes that should be cast to native types.

@@ -12,12 +12,6 @@ class Site extends UuidBaseModel
      * - last_package_version
      */
 
-
-	// Our Primary Keys are UUIDs, not ints
-	public $incrementing = false;
-	public $keyType      = 'string';
-
-
     /**
 	 * Get all activations this site was used in.
 	 * @return array
