@@ -12,7 +12,6 @@ class License extends UuidBaseModel
      * - is_purchase_code
      */
 
-
 	/**
      * The attributes that should be mutated to dates.
      *
@@ -23,22 +22,6 @@ class License extends UuidBaseModel
         'updated_at',
         'supported_until',
     ];
-
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'license_key',
-        'package_id',
-        'supported_until',
-        'customer_data',
-        'is_purchase_code',
-        'max_activations',
-    ];
-
 
     /**
      * The attributes that should be cast to native types.
@@ -59,7 +42,6 @@ class License extends UuidBaseModel
         return 'license_key';
     }
 
-
 	/**
 	 * Get all activations this license was used in.
 	 * @return array
@@ -67,16 +49,6 @@ class License extends UuidBaseModel
     public function activations()
     {
     	return $this->hasMany('App\Models\LicenseActivation');
-    }
-
-
-    /**
-     * Get all sites the license was used on.
-     * @return Collection<App\Models\Site>
-     */
-    public function sites()
-    {
-        return $this->belongsToMany('App\Models\Site')->withTimestamps();
     }
 
     /**

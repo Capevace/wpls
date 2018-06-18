@@ -4,13 +4,6 @@ namespace App\Models;
 
 class LicenseActivation extends UuidBaseModel
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['license_id', 'package_id', 'site_id'];
-
 	/**
 	 * Get the license used in this activation.
 	 * @return App\Models\License
@@ -20,7 +13,6 @@ class LicenseActivation extends UuidBaseModel
     	return $this->belongsTo('App\Models\License');
     }
 
-
     /**
      * Get the package that was activated with the license.
      * @return App\Models\Package
@@ -29,7 +21,6 @@ class LicenseActivation extends UuidBaseModel
     {
     	return $this->belongsTo('App\Models\Package');
     }
-
 
     /**
      * Get the site that was activated.

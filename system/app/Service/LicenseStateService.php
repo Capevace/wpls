@@ -61,11 +61,10 @@ class LicenseStateService
         $site->checkAndSetMetadata($siteMeta);
         $site->save();
 
-        $activation = new LicenseActivation([
-            'license_id' => $license->id,
-            'package_id' => $package->id,
-            'site_id'    => $site->id,
-        ]);
+        $activation = new LicenseActivation;
+        $activation->license()->associate($license);
+        $activation->package()->associate($package);
+        $activation->site()->associate($site);
         $activation->save();
 
         return [

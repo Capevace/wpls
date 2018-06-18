@@ -21,17 +21,6 @@ class Site extends UuidBaseModel
     	return $this->hasMany('App\Models\LicenseActivation');
     }
 
-
-    /**
-	 * Get all licenses this site was used in.
-	 * @return array
-	 */
-    public function licenses()
-    {
-    	return $this->belongsToMany('App\Models\License')->withTimestamps();
-    }
-
-
     /**
      * Checks if metadata is given and sets it accordingly.
      * @param stdClass $metadata

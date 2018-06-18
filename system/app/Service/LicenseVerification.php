@@ -155,14 +155,14 @@ class LicenseVerification
         }
 
         // Create new License and save it in the database.
-        $license = License::create([
-            'license_key'      => $licenseKey,
-            'package_id'       => $package->id,
-            'supported_until'  => Carbon::parse($responseData->supported_until), // So we have the same date format everywhere
-            'customer_data'    => [],
-            'is_purchase_code' => true,
-            'max_activations'  => 1
-        ]);
+        $license = new License;
+        $license->license_key = $licenseKey;
+        $license->supported_until = Carbon::parse($responseData->supported_until); // So we have the same date format everywhere
+        $license->customer_data = json_decode('{}', true); // So it is an object instead of normal array... weird fix for now... don't know how to solve properly
+        $license->is_purchase_code = true;
+        $license->max_activations = 1;
+        $license->package()->associate($package);
+        $license->save();
 
         return $license;
     }

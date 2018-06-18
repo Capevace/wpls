@@ -17,7 +17,6 @@ class Package extends UuidBaseModel
      * - last_metadata
      */
     
-    
 	/**
      * The attributes that should be cast to native types.
      *
@@ -28,7 +27,6 @@ class Package extends UuidBaseModel
         'envato_item_id' => 'int',
     ];
 
-
     /**
      * Get the route key for the model.
      *
@@ -38,7 +36,6 @@ class Package extends UuidBaseModel
     {
         return 'slug';
     }
-
 
     /**
 	 * Get all activations this package was used in.
