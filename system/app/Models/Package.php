@@ -56,6 +56,15 @@ class Package extends UuidBaseModel
     }
 
     /**
+	 * Get all announcements this package was referenced in.
+	 * @return array
+	 */
+    public function announcements()
+    {
+    	return $this->belongsToMany('App\Models\License');
+    }
+
+    /**
      * Get the path to the plugins zip file.
      *
      * @return string

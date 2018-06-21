@@ -10,6 +10,6 @@ export default function announcementTypeToModifierClass(type) {
             return 'is-danger';
         case 'default':
         default:
-            return '';
+            return 'is-white';
     }
 }

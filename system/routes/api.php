@@ -20,4 +20,6 @@ Route::prefix('v1')->group(function () {
 	Route::post('/license/activate', 'ActivationController@activate');
 	Route::post('/license/deactivate', 'ActivationController@deactivate');
 	Route::post('/activation/{activation}/deactivate', 'ActivationController@deactivateActivation');
+
+	Route::get('/announcements/newest', 'AnnouncementController@newest');
 });

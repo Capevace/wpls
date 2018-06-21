@@ -18,7 +18,7 @@ export default {
 			</div><!-- Right side -->
 			<div class="level-right">
 				<p class="level-item">
-					<nav-link to="/" exact>Dashboard</nav-link>
+					<nav-link to="/" exact>Activations</nav-link>
 				</p>
 				<p class="level-item">
 					<nav-link to="/licenses" exact>Licenses</nav-link>

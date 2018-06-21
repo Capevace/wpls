@@ -1,5 +1,5 @@
-import Navbar from './Navbar';
-import Footer from './Footer';
+import Navbar from './navbar';
+import Footer from './footer';
 import Notifications from './notification-overlay';
 
 export default {

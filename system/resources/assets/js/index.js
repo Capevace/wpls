@@ -10,7 +10,7 @@ import store from './store';
 import WPLSPage from './components/wpls-page';
 import WPLicenseServer from './components/wp-license-server';
 
-import DashboardPage from './pages/dashboard';
+import ActivationsPage from './pages/activations';
 import LicensesPage from './pages/licenses';
 import PackagesPage from './pages/packages';
 import AnnouncementsPage from './pages/announcements';
@@ -28,7 +28,7 @@ Vue.component('wpls-page', WPLSPage);
 Vue.component('wp-license-server', WPLicenseServer);
 
 const routes = [
-    { path: '/', component: DashboardPage },
+    { path: '/', component: ActivationsPage },
     { path: '/licenses', component: LicensesPage },
     { path: '/packages', component: PackagesPage },
     { path: '/announcements', component: AnnouncementsPage },

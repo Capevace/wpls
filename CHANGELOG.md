@@ -1,5 +1,8 @@
 # WPLS Changelog
 
+## 3.1.1
+* Fixed compiled assets not being included in the build.
+
 ## 3.1.0
 * Licenses can now be activated multiple times. Default is 1 time per license but this can be customized while creating licenses.
 * The storage path for packages has been moved outside of the system folder.

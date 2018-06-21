@@ -11,8 +11,7 @@ class TestUserSeeder extends Seeder
      */
     public function run()
     {
-        var_dump($this->command->getOutput());
-        // factory(App\Models\User::class, 1)
-        	// ->create();
+        factory(App\Models\User::class, 1)
+        	->create();
     }
 }

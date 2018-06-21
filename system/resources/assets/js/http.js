@@ -18,7 +18,7 @@ export function getLicenses(limit, search) {
 };
 
 export function addLicense(licenseData) {
-	return post(`${apiUrl}/licenses`, licenseData);
+	return post(`${apiUrl}/licenses/create`, licenseData);
 };
 
 export function getActivations(from, until) {
@@ -29,15 +29,8 @@ export function postLicenseAction(license_key, action) {
 	return post(`${apiUrl}/licenses/${license_key}/${action}`);
 };
 
-export function getAnnouncement(id) {
-    return Promise.resolve({ 
-        title: 'Some title once told me', 
-        content: '# Some heading', 
-    });
-};
-
 export function addPackage(packageData) {
-	return post(`${apiUrl}/packages`, packageData);
+	return post(`${apiUrl}/packages/create`, packageData);
 };
 
 export function updatePackage(packageSlug, packageData) {
@@ -50,4 +43,20 @@ export function deletePackage(packageSlug) {
 
 export function getPackages() {
 	return get(`${apiUrl}/packages`);
+};
+
+export function getAnnouncements() {
+	return get(`${apiUrl}/announcements`);
+};
+
+export function getAnnouncement(id) {
+	return get(`${apiUrl}/announcements/${id}`);
+};
+
+export function postAnnouncement(announcementData) {
+	return post(`${apiUrl}/announcements/create`, announcementData);
+};
+
+export function deleteAnnouncement(announcementId) {
+	return post(`${apiUrl}/announcements/${announcementId}/delete`);
 };

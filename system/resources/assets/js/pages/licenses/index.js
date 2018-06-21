@@ -39,7 +39,11 @@ const LicensesPage = {
 					</div>
 				</div>
 			</div>
-			<h3 class="subtitle is-3 has-text-centered" v-if="loading">Loading Licenses...</h3>
+            
+            <h3 class="subtitle is-3 has-text-centered" v-if="loading || licenses.length === 0">
+                {{ loading ? 'Loading Licenses...' : 'No Licenses found' }}
+            </h3>
+
 			<license-table :licenses="licenses" @actionSuccess="fetchLicenses" v-else></license-table>
 
 			<new-license-popup :visible="popupVisible" @toggle="togglePopup" @success="newLicenseCreated"></new-license-popup>
@@ -81,7 +85,7 @@ const LicensesPage = {
 
                     this.$store.dispatch('pushNotification', {
                         message:
-                            'Internal Server Error. Check the MySQL Credentials.',
+                            'Could not fetch licenses.',
                         type: 'is-danger',
                         duration: 2000
                     });

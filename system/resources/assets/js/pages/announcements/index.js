@@ -1,4 +1,5 @@
 import Announcement from './components/announcement';
+import { getAnnouncements } from '../../http';
 
 const AnnouncementsPage = {
     template: `
@@ -9,11 +10,10 @@ const AnnouncementsPage = {
                 </div>
             </template>
 
-            <announcement type="default"></announcement>
-            <announcement type="success"></announcement>
-            <announcement type="info"></announcement>
-            <announcement type="warning"></announcement>
-            <announcement type="error"></announcement>
+            <h3 class="subtitle is-3 has-text-centered" v-if="loading || announcements.length === 0">
+                {{ loading ? 'Loading Announcements...' : 'No Announcements found' }}
+            </h3>
+            <announcement v-for="announcement in announcements" :announcement="announcement"></announcement>
         </wpls-page>
     `,
     created() {
@@ -21,12 +21,33 @@ const AnnouncementsPage = {
     },
     data() {
         return {
+            loading: false,
             announcements: []
         };
     },
     methods: {
         fetchAnnouncements() {
+            this.loading = true;
 
+            getAnnouncements()
+                .then(response => {
+                    console.log(response);
+                    this.loading = false;
+
+                    this.announcements = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.loading = false;
+
+                    this.$store.dispatch('pushNotification', {
+                        message: 'Could not fetch announcements.',
+                        type: 'is-danger',
+                        duration: 2000
+                    });
+
+                    this.announcements = [];
+                });
         }
     },
     components: {

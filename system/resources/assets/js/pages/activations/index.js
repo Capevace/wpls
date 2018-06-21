@@ -3,9 +3,9 @@ import debounce from 'lodash.debounce';
 
 import ActivationsTable from './components/activations-table';
 
-const DashboardPage = {
+const ActivationsPage = {
     template: `
-        <wpls-page title="Dashboard">
+        <wpls-page title="Activations">
             <div class="level">
 				<div class="level-left">
 					<div class="level-item">
@@ -26,7 +26,11 @@ const DashboardPage = {
 					</div>
 				</div>
 			</div>
-			<h3 class="subtitle is-3 has-text-centered" v-if="loading">Loading Activations...</h3>
+            
+            <h3 class="subtitle is-3 has-text-centered" v-if="loading || activations.length === 0">
+                {{ loading ? 'Loading Activations...' : 'No Activations found' }}
+            </h3>
+
 			<activations-table :activations="activations" v-else></activations-table>
 		</wpls-page>
 	`,
@@ -81,7 +85,7 @@ const DashboardPage = {
 
                     this.$store.dispatch('pushNotification', {
                         message:
-                            'Internal Server Error. Check the MySQL Credentials.',
+                            'Could not fetch activations.',
                         type: 'is-danger',
                         duration: 2000
                     });
@@ -95,4 +99,4 @@ const DashboardPage = {
     }
 };
 
-export default DashboardPage;
+export default ActivationsPage;

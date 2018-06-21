@@ -14,3 +14,58 @@
     margin-top: 20px;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
 }
+
+.announcement-list-item {
+    cursor: pointer;
+}
+
+.package-select {
+    .package-select-multiple {
+        margin-top: -11px;
+        box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .package-select-input {
+        cursor: pointer;
+    }
+}
+
+.markdown-editor-preview-announcements {
+    padding: 35px 10px;
+    background: #f1f1f1;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    font-size: 13px !important;
+    color: #444;
+
+    h1, h2, h3 {
+        font-weight: 600;
+    }
+
+    h2, h3 {
+        font-size: 1.3em;
+    }
+
+    .notice {
+        background: #fff;
+        border-left: 4px solid #fff;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+        margin: 5px 15px 2px;
+        padding: 10px 12px;
+
+        &.notice-info {
+            border-left: 4px solid #00a0d2;
+        }
+        &.notice-success {
+            border-left: 4px solid #46b450;
+        }
+        &.notice-warning {
+            border-left: 4px solid #ffb900;
+        }
+        &.notice-error {
+            border-left: 4px solid #dc3232;
+        }
+    }
+
+
+}
