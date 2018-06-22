@@ -43,6 +43,18 @@ class PackageController extends Controller
         return response()->json($packages);
     }
 
+    public function get(Package $package)
+    {
+        $activationsCount = $package->activations()->count();
+        $licensesCount    = $package->licenses()->count();
+
+        return response()->json([
+            'package'           => $package,
+            'licenses_count'    => $licensesCount,
+            'activations_count' => $activationsCount
+        ]);
+    }
+
     /**
      * Create a new package and save the package zip file in storage.
      *
