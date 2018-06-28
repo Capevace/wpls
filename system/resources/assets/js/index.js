@@ -13,6 +13,7 @@ import WPLicenseServer from './components/wp-license-server';
 import ActivationsPage from './pages/activations';
 import LicensesPage from './pages/licenses';
 import PackagesPage from './pages/packages';
+import PackagePage from './pages/package';
 import AnnouncementsPage from './pages/announcements';
 import CreateAnnouncementPage from './pages/create-announcement';
 import AnnouncementPage from './pages/announcement';
@@ -31,6 +32,7 @@ const routes = [
     { path: '/', component: ActivationsPage },
     { path: '/licenses', component: LicensesPage },
     { path: '/packages', component: PackagesPage },
+    { path: '/packages/:slug', component: PackagePage },
     { path: '/announcements', component: AnnouncementsPage },
     { path: '/announcements/create', component: CreateAnnouncementPage },
     { path: '/announcements/:id', component: AnnouncementPage },

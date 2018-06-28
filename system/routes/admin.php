@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
 
 		// Package Routes
 		Route::get('/packages', 'PackageController@all');
+		Route::get('/packages/{package}', 'PackageController@get');
 		Route::post('/packages/create', 'PackageController@create');
 		Route::post('/packages/{package}/envato-item-id', 'PackageController@updateEnvatoItemId');
 		Route::post('/packages/{package}/test-license', 'PackageController@testLicense');

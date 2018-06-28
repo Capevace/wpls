@@ -45,6 +45,10 @@ export function getPackages() {
 	return get(`${apiUrl}/packages`);
 };
 
+export function getPackage(id) {
+	return get(`${apiUrl}/packages/${id}`);
+};
+
 export function getAnnouncements() {
 	return get(`${apiUrl}/announcements`);
 };

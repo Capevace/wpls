@@ -154,13 +154,18 @@ class LicenseVerification
             throw new LicenseSupportException();
         }
 
+        $envatoMaxActivation = (int) env('ENVATO_MAX_ACTIVATIONS', 1);
+        $envatoIgnoreSupportedUntil = (boolean) env('ENVATO_IGNORE_SUPPORTED_UNTIL', false);
+
         // Create new License and save it in the database.
         $license = new License;
         $license->license_key = $licenseKey;
-        $license->supported_until = Carbon::parse($responseData->supported_until); // So we have the same date format everywhere
+        $license->supported_until = $envatoIgnoreSupportedUntil
+            ? Carbon::parse('9999-12-31') // Ignoring supported until alltogether
+            : Carbon::parse($responseData->supported_until); // So we have the same date format everywhere
         $license->customer_data = json_decode('{}', true); // So it is an object instead of normal array... weird fix for now... don't know how to solve properly
         $license->is_purchase_code = true;
-        $license->max_activations = 1;
+        $license->max_activations = $envatoMaxActivation > 0 ? $envatoMaxActivation : 1;
         $license->package()->associate($package);
         $license->save();
 

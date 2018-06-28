@@ -12473,6 +12473,10 @@ label.panel-block:hover {
   padding-top: 35px;
 }
 
+.notification {
+  padding: 1.25rem 1.5rem 1.25rem 1.5rem;
+}
+
 .notification-overlay {
   position: absolute;
   right: 20px;
@@ -12545,5 +12549,16 @@ label.panel-block:hover {
 
 .markdown-editor-preview-announcements .notice.notice-error {
   border-left: 4px solid #dc3232;
+}
+
+.stat-counter {
+  min-height: 140px;
+}
+
+.stat-counter .count {
+  font-size: 70px;
+  margin-top: -40px;
+  margin-bottom: -20px;
+  color: lightgray;
 }
 

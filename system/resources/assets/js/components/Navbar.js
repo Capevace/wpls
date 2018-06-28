@@ -13,7 +13,7 @@ export default {
 			<!-- Left side -->
 			<div class="level-left">
 				<div class="level-item">
-					<p class="subtitle is-4"><strong>WordPress</strong> License Manager</p>
+					<p class="subtitle is-4"><strong>WordPress</strong> License Server</p>
 				</div>
 			</div><!-- Right side -->
 			<div class="level-right">
