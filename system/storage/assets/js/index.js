@@ -42534,7 +42534,7 @@ var PluginsPage = {
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: '\n        <div class="notification" @click="openPackage" style="cursor: pointer;">\n            <div class="level">\n                <div class="level-left">\n                    <div class="level-item">\n                        <h5 class="title is-5">{{ plugin.name }} ({{ plugin.version }})</h5>\n                    </div>\n                    <div class="level-item">\n                        <h6 class="subtitle is-6">{{ plugin.slug }}</h6>\n                    </div>\n                </div>\n                <div class="level-right">\n                    <div class="level-item">\n                        <button class="button is-inverted is-small" @click="$emit(\'updatePackage\', plugin)">Update Package</button>\n                    </div>\n                    <div class="level-item">\n                        <button class="button is-inverted is-small" @click="deletePackage">Delete Package</button>\n                    </div>\n                </div>\n            </div>\n\n            <div class="level">\n                <item-id-form :item-id="plugin.envato_item_id" :slug="plugin.slug"></item-id-form>\n                <verification-test-form :slug= "plugin.slug"></verification-test-form>\n            </div>\n        </div>\n    ',
+    template: '\n        <div class="notification" @click="openPackage" style="/*cursor: pointer;*/">\n            <div class="level">\n                <div class="level-left">\n                    <div class="level-item">\n                        <h5 class="title is-5">{{ plugin.name }} ({{ plugin.version }})</h5>\n                    </div>\n                    <div class="level-item">\n                        <h6 class="subtitle is-6">{{ plugin.slug }}</h6>\n                    </div>\n                </div>\n                <div class="level-right">\n                    <div class="level-item">\n                        <button class="button is-inverted is-small" @click="$emit(\'updatePackage\', plugin)">Update Package</button>\n                    </div>\n                    <div class="level-item">\n                        <button class="button is-inverted is-small" @click="deletePackage">Delete Package</button>\n                    </div>\n                </div>\n            </div>\n\n            <div class="level">\n                <item-id-form :item-id="plugin.envato_item_id" :slug="plugin.slug"></item-id-form>\n                <verification-test-form :slug= "plugin.slug"></verification-test-form>\n            </div>\n        </div>\n    ',
     props: ['plugin'],
     components: {
         'item-id-form': __WEBPACK_IMPORTED_MODULE_0__item_id_form__["a" /* default */],
@@ -42542,7 +42542,7 @@ var PluginsPage = {
     },
     methods: {
         openPackage: function openPackage() {
-            this.$router.push('/packages/' + this.plugin.slug);
+            // this.$router.push('/packages/' + this.plugin.slug);
         },
         deletePackage: function deletePackage() {
             var _this = this;

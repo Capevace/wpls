@@ -5,7 +5,7 @@ import { deletePackage } from '../../../http';
 
 export default {
     template: `
-        <div class="notification" @click="openPackage" style="cursor: pointer;">
+        <div class="notification" @click="openPackage" style="/*cursor: pointer;*/">
             <div class="level">
                 <div class="level-left">
                     <div class="level-item">
@@ -38,7 +38,7 @@ export default {
     },
     methods: {
         openPackage() {
-            this.$router.push('/packages/' + this.plugin.slug);
+            // this.$router.push('/packages/' + this.plugin.slug);
         },
         deletePackage() {
             const shouldDelete = confirm('Do you really want to delete that package? This will delete any licenses and activations linked to that package!');
