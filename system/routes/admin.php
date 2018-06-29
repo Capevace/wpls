@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth')->group(function () {
-	Route::get('/', 'WebController@index');
+	Route::get('/', 'WebController@index')->name('admin:index');
 
 	Route::prefix('api')->group(function() {
 		Route::get('/activations', 'ActivationController@all');
