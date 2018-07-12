@@ -2,18 +2,29 @@ import { testLicense } from '../../../http';
 
 export default {
     template: `
-        <div class="level-right">
-            <div class="level-item">
-                <input class="input" type="text" placeholder="Test License" v-model="license" :disabled="loading" />
+        <form>
+            <div class="level" style="margin-bottom: 0px">
+                <div class="level-left">
+                    <div class="level-item">
+                        <p class="title is-4">Test License</p>
+                    </div>
+                </div>
+                <div class="level-right">
+                    <div class="level-item">
+                        <button class="button is-small" @click="save" :disabled="loading">Check License</button>
+                    </div>
+                </div>
             </div>
-            <div class="level-item">
-                <button :class="{'button': true, 'is-loading': loading}" :disabled="loading" @click="save">
-                    Verify License
-                </button>
+            <p class="subtitle">Check if a license is valid.</p>
+
+            <div class="field">
+                <label class="label">License to Verify</label>
+                <input class="input" type="text" placeholder="Purchase code or custom license" v-model="license" :disabled="loading"/>
             </div>
-        </div>
+        
+        </form>
     `,
-    props: ['slug'],
+    props: ['package-slug'],
     data(props) {
         return {
             license: '',
@@ -24,7 +35,7 @@ export default {
         save() {
             this.loading = true;
 
-            testLicense(this.license, this.slug)
+            testLicense(this.license, this.packageSlug)
                 .then(response => {
                     console.log(response);
                     this.loading = false;
@@ -44,13 +55,16 @@ export default {
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.log(JSON.stringify(error.response));
                     this.loading = false;
 
                     let errorMessage = 'An unknown error occurred.';
+                    const responseData = error.response.data;
 
-                    if (error.response.data.error)
-                        errorMessage = error.response.data.error.message;
+                    if (responseData.message)
+                        errorMessage = responseData.message;
+                    else if (responseData.error && responseData.error.message)
+                        errorMessage = responseData.error.message;
 
                     this.$store.dispatch('pushNotification', {
                         message: errorMessage,

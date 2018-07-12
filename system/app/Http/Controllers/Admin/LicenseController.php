@@ -37,22 +37,12 @@ class LicenseController extends Controller
      */
     public function all(Request $request)
     {
-        $limit  = $request->query('limit', 100);
-        $search = $request->query('search', '');
+        $query = License::join('packages', 'licenses.package_id', '=', 'packages.id')
+                        ->select('licenses.*', 'packages.slug as package_slug');
 
-        if ($search === '') {
-            $licenses = License::take($limit);
-        } else {
-            $licenses = License::where('license_key', 'like', '%' . $search . '%')->take($limit);
-        }
+        $output = filterQueryForDataTable($query, $request);
 
-        $licenses = $licenses
-            ->join('packages', 'licenses.package_id', '=', 'packages.id')
-            ->select('licenses.*', 'packages.slug as package_slug')
-            ->orderBy('licenses.created_at', 'DESC')
-            ->get();
-
-        return response()->json($licenses);
+        return response()->json($output);
     }
 
     /**

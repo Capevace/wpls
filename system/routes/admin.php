@@ -33,6 +33,9 @@ Route::middleware('auth')->group(function () {
 		Route::post('/packages/{package}/test-license', 'PackageController@testLicense');
 		Route::post('/packages/{package}/update', 'PackageController@update');
 		Route::post('/packages/{package}/delete', 'PackageController@delete');
+		Route::get('/packages/{package}/sites', 'PackageController@getSites');
+		Route::get('/packages/{package}/licenses', 'PackageController@getLicenses');
+		Route::get('/packages/{package}/activations', 'PackageController@getActivations');
 
 		// Announcement Routes
 		Route::get('/announcements', 'AnnouncementController@all');
@@ -40,6 +43,6 @@ Route::middleware('auth')->group(function () {
 		Route::get('/announcements/{announcement}', 'AnnouncementController@get');
 		Route::post('/announcements/{announcement}/delete', 'AnnouncementController@delete');
 
-		//Route::get('/sites');
+		Route::get('/sites', 'SiteController@all');
 	});
 });

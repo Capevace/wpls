@@ -10,8 +10,9 @@ use App\Service\InstallService;
 use App\Auth\ActivationGuard;
 
 use \Illuminate\Http\Request;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
+use \Illuminate\Support\ServiceProvider;
+use \Illuminate\Support\Facades\Schema;
+use \Illuminate\Database\Query\Builder;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -51,6 +52,22 @@ class AppServiceProvider extends ServiceProvider
             $request = app(Request::class);
 
             return app(ActivationGuard::class, [$request]);
+        });
+
+        Builder::macro('filterByRequest', function($request) {
+            $limit     = (int) $request->input('limit', 25);
+            $orderBy   = $request->input('order-by', 'created_at');
+            $orderType = $request->input('order-type', 'desc');
+            $search    = $request->input('search', '');
+            $searchKey = $request->input('search-key', '');#
+
+            if (!empty($search)
+                && !empty($searchKey)) {
+                $query = $this->where($searchKey, 'like', '%' . $search .'%');
+            }
+
+            return $this
+                ->orderBy($orderBy, $orderType);
         });
     }
 }

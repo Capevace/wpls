@@ -183,4 +183,34 @@ class PackageController extends Controller
 
         return response(200);
     }
+
+    public function getSites(Request $request, Package $package)
+    {
+        $output = $package
+            ->activations()
+            ->join('sites', 'license_activations.site_id', '=', 'sites.id')
+            ->select('sites.*');
+
+        $output = filterQueryForDataTable($output, $request);
+
+        return response()->json($output);
+    }
+
+    public function getLicenses(Request $request, Package $package)
+    {
+        $output = filterQueryForDataTable($package->licenses(), $request);
+        return response()->json($output);
+    }
+
+    public function getActivations(Request $request, Package $package)
+    {
+        $output = $package
+            ->activations()
+            ->join('licenses', 'license_activations.license_id', '=', 'licenses.id')
+            ->join('sites', 'license_activations.site_id', '=', 'sites.id')
+            ->select('license_activations.id', 'license_activations.updated_at', 'licenses.license_key', 'sites.url');
+
+        $output = filterQueryForDataTable($output, $request);
+        return response()->json($output);
+    }
 }

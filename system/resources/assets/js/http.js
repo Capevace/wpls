@@ -1,6 +1,11 @@
 import { post, get } from 'axios';
 import { apiUrl, baseUrl } from './config';
 
+export const licensesDataUrl = `${apiUrl}/licenses`;
+export const activationsDataUrl = `${apiUrl}/activations`;
+export const sitesDataUrl = `${apiUrl}/sites`;
+
+
 export function saveItemID(slug, itemId) {
 	return post(`${apiUrl}/packages/${slug}/envato-item-id`, { id: itemId });
 }

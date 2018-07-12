@@ -13,11 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::get('/', function (Request $request) {
-// 	return response()->json(['hello']);
-// });
-
-Route::redirect('/', '/admin', 302);
+Route::get('/', function() {
+    return redirect()->route('admin:index');
+});
 
 Route::prefix('assets')->group(function() {
     Route::get('/js/index.js', 'Admin\WebController@scripts');
@@ -27,14 +25,3 @@ Route::prefix('assets')->group(function() {
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-
-// Route::get('/admin', function () {
-// 	return view('admin');
-// })->name('admin');
-
-// Auth routes
-
-
-
-// Route::get('/login', 'App\Http\Controllers\Auth\LoginController@showLoginForm')->name('login');
-// Route::post('/register', 'App\Http\Controllers\Auth\LoginController@login');

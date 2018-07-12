@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\LicenseActivation;
 
-use Carbon\Carbon;
-
 class ActivationController extends Controller
 {
     /**
@@ -18,7 +16,7 @@ class ActivationController extends Controller
      */
     public function all(Request $request)
     {
-        $validatedData = $request->validate([
+        /*$validatedData = $request->validate([
             'from' => 'required|date',
             'to'   => 'required|date'
         ]);
@@ -41,8 +39,21 @@ class ActivationController extends Controller
                 'sites.last_php_version as site_last_php_version',
                 'sites.last_package_version as site_last_package_version'
             )
-            ->get();
+            ->get();*/
 
-        return response()->json($licenses);
+        $query = LicenseActivation::join('packages', 'license_activations.package_id', '=', 'packages.id')
+            ->join('licenses', 'license_activations.license_id', '=', 'licenses.id')
+            ->join('sites', 'license_activations.site_id', '=', 'sites.id')
+            ->select(
+                'license_activations.*', 
+                'packages.slug as package_slug', 
+                'licenses.license_key as license_key',
+                'licenses.customer_data as license_customer_data',
+                'sites.url as site_url'
+            );
+
+        $output = filterQueryForDataTable($query, $request);
+
+        return response()->json($output);
     }
 }

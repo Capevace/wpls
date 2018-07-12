@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 Route::prefix('v1')->group(function () {
 	Route::get('/packages/{package}/metadata', 'PackageController@getMetadata');
-	Route::get('/packages/{package}/download', 'PackageController@download')->name('package.download');
+	Route::get('/packages/{package}/download', 'PackageController@download')->name('package:download');
 
 	Route::post('/license/activate', 'ActivationController@activate');
 	Route::post('/license/deactivate', 'ActivationController@deactivate');

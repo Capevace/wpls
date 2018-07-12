@@ -26,8 +26,13 @@ export default {
                 </div>
             </div>
 
-            <slot></slot>
+            <slot v-if="!loading"></slot>
+            <div v-else>
+                <h3 class="subtitle is-3 has-text-centered">
+                    Loading...
+                </h3>
+            </div>
         </div>
     `,
-    props: ['title', 'subtitle', 'back']
+    props: ['title', 'subtitle', 'back', 'loading']
 };

@@ -16,6 +16,7 @@ import PackagesPage from './pages/packages';
 import PackagePage from './pages/package';
 import AnnouncementsPage from './pages/announcements';
 import CreateAnnouncementPage from './pages/create-announcement';
+import SitesPage from './pages/sites';
 import AnnouncementPage from './pages/announcement';
 import SettingsPage from './pages/settings';
 
@@ -23,6 +24,19 @@ Vue.filter('capitalize', function(value) {
     if (!value) return '';
     value = value.toString();
     return value.charAt(0).toUpperCase() + value.slice(1);
+});
+
+Vue.filter('limit', function(value, limit = 25, suffix = '') {
+    if (!value) return '';
+
+    if (value.length <= limit)
+        suffix = '';
+
+    return value.substring(0, limit) + suffix;
+});
+
+Vue.filter('add', function(value, text = '') {
+    return value + text;
 });
 
 Vue.component('wpls-page', WPLSPage);
@@ -33,6 +47,7 @@ const routes = [
     { path: '/licenses', component: LicensesPage },
     { path: '/packages', component: PackagesPage },
     { path: '/packages/:slug', component: PackagePage },
+    { path: '/sites', component: SitesPage },
     { path: '/announcements', component: AnnouncementsPage },
     { path: '/announcements/create', component: CreateAnnouncementPage },
     { path: '/announcements/:id', component: AnnouncementPage },

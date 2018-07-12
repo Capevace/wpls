@@ -12,10 +12,16 @@ class AnnouncementController extends Controller
     public function newest(ApiRequest $request)
     {
         $validatedData = $request->validate([
-            'after' => 'required|date'
+            'after' => 'required|date',
+            'packages' => 'required|string'
         ]);
+
+        $packages = explode(',', $validatedData['packages']);
     
         $announcements = Announcement::where('created_at', '>=', $validatedData['after'])
+            ->whereHas('packages', function($query) use($packages) {
+                $query->whereIn('slug', $packages);
+            })
             ->with('packages:packages.id,packages.slug,packages.name')
             ->get();
 

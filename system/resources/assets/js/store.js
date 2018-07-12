@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import extend from 'extend';
+import deepAssign from 'deep-assign';
 import { updateConfig, saveItemID, getPackages } from './http';
 
 Vue.use(Vuex);
@@ -14,7 +14,7 @@ const reducePackages = packages => packages.reduce((sortedPackages, packageObjec
 
 const store = new Vuex.Store({
     state: {
-        config: extend({}, /*wplsConfig*/{}),
+        config: deepAssign({}, /*wplsConfig*/{}),
         plugins: reducePackages(wplsPackages),
         savingConfig: false,
         notifications: {},
@@ -54,7 +54,7 @@ const store = new Vuex.Store({
 
         pushNotification(context, data) {
             const key = Date.now();
-            context.state.notifications = extend(
+            context.state.notifications = deepAssign(
                 {},
                 context.state.notifications,
                 {
@@ -73,13 +73,13 @@ const store = new Vuex.Store({
         },
 
         removeNotification(context, key) {
-            const notifications = extend({}, context.state.notifications);
+            const notifications = deepAssign({}, context.state.notifications);
             delete notifications[key];
             context.state.notifications = notifications;
         },
 
         updateEnvatoItemID(context, data) {
-            context.state.itemIdFormLoading = extend(
+            context.state.itemIdFormLoading = deepAssign(
                 {},
                 context.state.itemIdFormLoading,
                 {
@@ -92,7 +92,7 @@ const store = new Vuex.Store({
                     console.log(response);
 
                     setTimeout(() => {
-                        context.state.itemIdFormLoading = extend(
+                        context.state.itemIdFormLoading = deepAssign(
                             {},
                             context.state.itemIdFormLoading,
                             {
@@ -111,7 +111,7 @@ const store = new Vuex.Store({
                     console.log(error);
 
                     setTimeout(() => {
-                        context.state.itemIdFormLoading = extend(
+                        context.state.itemIdFormLoading = deepAssign(
                             {},
                             context.state.itemIdFormLoading,
                             {

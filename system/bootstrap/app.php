@@ -15,7 +15,15 @@ $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );
 
-$app->useEnvironmentPath(realpath(__DIR__.'/../../'));
+$envPath = realpath(__DIR__.'/../../');
+
+// If a proper env file exists in the project root folder, use it.
+// Otherwise use the default one in the system root.
+if (file_exists($envPath . '/.env')) {
+    $app->useEnvironmentPath(realpath(__DIR__.'/../../'));
+} else {
+
+}
 
 /*
 |--------------------------------------------------------------------------

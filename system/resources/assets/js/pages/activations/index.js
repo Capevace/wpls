@@ -1,102 +1,40 @@
-import { getActivations } from '../../http';
-import debounce from 'lodash.debounce';
+import { activationsDataUrl } from '../../http';
+import DataTable from '../../components/data-table';
 
-import ActivationsTable from './components/activations-table';
-
-const ActivationsPage = {
+export default {
     template: `
         <wpls-page title="Activations">
-            <div class="level">
-				<div class="level-left">
-					<div class="level-item">
-						<div class="field">
-							<label class="label">
-								From
-							</label>
-							<input type="date" class="input" v-model="dateFrom" :max="dateUntil" :disabled="loading" @input="fetchActivationsCallback"/>
-						</div>
-                    </div>
-                    <div class="level-item">
-						<div class="field">
-							<label class="label">
-								Until
-							</label>
-							<input type="date" class="input" v-model="dateUntil" :min="dateFrom" :disabled="loading" @input="fetchActivationsCallback"/>
-						</div>
-					</div>
-				</div>
-			</div>
-            
-            <h3 class="subtitle is-3 has-text-centered" v-if="loading || activations.length === 0">
-                {{ loading ? 'Loading Activations...' : 'No Activations found' }}
-            </h3>
-
-			<activations-table :activations="activations" v-else></activations-table>
+            <data-table :data-url="dataUrl" :columns="dataColumns" :options="dataOptions" ref="activationsDataTable"></data-table>
 		</wpls-page>
 	`,
-    data() {
-        const then = new Date(Date.now() - 1000 * 60 * 60 * 24 * 30);
-        const now = new Date();
-
-        const formatMonth = month => {
-            let monthNumber = month + 1;
-            return monthNumber < 10
-                ? '0' + String(monthNumber)
-                : String(monthNumber);
-        };
-
-        return {
-            dateFrom:
-                then.getFullYear() +
-                '-' +
-                formatMonth(then.getMonth()) +
-                '-' +
-                then.getDate(),
-            dateUntil:
-                now.getFullYear() +
-                '-' +
-                formatMonth(now.getMonth()) +
-                '-' +
-                now.getDate(),
-            loading: false,
-            activations: []
-        };
-    },
     components: {
-        'activations-table': ActivationsTable
+        'data-table': DataTable
     },
-    created() {
-        this.fetchActivations();
-    },
-    methods: {
-        fetchActivations() {
-            this.loading = true;
-
-            getActivations(this.dateFrom, this.dateUntil)
-                .then(response => {
-                    console.log(response);
-                    this.loading = false;
-
-                    this.activations = response.data;
-                })
-                .catch(error => {
-                    console.log(error);
-                    this.loading = false;
-
-                    this.$store.dispatch('pushNotification', {
-                        message:
-                            'Could not fetch activations.',
-                        type: 'is-danger',
-                        duration: 2000
-                    });
-
-                    this.activations = [];
-                });
+    computed: {
+        dataUrl() {
+            return activationsDataUrl;
         },
-        fetchActivationsCallback: debounce(function() {
-            this.fetchActivations();
-        }, 1000)
-    }
+        dataColumns() {
+            return [
+                { title: 'ID', path: 'id', columnClass: 'is-size-7' },
+                { title: 'Package', path: 'package_slug' },
+                { title: 'Site URL', path: 'site_url' },
+                { title: 'License Key (click to expand)', path: 'license_key', component: {
+                    template: `<a @click="alert">{{ entry.license_key | limit(30, '...') }}</a>`,
+                    methods: { alert: function() {alert(this.entry.license_key);} }
+                }},
+                { title: 'Updated At', path: 'updated_at', type: 'datetime' },
+            ];
+        },
+        dataOptions() {
+            return { 
+                classes: { 
+                    table: 'table is-fullwidth is-striped'
+                },
+                searchKey: 'license_key',
+                orderBy: 'updated_at',
+                orderType: 'desc',
+            };
+        }
+    },
 };
-
-export default ActivationsPage;

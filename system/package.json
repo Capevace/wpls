@@ -27,6 +27,7 @@
     "dependencies": {
         "axios": "^0.17.1",
         "babel-polyfill": "^6.26.0",
+        "deep-assign": "^2.0.0",
         "extend": "^3.0.1",
         "lodash.debounce": "^4.0.8",
         "marked": "^0.3.19",

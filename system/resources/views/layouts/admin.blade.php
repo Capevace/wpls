@@ -9,8 +9,6 @@
 <body>
 	@yield('content')
 
-	<script type="text/javascript">
-	</script>
 	<script type="text/javascript" src="{{ @url('/assets/js/index.js') }}?ver={{ @config('app.version') }}"></script>
 </body>
 </html>

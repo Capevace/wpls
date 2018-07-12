@@ -1,9 +1,9 @@
-import { getLicenses } from '../../http';
-import debounce from 'lodash.debounce';
+import { licensesDataUrl } from '../../http';
 
 import NewLicensePopup from './components/new-license-popup';
 import InvalidationPopup from './components/invalidation-popup';
-import LicenseTable from './components/license-table';
+import DataTable from '../../components/data-table';
+import LicenseActionButtons from './components/license-action-buttons';
 
 const LicensesPage = {
     template: `
@@ -17,34 +17,7 @@ const LicensesPage = {
 				</div>
             </template>
 
-			<div class="level">
-				<div class="level-left">
-					<div class="level-item">
-						<div class="field">
-							<label class="label">
-								Limit
-							</label>
-							<input type="number" class="input" v-model="limit" min="0" :disabled="loading" @input="fetchLicensesCallback"/>
-						</div>
-					</div>
-				</div>
-				<div class="level-right">
-					<div class="level-item">
-						<div class="field">
-							<label class="label">
-								Search for Key:
-							</label>
-							<input type="text" class="input" v-model="search" min="0" :disabled="loading" @input="fetchLicensesCallback"/>
-						</div>
-					</div>
-				</div>
-			</div>
-            
-            <h3 class="subtitle is-3 has-text-centered" v-if="loading || licenses.length === 0">
-                {{ loading ? 'Loading Licenses...' : 'No Licenses found' }}
-            </h3>
-
-			<license-table :licenses="licenses" @actionSuccess="fetchLicenses" v-else></license-table>
+            <data-table :data-url="dataUrl" :columns="dataColumns" :options="dataOptions" ref="licensesDataTable"></data-table>
 
 			<new-license-popup :visible="popupVisible" @toggle="togglePopup" @success="newLicenseCreated"></new-license-popup>
 			<invalidation-popup :visible="invalidatePopupVisible" @toggle="toggleInvalidatePopup" @success="purchaseCodeInvalidated"></invalidation-popup>
@@ -53,50 +26,51 @@ const LicensesPage = {
     data() {
         return {
             popupVisible: false,
-            invalidatePopupVisible: false,
-            limit: 100,
-            search: '',
-            loading: false,
-            licenses: []
+            invalidatePopupVisible: false
         };
     },
     components: {
-        'license-table': LicenseTable,
         'new-license-popup': NewLicensePopup,
-        'invalidation-popup': InvalidationPopup
+        'invalidation-popup': InvalidationPopup,
+        'data-table': DataTable
     },
-    created() {
-        this.fetchLicenses();
+    computed: {
+        dataUrl() {
+            return licensesDataUrl;
+        },
+        dataColumns() {
+            return [
+                { title: 'ID', path: 'id', columnClass: 'is-size-7' },
+                { title: 'License Key (click to expand)', path: 'license_key', component: {
+                    template: `<a @click="alert">{{ entry.license_key | limit(30, '...') }}</a>`,
+                    methods: { alert: function() {alert(this.entry.license_key);} }
+                }},
+                { title: 'Package', path: 'package_slug' },
+                { title: 'Supported Until', path: 'supported_until', type: 'date' },
+                { title: 'Type', path: 'is_purchase_code', component: {
+                    template: `<span>{{ entry.is_purchase_code ? 'Purchase Code' : 'Custom License' }}</span>`
+                }},
+                { title: 'Max Activations', path: 'max_activations' },
+                { title: 'Updated At', path: 'updated_at', type: 'datetime' },
+                { title: 'Actions', path: 'actions', component: Object.assign(LicenseActionButtons, {
+                    methods: {
+                        onActionSuccess: () => this.refreshDataTable()
+                    }
+                })},
+            ];
+        },
+        dataOptions() {
+            return { 
+                classes: { 
+                    table: 'table is-fullwidth is-striped'
+                },
+                searchKey: 'license_key',
+                orderBy: 'updated_at',
+                orderType: 'desc',
+            };
+        }
     },
     methods: {
-        fetchLicenses() {
-            this.loading = true;
-
-            getLicenses(this.limit, this.search)
-                .then(response => {
-                    console.log(response);
-                    this.loading = false;
-
-                    this.licenses = response.data;
-                })
-                .catch(error => {
-                    console.log(error);
-                    this.loading = false;
-
-                    this.$store.dispatch('pushNotification', {
-                        message:
-                            'Could not fetch licenses.',
-                        type: 'is-danger',
-                        duration: 2000
-                    });
-
-                    this.licenses = [];
-                });
-        },
-        fetchLicensesCallback: debounce(function() {
-            this.fetchLicenses();
-        }, 1000),
-
         togglePopup() {
             this.popupVisible = !this.popupVisible;
         },
@@ -107,12 +81,16 @@ const LicensesPage = {
 
         newLicenseCreated() {
             this.togglePopup();
-            this.fetchLicenses();
+            this.refreshDataTable();
         },
 
         purchaseCodeInvalidated() {
             this.toggleInvalidatePopup();
-            this.fetchLicenses();
+            this.refreshDataTable();
+        },
+
+        refreshDataTable() {
+            this.$refs.licensesDataTable.refresh();
         }
     }
 };

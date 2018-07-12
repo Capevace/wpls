@@ -34,8 +34,7 @@ class UpdateService
     {
         $outputLog = new BufferedOutput;
         Artisan::call('migrate', ['--force' => true], $outputLog);
-        Artisan::call('config:cache', [], $outputLog);
-        Artisan::call('route:cache', [], $outputLog);
+        //Artisan::call('route:cache', [], $outputLog);
         Artisan::call('view:cache', [], $outputLog);
 
         return $outputLog->fetch();

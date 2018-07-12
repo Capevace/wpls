@@ -27,6 +27,9 @@ export default {
 					<nav-link to="/packages" exact>Packages</nav-link>
 				</p>
 				<p class="level-item">
+					<nav-link to="/sites" exact>Sites</nav-link>
+				</p>
+				<p class="level-item">
 					<nav-link to="/announcements" exact>Announcements</nav-link>
 				</p>
 				<p class="level-item">

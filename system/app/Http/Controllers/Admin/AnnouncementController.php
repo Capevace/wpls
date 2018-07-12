@@ -15,7 +15,7 @@ class AnnouncementController extends Controller
      */
     public function all()
     {
-        $announcements = Announcement::all();
+        $announcements = Announcement::orderBy('created_at', 'desc')->get();
 
         return response()->json($announcements);
     }

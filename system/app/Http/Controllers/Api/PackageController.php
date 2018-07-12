@@ -45,7 +45,7 @@ class PackageController extends Controller
 		
 		// If there was an activation passed, add download url to metadata.
 		if (ActivationGuard::check()) {
-			$metadata['download_url'] = route('package.download', [
+			$metadata['download_url'] = route('package:download', [
 				'package'    => $package,
 				'activation' => ActivationGuard::getActivationIdForRequest()
 			]);

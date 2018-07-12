@@ -30,7 +30,7 @@
                                 <input class="input {{ $errors->any() ? ' is-danger' : '' }}" type="password" id="password" name="password" placeholder="Password" required />
                             </div><br>
                             <div class="field">
-                                <button class="button is-large" type="submit">Login</button>
+                                <button class="button is-pulled-right" type="submit">Login</button>
                             </div>
                         </div>
                     </div>
