@@ -19,10 +19,8 @@ $envPath = realpath(__DIR__.'/../../');
 
 // If a proper env file exists in the project root folder, use it.
 // Otherwise use the default one in the system root.
-if (file_exists($envPath . '/.env')) {
+if (file_exists($envPath . '/.env') || file_exists($envPath . '/.env.circleci')) {
     $app->useEnvironmentPath(realpath(__DIR__.'/../../'));
-} else {
-
 }
 
 /*
