@@ -5,7 +5,7 @@
     <section class="hero is-info is-bold is-fullheight" id="app">
         <div class="hero-body">
             <div class="container">
-                <form action="{{ route('setup:install') }}" method="post">
+                <form action="{{ route('setup:create-env') }}" method="post">
                     @csrf
 
                     <div style="margin: auto;">

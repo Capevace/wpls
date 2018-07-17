@@ -1,3 +1,5 @@
 .DEV-MODE
+DEV_MODE
 .env
 .env.testing
+storage/installed

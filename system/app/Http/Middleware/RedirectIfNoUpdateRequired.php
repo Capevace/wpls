@@ -3,15 +3,15 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Service\Setup\InstallService;
+use App\Service\Setup\UpdateService;
 
-class RedirectIfInstalled
+class RedirectIfNoUpdateRequired
 {
-    protected $installService;
+    protected $updateService;
 
-    public function __construct(InstallService $installService)
+    public function __construct(UpdateService $updateService)
     {
-        $this->installService = $installService;
+        $this->updateService = $updateService;
     }
 
     /**
@@ -24,7 +24,7 @@ class RedirectIfInstalled
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ($this->installService->installedAlready()) {
+        if (!$this->updateService->needsUpdate()) {
             abort(404);
         }
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Setup;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Service\InstallService;
-use App\Http\Requests\InstallRequest;
+use App\Service\Setup\InstallService;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -21,10 +21,19 @@ class InstallController extends Controller
         $this->middleware('installed');
     }
 
+
+    /**
+     * Show the initial install page, where the user has to enter their server information.
+     *
+     * @param Request $request
+     */
     public function index(Request $request)
     {
+        // Error passed on from page further down in the install process.
+        // Done this way because default laravel error passing (back()->withErrors) doesn't seem to be working...
         $error = $request->input('error', null);
 
+        // Render View
         if (!empty($error))
             return response()->view('setup.install', [
                 'error' => $error
@@ -33,7 +42,13 @@ class InstallController extends Controller
         return response()->view('setup.install');
     }
 
-    public function install(Request $request)
+
+    /**
+     * POST Route to create the .env file required to connect to the database.
+     *
+     * @param Request $request
+     */
+    public function createEnv(Request $request)
     {
         $data = [
             'db_host' => $request->input('db_host', '127.0.0.1'),
@@ -46,11 +61,17 @@ class InstallController extends Controller
             'update_password' => $request->input('update_password', '')
         ];
 
+        // Use Install Service to create env.
         $this->installService->createEnv($data);
 
+        // Redirect to test db route.
         return redirect()->route('setup:test-db');
     }
 
+
+    /**
+     * Route to test if a successful database connection could be established. If not, the user gets returned back to the first entry screen.
+     */
     public function testDatabase()
     {
         try {
@@ -66,9 +87,12 @@ class InstallController extends Controller
         }
     }
 
+    /**
+     * Route that migrates the database for the first time and displays the successful database connection.
+     */
     public function success()
     {
-        // Migrate database, force flag is necessary because the APP_ENV is production
+        // Setup database and capture output
         $output = $this->installService->setupDatabase();
 
         return view('setup.success', [
@@ -76,8 +100,15 @@ class InstallController extends Controller
         ]);
     }
 
+    /**
+     * POST request route to create the initial admin account.
+     *
+     * @param Request $request
+     * @return void
+     */
     public function createAdminAccount(Request $request)
     {
+        // Validate admin details
         $validatedData = $request->validate([
             'admin_name'     => 'required|string',
             'admin_username' => 'required|string',
@@ -85,9 +116,11 @@ class InstallController extends Controller
             'admin_password' => 'required|string'
         ]);
 
+        // Create admin account and finish installation.
         $this->installService->createAdminAccount($validatedData);
         $this->installService->finishInstallation();
 
+        // Setup complete! Redirect to admin login.
         return redirect()->route('admin:index');
     }
 }

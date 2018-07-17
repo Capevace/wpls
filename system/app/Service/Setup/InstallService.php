@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Setup;
+
 use Storage;
 use Artisan;
+use App;
+
 use Symfony\Component\Console\Output\BufferedOutput;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Facades\Hash;
@@ -18,22 +21,19 @@ class InstallService
     public function envPath()
     {
         $app = app();
-        return $this->rootEnvPath() . '/' . $app->environmentFile();
-    }
-
-    public function rootEnvPath()
-    {
-        return realpath(base_path() . '/..');
+        return wpls_path($app->environmentFile());
     }
 
     /**
      * Checks if the system has been installed already or if it still has to be.
+     * 
+     * It does so by checking if a file called "installed" exists in the general disk space.
      *
      * @return boolean
      */
     public function installedAlready()
     {
-        return Storage::disk('local')->exists('installed');
+        return Storage::disk('general')->exists('installed');
     }
 
     /**
@@ -58,21 +58,38 @@ class InstallService
         $envContent = str_replace('[ENVATO_API_KEY]', $installFormData['envato_api_key'], $envContent);
         $envContent = str_replace('[UPDATE_PASSWORD]', $installFormData['update_password'], $envContent);
 
+        // If we're testing, don't write to filesystem.
+        if (App::environment(['testing', 'circleci']))
+            return $envContent;
+
         // Save the env in project root
-        $path = $this->rootEnvPath();
-        file_put_contents($path.'/.env', $envContent);
+        file_put_contents(wpls_path('.env'), $envContent);
     }
 
+    /**
+     * Calls upon Artisan to migrate the database and capture its output.
+     *
+     * @return string The output of the Artisan call.
+     */
     public function setupDatabase()
     {
         $outputLog = new BufferedOutput;
+        
         Artisan::call('migrate', ['--force' => true], $outputLog);
+
+        /* To be determined if this should be done... is not necessary and complicates things in development and during updaing */
         //Artisan::call('route:cache', [], $outputLog);
         //Artisan::call('view:cache', [], $outputLog);
 
         return $outputLog->fetch();
     }
 
+    /**
+     * Create the initial admin account.
+     *
+     * @param array $validatedData
+     * @return void
+     */
     public function createAdminAccount($validatedData)
     {
         $user           = new User;
@@ -83,9 +100,14 @@ class InstallService
         $user->save();
     }
 
+    /**
+     * Finish the installation by placing the "installed" file into storage.
+     *
+     * @return void
+     */
     public function finishInstallation()
     {
-        Storage::disk('local')->put('installed', 'installed');
+        Storage::disk('general')->put('installed', config('app.version'));
     }
 
     /**

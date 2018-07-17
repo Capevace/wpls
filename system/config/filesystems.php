@@ -62,12 +62,12 @@ return [
 
         'packages' => [
             'driver' => 'local',
-            'root' => realpath(base_path() . '/../storage/packages'),
+            'root' => wpls_path('storage/packages'),
         ],
 
         'general' => [
             'driver' => 'local',
-            'root' => realpath(base_path() . '/../storage'),
+            'root' => wpls_path('storage')
         ],
     ],
 
