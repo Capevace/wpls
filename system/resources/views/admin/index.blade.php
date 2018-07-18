@@ -6,5 +6,7 @@
 </div>
 <script type="text/javascript">
     var wplsPackages = @json($packages);
+    var wplsNeedsUpdate = @json($needsUpdate);
+    var wplsUpdateLink = @json(route('update:index'));
 </script>
 @endsection

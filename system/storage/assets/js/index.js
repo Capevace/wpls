@@ -32550,9 +32550,17 @@ var NavLink = {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	template: '\n\t\t<nav class="level" role="navigation" aria-label="main navigation"> \n\t\t\t<!-- Left side -->\n\t\t\t<div class="level-left">\n\t\t\t\t<div class="level-item">\n\t\t\t\t\t<p class="subtitle is-4"><strong>WordPress</strong> License Server</p>\n\t\t\t\t</div>\n\t\t\t</div><!-- Right side -->\n\t\t\t<div class="level-right">\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/" exact>Activations</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/licenses" exact>Licenses</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/packages" exact>Packages</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/sites" exact>Sites</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/announcements" exact>Announcements</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<a href="logout" style="margin-left: 30px;" class="button is-danger is-inverted is-small has-text-weight-bold">\n\t\t\t\t\t\t<span>Logout</span>\n\t\t\t\t\t\t<span class="icon"><i class="fas fa-sign-out-alt"></i></span>\n\t\t\t\t\t</a>\n\t\t\t\t</p>\n\t\t\t</div>\n\t\t</nav>\n\t',
+	template: '\n\t\t<nav class="level" role="navigation" aria-label="main navigation"> \n\t\t\t<!-- Left side -->\n\t\t\t<div class="level-left">\n\t\t\t\t<div class="level-item">\n\t\t\t\t\t<p class="subtitle is-4">\n\t\t\t\t\t\t<strong>WordPress</strong> License Server\n\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t\n\t\t\t<p class="level-item" style="margin-right: 40px" v-if="needsUpdate">\n\t\t\t\t\t<a :href="updateLink" class="button is-warning is-inverted">Update database to new version</a>\n\t\t\t\t</p>\n\t\t\t\n\t\t\t<!-- Right side -->\n\t\t\t<div class="level-right">\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/" exact>Activations</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/licenses" exact>Licenses</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/packages" exact>Packages</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/sites" exact>Sites</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<nav-link to="/announcements" exact>Announcements</nav-link>\n\t\t\t\t</p>\n\t\t\t\t<p class="level-item">\n\t\t\t\t\t<a href="logout" style="margin-left: 30px;" class="button is-danger is-inverted is-small has-text-weight-bold">\n\t\t\t\t\t\t<span>Logout</span>\n\t\t\t\t\t\t<span class="icon"><i class="fas fa-sign-out-alt"></i></span>\n\t\t\t\t\t</a>\n\t\t\t\t</p>\n\t\t\t</div>\n\t\t</nav>\n\t',
 	components: {
 		'nav-link': NavLink
+	},
+	computed: {
+		needsUpdate: function needsUpdate() {
+			return window.wplsNeedsUpdate;
+		},
+		updateLink: function updateLink() {
+			return window.wplsUpdateLink;
+		}
 	}
 });
 

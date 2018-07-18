@@ -58,10 +58,6 @@ class InstallService
         $envContent = str_replace('[ENVATO_API_KEY]', $installFormData['envato_api_key'], $envContent);
         $envContent = str_replace('[UPDATE_PASSWORD]', $installFormData['update_password'], $envContent);
 
-        // If we're testing, don't write to filesystem.
-        if (App::environment(['testing', 'circleci']))
-            return $envContent;
-
         // Save the env in project root
         file_put_contents(wpls_path('.env'), $envContent);
     }

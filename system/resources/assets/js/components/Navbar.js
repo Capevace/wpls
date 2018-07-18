@@ -13,9 +13,17 @@ export default {
 			<!-- Left side -->
 			<div class="level-left">
 				<div class="level-item">
-					<p class="subtitle is-4"><strong>WordPress</strong> License Server</p>
+					<p class="subtitle is-4">
+						<strong>WordPress</strong> License Server
+					</p>
 				</div>
-			</div><!-- Right side -->
+			</div>
+			
+			<p class="level-item" style="margin-right: 40px" v-if="needsUpdate">
+					<a :href="updateLink" class="button is-warning is-inverted">Update database to new version</a>
+				</p>
+			
+			<!-- Right side -->
 			<div class="level-right">
 				<p class="level-item">
 					<nav-link to="/" exact>Activations</nav-link>
@@ -43,5 +51,13 @@ export default {
 	`,
 	components: {
 		'nav-link': NavLink
+	},
+	computed: {
+		needsUpdate() {
+			return window.wplsNeedsUpdate;
+		},
+		updateLink() {
+			return window.wplsUpdateLink;
+		}
 	}
 };
