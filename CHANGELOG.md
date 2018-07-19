@@ -1,5 +1,8 @@
 # WPLS Changelog
 
+## 3.2.0
+* Added Web Installer & Updater
+
 ## 3.1.1
 * Fixed compiled assets not being included in the build.
 
