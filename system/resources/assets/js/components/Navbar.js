@@ -37,9 +37,9 @@ export default {
 				<p class="level-item">
 					<nav-link to="/sites" exact>Sites</nav-link>
 				</p>
-				<p class="level-item">
+				<!--<p class="level-item">
 					<nav-link to="/announcements" exact>Announcements</nav-link>
-				</p>
+				</p>-->
 				<p class="level-item">
 					<a href="logout" style="margin-left: 30px;" class="button is-danger is-inverted is-small has-text-weight-bold">
 						<span>Logout</span>
