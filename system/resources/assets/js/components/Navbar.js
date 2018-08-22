@@ -15,13 +15,14 @@ export default {
 				<div class="level-item">
 					<p class="subtitle is-4">
 						<strong>WordPress</strong> License Server
+						
+						<div class="tags has-addons version-tag-container">
+							<span class="tag version-tag">{{ version }}</span>
+							<span v-if="needsUpdate" class="tag is-danger"><a :href="updateLink">Database update required</a></span>
+						</div>
 					</p>
 				</div>
 			</div>
-			
-			<p class="level-item" style="margin-right: 40px" v-if="needsUpdate">
-					<a :href="updateLink" class="button is-warning is-inverted">Update database to new version</a>
-				</p>
 			
 			<!-- Right side -->
 			<div class="level-right">
@@ -58,6 +59,9 @@ export default {
 		},
 		updateLink() {
 			return window.wplsUpdateLink;
+		},
+		version() {
+			return window.wplsVersion;
 		}
 	}
 };

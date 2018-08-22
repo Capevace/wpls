@@ -30,7 +30,8 @@ class WebController extends Controller
 
         return view('admin.index', [
             'packages'    => $packages,
-            'needsUpdate' => $needsUpdate
+            'needsUpdate' => $needsUpdate,
+            'version'     => wpls_version()
         ]);
     }
 

@@ -33,3 +33,17 @@ if (!function_exists('wpls_path')) {
         return $rootPath . ($path ? DIRECTORY_SEPARATOR.$path : $path);
     }
 }
+
+if (!function_exists('wpls_version')) {
+    /**
+     * Returns the installed version of WPLS.
+     *
+     * @return string The version.
+     */
+    function wpls_version()
+    {
+        return \Illuminate\Support\Facades\Storage::disk('general')->exists('installed')
+            ? \Illuminate\Support\Facades\Storage::disk('general')->get('installed')
+            : '0.0.0';
+    }
+}
