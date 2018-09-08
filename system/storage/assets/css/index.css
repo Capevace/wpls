@@ -12594,3 +12594,25 @@ label.panel-block:hover {
   color: #8825ff !important;
 }
 
+.main-navigation a::after {
+  content: " ";
+  display: block;
+  background-color: transparent;
+  height: 2px;
+  opacity: 0;
+  -webkit-transition: opacity 200ms ease, -webkit-transform 200ms ease;
+  transition: opacity 200ms ease, -webkit-transform 200ms ease;
+  transition: opacity 200ms ease, transform 200ms ease;
+  transition: opacity 200ms ease, transform 200ms ease, -webkit-transform 200ms ease;
+  -webkit-transform: translateY(5px);
+          transform: translateY(5px);
+}
+
+.main-navigation a.router-link-exact-active.has-text-weight-bold::after,
+.main-navigation a:hover::after {
+  background-color: white;
+  opacity: 1;
+  -webkit-transform: translateY(0px);
+          transform: translateY(0px);
+}
+

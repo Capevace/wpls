@@ -150,9 +150,10 @@ class LicenseVerification
         }
 
         // If the supported time for the purchase code is over, throw.
-        if (strtotime($responseData->supported_until) < time()) {
+        // You always get updates
+        /*if (strtotime($responseData->supported_until) < time()) {
             throw new LicenseSupportException();
-        }
+        }*/
 
         $envatoMaxActivation = (int) env('ENVATO_MAX_ACTIVATIONS', 1);
         $envatoIgnoreSupportedUntil = (boolean) env('ENVATO_IGNORE_SUPPORTED_UNTIL', false);

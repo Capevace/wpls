@@ -1,5 +1,9 @@
 version: 2
 
+dependencies:
+  pre:
+    - go get github.com/tcnksm/ghr
+
 general:
   build_dir: system
 

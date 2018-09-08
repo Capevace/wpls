@@ -9,7 +9,7 @@ const NavLink = {
 
 export default {
 	template: `
-		<nav class="level" role="navigation" aria-label="main navigation"> 
+		<nav class="level main-navigation" role="navigation" aria-label="main navigation"> 
 			<!-- Left side -->
 			<div class="level-left">
 				<div class="level-item">

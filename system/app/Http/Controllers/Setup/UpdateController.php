@@ -38,7 +38,7 @@ class UpdateController extends Controller
 
         if ($updatePassword === null || $request->input('password') !== $updatePassword) {
             // abort(401, 'Incorrect Password');
-            return response()->view('setup.update', ['error' => 'Incorrect Password']);
+            return response()->view('setup.update.update', ['error' => 'Incorrect Password']);
         }
 
         $output = $this->updateService->update();

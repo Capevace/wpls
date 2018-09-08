@@ -98,7 +98,7 @@ class PackageController extends Controller
     public function updateEnvatoItemId(Request $request, Package $package)
     {
         $validatedData = $request->validate([
-            'id' => 'required|integer|gte:0'
+            'id' => 'integer|gte:0'
         ]);
 
         $package->envato_item_id = $validatedData['id'];
