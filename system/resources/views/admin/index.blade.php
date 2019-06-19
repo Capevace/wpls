@@ -7,7 +7,7 @@
 <script type="text/javascript">
     var wplsPackages    = @json($packages);
     var wplsNeedsUpdate = @json($needsUpdate);
-    var wplsUpdateLink  = @json(route('update:index'));
+    var wplsUpdateLink  = '';
     var wplsVersion     = @json($version);
 </script>
 @endsection

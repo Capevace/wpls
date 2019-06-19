@@ -26,11 +26,11 @@ class WebController extends Controller
     public function index()
     {
         $packages    = Package::all();
-        $needsUpdate = $this->updateService->needsUpdate();
+        // $needsUpdate = $this->updateService->needsUpdate();
 
         return view('admin.index', [
             'packages'    => $packages,
-            'needsUpdate' => $needsUpdate,
+            'needsUpdate' => false,
             'version'     => wpls_version()
         ]);
     }
