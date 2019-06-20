@@ -1,5 +1,10 @@
 # WPLS Changelog
 
+## 3.3.0
+* Removed Web Installer & Updater due to instability, will be rewritten and readded in a later version.
+* Fixed markdown not being parsed in "View Details" section
+* Fixed issue where Laravel route caching would't work properly due to a closure (this triggered an error during install)
+
 ## 3.2.0
 * Added Web Installer & Updater
 
