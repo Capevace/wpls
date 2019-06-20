@@ -1,5 +1,8 @@
 # WPLS Changelog
 
+## 3.3.1
+* Fixed small JS build issue
+
 ## 3.3.0
 * Removed Web Installer & Updater due to instability, will be rewritten and readded in a later version.
 * Fixed markdown not being parsed in "View Details" section
