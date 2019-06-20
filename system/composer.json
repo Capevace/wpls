@@ -10,7 +10,6 @@
         "guzzlehttp/guzzle": "~6.0",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
-        "rachidlaasri/laravel-installer": "^4.0",
         "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {

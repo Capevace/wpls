@@ -19,9 +19,9 @@ export default {
 				</div>
 			</div>
 			
-			<p class="level-item" style="margin-right: 40px" v-if="needsUpdate">
+			<!--<p class="level-item" style="margin-right: 40px" v-if="needsUpdate">
 					<a :href="updateLink" class="button is-warning is-inverted">Update database to new version</a>
-				</p>
+				</p>-->
 			
 			<!-- Right side -->
 			<div class="level-right">

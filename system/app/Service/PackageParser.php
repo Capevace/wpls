@@ -20,7 +20,7 @@ class PackageParser
 	public function parsePackageMetadata(Package $package)
 	{
 		$packageZipFilePath = $package->storagePath();
-		$parsedMetadata     = Parser::parse($packageZipFilePath);
+		$parsedMetadata     = Parser::parse($packageZipFilePath, true);
 
 		if ($parsedMetadata === false) {
 			throw new Exception(sprintf('The Package archive file "%s" could not be parsed for metadata.', $packageZipFilePath));
