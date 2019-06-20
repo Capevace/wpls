@@ -7,7 +7,11 @@
 <script type="text/javascript">
     var wplsPackages    = @json($packages);
     var wplsNeedsUpdate = @json($needsUpdate);
+<<<<<<< HEAD
     var wplsUpdateLink  = '';
     var wplsVersion     = @json($version);
+=======
+    var wplsUpdateLink = '';
+>>>>>>> renew
 </script>
 @endsection

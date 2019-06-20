@@ -24,6 +24,13 @@ export default {
 				</div>
 			</div>
 			
+<<<<<<< HEAD
+=======
+			<!--<p class="level-item" style="margin-right: 40px" v-if="needsUpdate">
+					<a :href="updateLink" class="button is-warning is-inverted">Update database to new version</a>
+				</p>-->
+			
+>>>>>>> renew
 			<!-- Right side -->
 			<div class="level-right">
 				<p class="level-item">

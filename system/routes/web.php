@@ -13,9 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function() {
-    return redirect()->route('admin:index');
-});
+Route::redirect('/', '/admin');
 
 Route::prefix('assets')->group(function() {
     Route::get('/js/index.js', 'Admin\WebController@scripts');
