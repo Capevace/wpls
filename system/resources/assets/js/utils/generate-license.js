@@ -1,10 +1,9 @@
-import randomstring from 'randomstring';
-
-function generateLicense() {
-    return randomstring.generate({
-        length: 32,
-        charset: 'alphanumeric'
-    });
+export default function generateLicense(length = 32) {
+   var result           = '';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   var charactersLength = characters.length;
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
 }
-
-export default generateLicense;

@@ -1,5 +1,3 @@
-import './utils/fa-solid';
-import './utils/fa';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
@@ -9,16 +7,6 @@ import store from './store';
 
 import WPLSPage from './components/wpls-page';
 import WPLicenseServer from './components/wp-license-server';
-
-import ActivationsPage from './pages/activations';
-import LicensesPage from './pages/licenses';
-import PackagesPage from './pages/packages';
-import PackagePage from './pages/package';
-import AnnouncementsPage from './pages/announcements';
-import CreateAnnouncementPage from './pages/create-announcement';
-import SitesPage from './pages/sites';
-import AnnouncementPage from './pages/announcement';
-import SettingsPage from './pages/settings';
 
 Vue.filter('capitalize', function(value) {
     if (!value) return '';
@@ -42,20 +30,43 @@ Vue.filter('add', function(value, text = '') {
 Vue.component('wpls-page', WPLSPage);
 Vue.component('wp-license-server', WPLicenseServer);
 
+// const routes = [
+//     { path: '/', component: ActivationsPage },
+//     { path: '/licenses', component: LicensesPage },
+//     { path: '/packages', component: PackagesPage },
+//     { path: '/packages/:slug', component: PackagePage },
+//     { path: '/sites', component: SitesPage },
+//     { path: '/announcements', component: AnnouncementsPage },
+//     { path: '/announcements/create', component: CreateAnnouncementPage },
+//     { path: '/announcements/:id', component: AnnouncementPage },
+//     { path: '/settings', component: SettingsPage }
+// ];
+
 const routes = [
-    { path: '/', component: ActivationsPage },
-    { path: '/licenses', component: LicensesPage },
-    { path: '/packages', component: PackagesPage },
-    { path: '/packages/:slug', component: PackagePage },
-    { path: '/sites', component: SitesPage },
-    { path: '/announcements', component: AnnouncementsPage },
-    { path: '/announcements/create', component: CreateAnnouncementPage },
-    { path: '/announcements/:id', component: AnnouncementPage },
-    { path: '/settings', component: SettingsPage }
+    { path: '/', component: () => import('./pages/activations' /* webpackChunkName: "activations" */) },
+    { path: '/licenses', component: () => import('./pages/licenses' /* webpackChunkName: "licenses" */), loading: { template: `<span>LOADING</span>` } },
+    { path: '/packages', component: () => import('./pages/packages' /* webpackChunkName: "packages" */) },
+    { path: '/packages/:slug', component: () => import('./pages/package' /* webpackChunkName: "package" */) },
+    { path: '/sites', component: () => import('./pages/sites' /* webpackChunkName: "sites" */) },
+    { path: '/announcements', component: () => import('./pages/announcements' /* webpackChunkName: "announcements" */) },
+    { path: '/announcements/create', component: () => import('./pages/create-announcement' /* webpackChunkName: "create-announcement" */) },
+    { path: '/announcements/:id', component: () => import('./pages/announcement' /* webpackChunkName: "announcement" */) },
+    { path: '/settings', component: () => import('./pages/settings' /* webpackChunkName: "settings" */) }
 ];
+
+const router = new VueRouter({ routes });
+router.beforeResolve((to, from, next) => {
+  console.log('before', to, from);
+  next()
+})
+
+router.afterEach((to, from) => {
+    console.log('after', to, from);
+})
+
 
 const app = new Vue({
     store,
-    router: new VueRouter({ routes })
+    router
 });
 app.$mount('#app');

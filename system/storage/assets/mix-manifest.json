@@ -1,4 +1,18 @@
 {
-    "/js/index.js": "/js/index.js",
-    "/css/index.css": "/css/index.css"
+    "/Users/mat/Projects/wpls/assets/js/index.js": "/Users/mat/Projects/wpls/assets/js/index.js?id=4e04d72b9eeaae2e8f4b",
+    "/../assets/css/index.css": "/../assets/css/index.css?id=b573c5ad0c3c2d0039ef",
+    "/assets/js/activations.js": "/assets/js/activations.js?id=0ccdd236464282a178e2",
+    "/assets/js/activations~licenses~package~sites.js": "/assets/js/activations~licenses~package~sites.js?id=e1194693299f7ceb64ac",
+    "/assets/js/announcement.js": "/assets/js/announcement.js?id=dfba4d7dde40e759ae29",
+    "/assets/js/announcements.js": "/assets/js/announcements.js?id=b5a73e0d9183745c7d02",
+    "/assets/js/create-announcement.js": "/assets/js/create-announcement.js?id=47d8f0ebc4209a253d9f",
+    "/assets/js/licenses.js": "/assets/js/licenses.js?id=b50885a339a966c72f6c",
+    "/assets/js/package.js": "/assets/js/package.js?id=5ed94bc786b39899b021",
+    "/assets/js/packages.js": "/assets/js/packages.js?id=7fc86878e337bd42d79f",
+    "/assets/js/settings.js": "/assets/js/settings.js?id=fe253aee8d910f508d4b",
+    "/assets/js/sites.js": "/assets/js/sites.js?id=e7b530017bb1693cd48d",
+    "/assets/js/vendors~activations~announcement~announcements~create-announcement~licenses~package~sites.js": "/assets/js/vendors~activations~announcement~announcements~create-announcement~licenses~package~sites.js?id=72f4ff6b7550805aa765",
+    "/assets/js/vendors~activations~announcement~licenses~package~sites.js": "/assets/js/vendors~activations~announcement~licenses~package~sites.js?id=a64e2e7c352528034c9d",
+    "/assets/js/vendors~activations~create-announcement~licenses~package~sites.js": "/assets/js/vendors~activations~create-announcement~licenses~package~sites.js?id=bd811c1c5287646c518d",
+    "/assets/js/vendors~announcement~create-announcement.js": "/assets/js/vendors~announcement~create-announcement.js?id=557f8e4a5ced6403b65f"
 }
