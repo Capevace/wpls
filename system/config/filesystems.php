@@ -53,13 +53,6 @@ return [
             'root' => storage_path('defaults'),
         ],
 
-        'assets' => [
-            'driver' => 'local',
-            'root' => storage_path('assets'),
-            // 'url' => env('APP_URL').'/assets',
-            // 'visibility' => 'public',
-        ],
-
         'packages' => [
             'driver' => 'local',
             'root' => wpls_path('storage/packages'),

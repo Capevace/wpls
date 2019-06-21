@@ -1,5 +1,6 @@
-let mix = require('laravel-mix');
-let path = require('path');
+const mix = require('laravel-mix');
+const path = require('path');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 /*
  |--------------------------------------------------------------------------
@@ -12,7 +13,22 @@ let path = require('path');
  |
  */
 
-mix.setPublicPath('./storage/assets');
+mix.babelConfig({
+  plugins: ['@babel/plugin-syntax-dynamic-import'],
+});
 mix.options({ imgLoaderOptions: { enabled: false } })
     .js('resources/assets/js/index.js', 'js')
-   .sass('resources/assets/sass/index.scss', 'css');
+   .sass('resources/assets/sass/index.scss', 'css')
+   .version();
+mix.webpackConfig({
+	node: false,
+	output: {
+ 		// filename: '[name].[contenthash].js',
+ 		chunkFilename: 'js/[name].js'
+	},
+	plugins: [
+		// new BundleAnalyzerPlugin({
+		// 	analyzerPort: 9999
+		// })
+	]
+});

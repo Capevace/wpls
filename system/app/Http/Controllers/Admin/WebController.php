@@ -31,31 +31,7 @@ class WebController extends Controller
         return view('admin.index', [
             'packages'    => $packages,
             'needsUpdate' => false,
-            'version'     => wpls_version()
+            'version'     => config('app.version')
         ]);
-    }
-
-    /**
-     * Get the scripts needed for the dashboard.
-     *
-     * @return Illuminate\Http\Response
-     */
-    public function scripts(Request $request)
-    {
-        $response = Response::make(Storage::disk('assets')->get('js/index.js'));
-        $response->header('Content-Type', 'application/javascript; charset=UTF-8');
-        return $response;
-    }
-
-    /**
-     * Get the CSS for the dashboard.
-     *
-     * @return Illuminate\Http\Response
-     */
-    public function css(Request $request)
-    {
-        $response = Response::make(Storage::disk('assets')->get('css/index.css'));
-        $response->header('Content-Type', 'text/css');
-        return $response;
     }
 }
