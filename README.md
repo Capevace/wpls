@@ -28,6 +28,18 @@ You'll need to implement this in your plugin code to connect it to the server.
 
 _Please note that the server itself is not a WordPress plugin. It is a PHP script, which you have to host on your own server via FTP and SSH._
 
+## Screenshots
+![screenshot](Screenshots/screenshot-1.png)
+![screenshot](Screenshots/screenshot-10.png)
+![screenshot](Screenshots/screenshot-2.png)
+![screenshot](Screenshots/screenshot-3.png)
+![screenshot](Screenshots/screenshot-4.png)
+![screenshot](Screenshots/screenshot-5.png)
+![screenshot](Screenshots/screenshot-6.png)
+![screenshot](Screenshots/screenshot-7.png)
+![screenshot](Screenshots/screenshot-8.png)
+![screenshot](Screenshots/screenshot-9.png)
+
 ## License – MIT
 Copyright 2021 Lukas Mateffy
 
